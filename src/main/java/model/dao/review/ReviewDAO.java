@@ -14,6 +14,7 @@ import java.util.Scanner;
 
 import model.dao.JDBCUtil;
 import model.dto.review.Review;
+import model.dto.review.ReviewTypeNum;
 
 public class ReviewDAO {
 	private JDBCUtil jdbcUtil = null;
@@ -144,6 +145,44 @@ public class ReviewDAO {
         }
         return false; 
     }
+    
+    //미디어 테이블 생성 후 되는 지 확인 하고 제출하기!!!
+    
+//    public List<ReviewTypeNum> getReviewByType(int writerId) {
+//    	 StringBuilder query = new StringBuilder();
+//
+//         query.append("SELECT COUNT(mediaType) AS mediaCount, mediaType");
+//         query.append("FROM review, content WHERE review.contentId = content.contentId and review.writerId=? ");
+//         query.append("GROUP BY mediaType");
+//
+//  		Object[] param = new Object[] {writerId};
+//  										
+//  		jdbcUtil.setSqlAndParameters(query.toString(), param);	// JDBCUtil 에 insert문과 매개 변수 설정
+//		
+//  		try {
+//  			ResultSet rs = jdbcUtil.executeQuery();
+//  			List<ReviewTypeNum> list = new ArrayList();
+//  			while(rs.next()) {
+//  				ReviewTypeNum review = new ReviewTypeNum();
+//  				
+//  				review.setNum(rs.getInt("mediaCount"));
+//  				review.setType(rs.getString("mediaType"));
+//  				
+//  				list.add(review);
+//  				
+//  			}
+//  			return list;
+//  		}
+//  		catch (Exception ex) {
+//            jdbcUtil.rollback();    // 트랜잭션 rollback 실행
+//            ex.printStackTrace();
+//        } finally {
+//            jdbcUtil.commit();      // 트랜잭션 commit 실행
+//            jdbcUtil.close();
+//        }
+//        return null; 
+//    }
+//    
     
  //   public static void main(String[] args) {
  //       Scanner scanner = new Scanner(System.in);
