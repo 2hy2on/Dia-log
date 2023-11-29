@@ -9,7 +9,6 @@ import java.util.List;
 import model.dao.JDBCUtil;
 import model.dto.contents.Contents;
 import model.dto.contents.Movie;
-import model.dto.contents.Music;
 
 public class ContentsDAO {
 	private JDBCUtil jdbcUtil = null;
@@ -76,9 +75,9 @@ public class ContentsDAO {
 	}
 
 	public static void main(String[] args) throws SQLException {
-		LocalDate currentDate = LocalDate.now();
-		Movie movie = new Movie();
-		Contents cont = new Contents();
+//		LocalDate currentDate = LocalDate.now();
+//		Movie movie = new Movie();
+//		Contents cont = new Contents();
 
 //		cont.setContentId(4);
 //		cont.setContentImg("img4");
@@ -88,7 +87,7 @@ public class ContentsDAO {
 //		cont.setGenre("genre4");
 //		cont.setPublishDate(currentDate);
 
-		ContentsDAO dao = new ContentsDAO();
-		System.out.println(dao.searchContentsByTitle("title4"));
+//		ContentsDAO dao = new ContentsDAO();
+//		System.out.println(dao.searchContentsByTitle("title4"));
 	}
 }
