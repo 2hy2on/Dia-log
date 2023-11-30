@@ -1,6 +1,8 @@
 package model.dto.contents;
 
-public class Music {
+import java.time.LocalDate;
+
+public class Music extends Contents{
     private String Singer;
     private String Album;
     
@@ -16,7 +18,31 @@ public class Music {
     public void setAlbum(String album) {
         Album = album;
     }
-    
+
+    public void setTitle(String title) {
+        super.setTitle(title);
+    }
+
+    public void setPublishDate(LocalDate publishDate) {
+        super.setPublishDate(publishDate);
+    }
+
+    public void setGenre(String genre) {
+        super.setGenre(genre);
+    }
+
+    public String getTitle() {
+        return super.getTitle();
+    }
+
+    public LocalDate getPublishDate() {
+        return super.getPublishDate();
+    }
+
+    public String getGenre() {
+        return super.getGenre();
+    }
+
     public Music() { }
     
     public Music(String singer, String album) {
