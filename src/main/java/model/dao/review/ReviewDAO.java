@@ -249,4 +249,8 @@ public class ReviewDAO {
 //        scanner.close();
 //	 }
 
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> 2feff36283d1a9f1761c7dbf1aaaca959f7ba65f
