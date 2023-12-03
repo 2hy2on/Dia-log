@@ -16,6 +16,7 @@ import java.util.Scanner;
 
 import model.dao.JDBCUtil;
 import model.dto.review.Review;
+import model.dto.review.ReviewMonthly;
 import model.dto.review.ReviewTypeNum;
 
 public class ReviewDAO {
@@ -34,7 +35,7 @@ public class ReviewDAO {
 		query.append(
 				"INSERT INTO Review (title, content, rate,createdAt, updatedAt, watchedAt, isPrivate, contentId, writerId) VALUES (?, ?, ?,?, ?,?,?,?,?)");
 
-		Object[] param = new Object[] { review.getTitle(), review.getContent(), review.getRate(), currentDateTime,
+		Object[] param = new Object[] { review.getTitle(), review.getDetail(), review.getRate(), currentDateTime,
 				currentDateTime, currentDate, review.isPrivate(), review.getContentId(), review.getWriterId() };
 
 		jdbcUtil.setSqlAndParameters(query.toString(), param); // JDBCUtil 에 insert문과 매개 변수 설정
@@ -73,7 +74,7 @@ public class ReviewDAO {
 			while (rs.next()) {
 				Review review = new Review();
 
-				review.setContent(rs.getString("content"));
+				review.setDetail(rs.getString("detail"));
 				review.setContentId(rs.getInt("contentId"));
 				review.setCreatedAt(rs.getObject("createdAt", LocalDateTime.class));
 //    			review.setMediaImg(rs.getString("mediaImg"));
@@ -129,7 +130,7 @@ public class ReviewDAO {
 				"UPDATE Review SET title =?, rate=?, watchedAt=?,isPrivate=?, content=?,updatedAt=? where reviewId =?");
 
 		Object[] param = new Object[] { review.getTitle(), review.getRate(), review.getWatchedAt(), review.isPrivate(),
-				review.getContent(), currentDate, reviewId };
+				review.getDetail(), currentDate, reviewId };
 
 		jdbcUtil.setSqlAndParameters(query.toString(), param); // JDBCUtil 에 insert문과 매개 변수 설정
 
@@ -166,7 +167,7 @@ public class ReviewDAO {
 			while (rs.next()) {
 				Review review = new Review();
 
-				review.setContent(rs.getString("content"));
+				review.setDetail(rs.getString("detail"));
 				review.setContentId(rs.getInt("contentId"));
 				review.setCreatedAt(rs.getObject("createdAt", LocalDateTime.class));
 //    			review.setMediaImg(rs.getString("mediaImg"));
@@ -188,7 +189,49 @@ public class ReviewDAO {
 		}
 		return null;
 	}
+    public List<ReviewMonthly> getReviewByMonth(int userId, int year, int month){
+        StringBuilder query = new StringBuilder();
+        query.append("SELECT * FROM REVIEW JOIN CONTENTS ON REVIEW.contentId = CONTENTS.contentId WHERE REVIEW.writerId = ? AND EXTRACT(YEAR FROM REVIEW.watchedAt) = ? AND EXTRACT(MONTH FROM REVIEW.watchedAt) =?");
 
+    	
+    	Object[] param = new Object[] {userId, year, month};
+    	
+    	jdbcUtil.setSqlAndParameters(query.toString(), param);
+    	
+
+
+           
+    	try {
+    		List<ReviewMonthly> reviewMonthly = new ArrayList<>();
+    		ResultSet rs = jdbcUtil.executeQuery();
+    		
+    		while(rs.next()) {
+    			ReviewMonthly review = new ReviewMonthly();
+    	
+    			review.setContentId(rs.getInt("contentId"));
+    			review.setContentType("contentType");
+    			//review.setPrivate(rs.getBoolean("isPrivate"));
+    			review.setTitle(rs.getString("title"));
+    			 review.setReviewId(rs.getInt("reviewId"));
+    			review.setYear(year);
+    			review.setMonth(year);
+    	        java.sql.Date watchedDate = rs.getDate("watchedAt");
+    	        review.setDay(watchedDate.getDate());
+
+    			
+    			
+    			reviewMonthly.add(review);
+    		}
+    		return reviewMonthly;
+    	}catch (Exception ex) {
+            jdbcUtil.rollback();    // 트랜잭션 rollback 실행
+            ex.printStackTrace();
+        } finally {
+            jdbcUtil.commit();      // 트랜잭션 commit 실행
+            jdbcUtil.close();
+        }
+		return null;
+    }
 	// 미디어 테이블 생성 후 되는 지 확인 하고 제출하기!!!
 
 //    public List<ReviewTypeNum> getReviewByType(int writerId) {
