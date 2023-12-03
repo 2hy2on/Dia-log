@@ -7,7 +7,7 @@ import java.util.Date;
 public class Review {
 private String title;
 	
-	private String content;
+	private String detail;
 	
 	private Float rate;
 	
@@ -41,12 +41,12 @@ private String title;
 		this.title = title;
 	}
 
-	public String getContent() {
-		return content;
+	public String getDetail() {
+		return detail;
 	}
 
-	public void setContent(String content) {
-		this.content = content;
+	public void setDetail(String detail) {
+		this.detail = detail;
 	}
 
 	public Float getRate() {
@@ -109,7 +109,7 @@ private String title;
 	public String toString() {
 	    return "Review{" +
 	            "title='" + title + '\'' +
-	            ", content='" + content + '\'' +
+	            ", detail='" + detail + '\'' +
 	            ", rate=" + rate +
 	            ", createdAt=" + createdAt +
 	            ", updatedAt=" + updatedAt +
