@@ -7,6 +7,9 @@ import org.slf4j.LoggerFactory;
 import controller.contents.ListContentsController;
 import controller.diary.DiaryController;
 
+import controller.contents.SearchContentsController;
+
+
 public class RequestMapping {
     private static final Logger logger = LoggerFactory.getLogger(DispatcherServlet.class);
     
@@ -18,7 +21,12 @@ public class RequestMapping {
         mappings.put("/", new ForwardController("index.jsp"));
         mappings.put("/contents/list", new ListContentsController());
         mappings.put("/diary", new DiaryController());
+        mappings.put("/contents/search", new SearchContentsController());
+
+
         // 메인 컨텐츠 관련 request URI 추가
+        
+        
         // 다이어리 관련 request URI 추가
         
         // 다이어리 관련 request URI 추가
