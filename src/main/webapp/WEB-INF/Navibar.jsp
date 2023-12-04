@@ -28,7 +28,7 @@ body {
 }
 
 ul, ol {
-	list-style: none
+	list-style: noneWW
 }
 
 a {

@@ -1,14 +1,32 @@
 package model.dto.review;
 
-public class ReviewMonthly {
+import java.sql.Date;
+import java.text.SimpleDateFormat;
+
+public class ReviewDiary {
 	
 	private String contentType;
 	private int reviewId;
 	private int contentId;
 	private String title;
-	private int year;
-	private int month;
-	private int day;
+	
+
+	private Date watchedAt;
+	private String start;
+
+
+	public Date getWatchedAt() {
+		return watchedAt;
+	}
+	public void setWatchedAt(Date watchedAt) {
+		this.watchedAt = watchedAt;
+	}
+	public String getStart() {
+		return start;
+	}
+	public void setStart(String start) {
+		this.start = start;
+	}
 	public String getContentType() {
 		return contentType;
 	}
@@ -33,24 +51,10 @@ public class ReviewMonthly {
 	public void setTitle(String title) {
 		this.title = title;
 	}
-	public int getYear() {
-		return year;
-	}
-	public void setYear(int year) {
-		this.year = year;
-	}
-	public int getMonth() {
-		return month;
-	}
-	public void setMonth(int month) {
-		this.month = month;
-	}
-	public int getDay() {
-		return day;
-	}
-	public void setDay(int day) {
-		this.day = day;
-	}
 	
+	 public String getFormattedStart() {
+	        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+	        return dateFormat.format(watchedAt);
+	    }
 
 }
