@@ -19,7 +19,7 @@
 					<li><a href="#">친구</a></li>
 					<li><a href="#">통계</a></li>
 				</ul></li>
-			<li><a href="#">OTT 게시판</a></li>
+			<li><a href="./board.jsp">OTT 게시판</a></li>
 			<li><a href="../login.jsp">로그인 </a>
 				<ul>
 					<li><a href="Mypage.jsp">내 정보 수정</a></li>
