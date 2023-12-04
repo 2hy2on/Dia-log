@@ -7,7 +7,7 @@ import model.dto.review.Review;
 
 public class Contents {
     private int contentId;
-    private Enum<?> contentType;
+    private ContentType contentType;
     private String contentImg;
     private List<Review> reviews; // 추후 로 수정
     private String title;
@@ -23,7 +23,7 @@ public class Contents {
     public Enum<?> getContentType() {
         return contentType;
     }
-    public void setContentType(Enum<?> contentType) {
+    public void setContentType(ContentType contentType) {
         this.contentType = contentType;
     }
     public String getContentImg() {
@@ -56,10 +56,15 @@ public class Contents {
     public void setGenre(String genre) {
         this.genre = genre;
     }
+    public enum ContentType {
+        Movie,
+        Music,
+        Book,
+    }
     
     public Contents() {}
     
-    public Contents(int contentId, Enum<?> contentType, String contentImg, List<Review> reviews, String title, String genre, LocalDate publishDate) {
+    public Contents(int contentId, ContentType contentType, String contentImg, List<Review> reviews, String title, String genre, LocalDate publishDate) {
         super();
         this.contentId = contentId;
         this.contentType = contentType;

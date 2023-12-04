@@ -1,0 +1,32 @@
+select {
+	padding: 0 20px;
+	height: 30px;
+	background-color: #FCF8EC;
+	color: #000;
+	right: 30px;
+	margin-right: 20px;
+	border: 1px solid #fff;
+	border-radius: 30px;
+	text-color: #000;
+}
+
+.search {
+	position: relative;
+	width: 300px;
+}
+
+input {
+	width: 100%;
+	border: 1px solid #bbb;
+	border-radius: 8px;
+	padding: 10px 12px;
+	font-size: 14px;
+}
+
+img {
+	position: absolute;
+	width: 17px;
+	top: 10px;
+	right: 12px;
+	margin: 0;
+}

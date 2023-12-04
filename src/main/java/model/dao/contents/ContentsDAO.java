@@ -3,11 +3,13 @@ package model.dao.contents;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
 import model.dao.JDBCUtil;
 import model.dto.contents.Contents;
+import model.dto.contents.Contents.ContentType;
 import model.dto.contents.Movie;
 
 public class ContentsDAO {
@@ -73,21 +75,47 @@ public class ContentsDAO {
 
 		return contentList;
 	}
+	
+	 public boolean pickContent(int userId, int contentId) {
+	      LocalDateTime currentDateTime = LocalDateTime.now();
+	      LocalDate currentDate = LocalDate.now();
+	      StringBuilder query = new StringBuilder();
+	      query.append(
+	            "INSERT INTO Review (createdAt, updatedAt, watchedAt, contentId, writerId) VALUES (?, ?, ?,?, ?)");
 
+	      Object[] param = new Object[] {currentDateTime, currentDateTime, currentDate, contentId, userId};
+
+	      jdbcUtil.setSqlAndParameters(query.toString(), param); // JDBCUtil 에 insert문과 매개 변수 설정
+
+	      try {
+	         ResultSet rs = jdbcUtil.executeQuery();
+	         if (rs.next()) {
+	            return true;
+	         }
+	      } catch (Exception ex) {
+	         jdbcUtil.rollback(); // 트랜잭션 rollback 실행
+	         ex.printStackTrace();
+	      } finally {
+	         jdbcUtil.commit(); // 트랜잭션 commit 실행
+	         jdbcUtil.close();
+	      }
+	      return false;
+	   }
+	 
 	public static void main(String[] args) throws SQLException {
 //		LocalDate currentDate = LocalDate.now();
 //		Movie movie = new Movie();
 //		Contents cont = new Contents();
-
-//		cont.setContentId(4);
-//		cont.setContentImg("img4");
-//		cont.setContentType(null);
+//
+//		cont.setContentId(0);
+//		cont.setContentImg("https://ifh.cc/g/2DomCY.jpg");
+//		cont.setContentType(ContentType.Movie);
 //		cont.setReviews(null);
-//		cont.setTitle("title4");
-//		cont.setGenre("genre4");
+//		cont.setTitle("라푼젤");
+//		cont.setGenre("애니메이션/모험/로맨스");
 //		cont.setPublishDate(currentDate);
 
 //		ContentsDAO dao = new ContentsDAO();
-//		System.out.println(dao.searchContentsByTitle("title4"));
+//		System.out.println(dao.searchContentsByTitle("라푼젤"));
 	}
 }
