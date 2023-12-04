@@ -6,6 +6,7 @@ import java.sql.Date;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -16,7 +17,8 @@ import java.util.Scanner;
 
 import model.dao.JDBCUtil;
 import model.dto.review.Review;
-import model.dto.review.ReviewMonthly;
+import model.dto.review.ReviewDiary;
+//import model.dto.review.ReviewMonthly;
 import model.dto.review.ReviewTypeNum;
 
 public class ReviewDAO {
@@ -27,37 +29,9 @@ public class ReviewDAO {
 
 	}
 
-	public boolean registerReview(Review review) {
-
-		LocalDateTime currentDateTime = LocalDateTime.now();
-		LocalDate currentDate = LocalDate.now();
-		StringBuilder query = new StringBuilder();
-		query.append(
-				"INSERT INTO Review (title, content, rate,createdAt, updatedAt, watchedAt, isPrivate, contentId, writerId) VALUES (?, ?, ?,?, ?,?,?,?,?)");
-
-		Object[] param = new Object[] { review.getTitle(), review.getDetail(), review.getRate(), currentDateTime,
-				currentDateTime, currentDate, review.isPrivate(), review.getContentId(), review.getWriterId() };
-
-		jdbcUtil.setSqlAndParameters(query.toString(), param); // JDBCUtil 에 insert문과 매개 변수 설정
-
-		try {
-			ResultSet rs = jdbcUtil.executeQuery();
-			if (rs.next()) {
-				return true;
-			}
-		} catch (Exception ex) {
-			jdbcUtil.rollback(); // 트랜잭션 rollback 실행
-			ex.printStackTrace();
-		} finally {
-			jdbcUtil.commit(); // 트랜잭션 commit 실행
-			jdbcUtil.close();
-		}
-		return false;
-	}
-
 	public List<Review> getReviewByDate(int userId, String dateStr) {
 		StringBuilder query = new StringBuilder();
-		query.append("SELECT * FROM REVIEW WHERE writerId = ? and watchedAt = ?");
+		query.append("SELECT * FROM REVIEW JOIN CONTENTS ON REVIEW.contentId = CONTENTS.contentId WHERE writerId = ? and watchedAt = ?");
 
 		Object[] param = new Object[] { userId, dateStr };
 
@@ -77,10 +51,10 @@ public class ReviewDAO {
 				review.setDetail(rs.getString("detail"));
 				review.setContentId(rs.getInt("contentId"));
 				review.setCreatedAt(rs.getObject("createdAt", LocalDateTime.class));
-//    			review.setMediaImg(rs.getString("mediaImg"));
+    			review.setMediaImg(rs.getString("contentImg"));
 				review.setPrivate(rs.getBoolean("isPrivate"));
 				review.setRate(rs.getFloat("rate"));
-				review.setTitle(rs.getString("title"));
+			
 				review.setUpdatedAt(rs.getObject("updatedAt", LocalDateTime.class));
 				review.setWatchedAt(date);
 				review.setWriterId(userId);
@@ -122,15 +96,14 @@ public class ReviewDAO {
 		return false;
 	}
 
-	public boolean updateReview(int reviewId, Review review) {
+	public boolean updateReview(Review review) {
 		StringBuilder query = new StringBuilder();
 		LocalDateTime currentDateTime = LocalDateTime.now();
 		LocalDate currentDate = LocalDate.now();
 		query.append(
-				"UPDATE Review SET title =?, rate=?, watchedAt=?,isPrivate=?, content=?,updatedAt=? where reviewId =?");
+				"UPDATE Review SET rate=?, watchedAt=?,isPrivate=?, detail=?,updatedAt=? where contentId =? and writerId=?");
 
-		Object[] param = new Object[] { review.getTitle(), review.getRate(), review.getWatchedAt(), review.isPrivate(),
-				review.getDetail(), currentDate, reviewId };
+		Object[] param = new Object[] { review.getRate(), review.getWatchedAt(), review.isPrivate(), review.getDetail(), currentDate, review.getContentId(), review.getWriterId() };
 
 		jdbcUtil.setSqlAndParameters(query.toString(), param); // JDBCUtil 에 insert문과 매개 변수 설정
 
@@ -173,7 +146,7 @@ public class ReviewDAO {
 //    			review.setMediaImg(rs.getString("mediaImg"));
 				review.setPrivate(rs.getBoolean("isPrivate"));
 				review.setRate(rs.getFloat("rate"));
-				review.setTitle(rs.getString("title"));
+//				review.setTitle(rs.getString("title"));
 				review.setUpdatedAt(rs.getObject("updatedAt", LocalDateTime.class));
 				review.setWriterId(userId);
 
@@ -189,35 +162,30 @@ public class ReviewDAO {
 		}
 		return null;
 	}
-    public List<ReviewMonthly> getReviewByMonth(int userId, int year, int month){
+    public List<ReviewDiary> getReviewForDiary(int userId){
         StringBuilder query = new StringBuilder();
-        query.append("SELECT * FROM REVIEW JOIN CONTENTS ON REVIEW.contentId = CONTENTS.contentId WHERE REVIEW.writerId = ? AND EXTRACT(YEAR FROM REVIEW.watchedAt) = ? AND EXTRACT(MONTH FROM REVIEW.watchedAt) =?");
+        query.append("SELECT * FROM REVIEW JOIN CONTENTS ON REVIEW.contentId = CONTENTS.contentId WHERE REVIEW.writerId = ?");
 
     	
-    	Object[] param = new Object[] {userId, year, month};
+    	Object[] param = new Object[] {userId};
     	
     	jdbcUtil.setSqlAndParameters(query.toString(), param);
     	
 
-
            
     	try {
-    		List<ReviewMonthly> reviewMonthly = new ArrayList<>();
+    		List<ReviewDiary> reviewMonthly = new ArrayList<>();
     		ResultSet rs = jdbcUtil.executeQuery();
     		
     		while(rs.next()) {
-    			ReviewMonthly review = new ReviewMonthly();
+    			ReviewDiary review = new ReviewDiary();
     	
     			review.setContentId(rs.getInt("contentId"));
     			review.setContentType("contentType");
-    			//review.setPrivate(rs.getBoolean("isPrivate"));
+//    			review.setPrivate(rs.getBoolean("isPrivate"));
     			review.setTitle(rs.getString("title"));
-    			 review.setReviewId(rs.getInt("reviewId"));
-    			review.setYear(year);
-    			review.setMonth(year);
-    	        java.sql.Date watchedDate = rs.getDate("watchedAt");
-    	        review.setDay(watchedDate.getDate());
-
+    			review.setReviewId(rs.getInt("reviewId"));
+    	        review.setWatchedAt(rs.getDate("watchedAt"));
     			
     			
     			reviewMonthly.add(review);
@@ -232,6 +200,8 @@ public class ReviewDAO {
         }
 		return null;
     }
+    
+    
 	// 미디어 테이블 생성 후 되는 지 확인 하고 제출하기!!!
 
 //    public List<ReviewTypeNum> getReviewByType(int writerId) {
@@ -270,26 +240,41 @@ public class ReviewDAO {
 //    }
 //    
 
+    
 //	 public static void main(String[] args) {
 //	 Scanner scanner = new Scanner(System.in);
 //	 Review re = new Review();
-//	 re.setContent("안녕ttttt");
-//	 re.setContentId(3);
+//	 re.setDetail("짱잼!!!!");
+//	 re.setContentId(0);
 //	 re.setPrivate(false);
 //	 re.setRate(4.0f);
-//	 re.setTitle("너무나도ererer 요");
+//	 
 //	 re.setWriterId(3);
-//	 re.setWatchedAt(null);
+//	
+
+	 // re.setWatchedAt에 LocalDate 객체 전달
+	
+//	// re.setWatchedAt에 LocalDate 객체 전달
+//	 String dateString1 = "2023-11-23";
+//	 SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+//	 try {
+//	     Date date1 = new Date(dateFormat.parse(dateString1).getTime()); // java.util.Date를 java.sql.Date로 변환
+//	     re.setWatchedAt(date1);
+//	 } catch (ParseException e) {
+//	     e.printStackTrace();
+//	 }
+//	
+//	 
 //	 ReviewDAO reDao = new ReviewDAO();
-//
-//
-//        System.out.println(reDao.registerReview(re));
-//	 System.out.println(reDao.getReviewByDate(3, "/2023/11/27"));
-//	 System.out.println(reDao.deleteReview(8));
-//	 System.out.println(reDao.updateReview(12, re));
-//        
+////
+////
+////       System.out.println(reDao.getReviewForDiary(1).get(0).getWatchedAt());
+//	 System.out.println(reDao.getReviewByDate(3, "2023/11/23"));
+////	 System.out.println(reDao.deleteReview(8));
+////	 System.out.println(reDao.updateReview(12, re));
+//	 System.out.println(reDao.updateReview(re));        
 
 //        scanner.close();
 //	 }
-
+//	 }
 }
