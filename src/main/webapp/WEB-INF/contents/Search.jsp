@@ -1,45 +1,75 @@
-<%@ page language="java" contentType="text/html; charset=EUC-KR"
-    pageEncoding="EUC-KR"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="EUC-KR">
+<meta charset="UTF-8">
 <title>Insert title here</title>
-<link href="../css/mainContents/search.css" rel="stylesheet"
-	type="text/css">
+<!-- <link href="../../css/contents/search.css" rel="stylesheet"
+	type="text/css"> -->
 <style>
-select {
+body {
+	width: 100%;
+	margin: 0;
+}
+
+.pull-right select {
 	padding: 0 20px;
 	height: 30px;
 	background-color: #FCF8EC;
 	color: #000;
 	right: 30px;
-	margin-right: 20px;
+	margin-top: 15px;
+	margin-right: 15px;
 	border: 1px solid #fff;
 	border-radius: 30px;
 	text-color: #000;
 }
 
-select:hover {
+/* select:hover {
 	border: 2px solid #000;
+} */
+.search {
+	position: relative;
+	width: 300px;
+	margin-top: 20px;
+}
+
+input {
+	width: 100%;
+	border: 1px solid #bbb;
+	border-radius: 15px;
+	padding: 10px 12px;
+	font-size: 14px;
+	background-color: #FCF8EC;
+	margin-bottom: 20px;
+}
+
+.search img {
+	position: absolute;
+	width: 17px;
+	top: 10px;
+	right: 12px;
+	margin: 0;
 }
 </style>
 </head>
 <body>
-<div class="container" style="display: flex;">
+	<div class="container" style="display: flex;">
 		<div class="row" style="margin: auto;">
 			<form method="post" name="search" action="#">
 				<table class="pull-right">
 					<tr>
 						<td><select>
-								<option value="0">º±≈√</option>
-								<option value="movie">øµ»≠</option>
-								<option value="music">¿Ωæ«</option>
-								<option value="book">√•</option>
+								<option value="0">ÏÑ†ÌÉù</option>
+								<option value="movie">ÏòÅÌôî</option>
+								<option value="music">ÏùåÏïÖ</option>
+								<option value="book">Ï±Ö</option>
 						</select></td>
 						<td>
 							<div class="search">
-								<input type="text" placeholder="∞ÀªˆæÓ ¿‘∑¬"> <img
+								<input type="text" placeholder="Í≤ÄÏÉâÏñ¥ ÏûÖÎ†•"> <img
 									id="search-icon"
 									src="https://s3.ap-northeast-2.amazonaws.com/cdn.wecode.co.kr/icon/search.png">
 							</div>
@@ -49,5 +79,13 @@ select:hover {
 			</form>
 		</div>
 	</div>
+	<ul>
+	<c:if test="${contentList} != null">
+		<!-- ELÏùÑ ÏÇ¨Ïö©ÌïòÏó¨ Í∞ÄÏ†∏Ïò® Îç∞Ïù¥ÌÑ∞Î•º ÌëúÏãú -->
+		<c:forEach var="content" items="${contentList}">
+			<li>${content.title}- ${content.genre} - ${content.publishDate}</li>
+		</c:forEach>
+	</c:if>
+	</ul>
 </body>
 </html>
