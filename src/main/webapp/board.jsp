@@ -15,6 +15,29 @@ a, a:hover {
 	text-decoration: none;
 }
 </style>
+<style>
+* {margin: 0; padding: 0; box-sizing: border-box;}
+body{
+    display: flex;
+    justify-content:center;
+    align-items:center;
+    height: 50vh;
+    background-size: cover;
+}
+button.btn {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: #456268;
+            color: white;
+            text-decoration: none;
+            border: none; /* 버튼의 기본 테두리 제거 */
+            cursor: pointer;
+        }
+
+        button.btn:hover {
+            background-color: #345056;
+        }
+</style>
 </head>
 <body>
 	<%
