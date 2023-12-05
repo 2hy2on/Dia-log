@@ -5,6 +5,7 @@ import java.util.Map;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import controller.contents.ListContentsController;
+import controller.friend.FriendListController;
 
 public class RequestMapping {
     private static final Logger logger = LoggerFactory.getLogger(DispatcherServlet.class);
@@ -20,6 +21,9 @@ public class RequestMapping {
         // 메인 컨텐츠 관련 request URI 추가
         // 다이어리 관련 request URI 추가
         // 다이어리 관련 request URI 추가
+        
+        // 친구 관련 request URI 추가
+        mappings.put("/friend/list", new FriendListController());
         
         logger.info("Initialized Request Mapping!");
     }
