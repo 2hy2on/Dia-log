@@ -5,6 +5,9 @@ import java.util.Map;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import controller.contents.ListContentsController;
+
+import controller.friend.FriendListController;
+
 import controller.diary.DiaryController;
 
 import controller.contents.SearchContentsController;
@@ -31,6 +34,9 @@ public class RequestMapping {
         
         // 다이어리 관련 request URI 추가
         
+        // 친구 관련 request URI 추가
+        mappings.put("/friend/list", new FriendListController());
+
         
         logger.info("Initialized Request Mapping!");
     }
