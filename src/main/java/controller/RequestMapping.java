@@ -6,7 +6,13 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import controller.contents.ListContentsController;
 import controller.contents.PickContentsController;
+
+import controller.friend.FriendListController;
+
+import controller.diary.DiaryController;
+
 import controller.contents.SearchContentsController;
+
 
 public class RequestMapping {
     private static final Logger logger = LoggerFactory.getLogger(DispatcherServlet.class);
@@ -19,12 +25,21 @@ public class RequestMapping {
         mappings.put("/", new ForwardController("index.jsp"));
         
         // 메인 컨텐츠 관련 request URI 추가
+        mappings.put("/diary", new DiaryController());
+
+
+        // 메인 컨텐츠 관련 request URI 추가
         mappings.put("/contents/list", new ListContentsController());
         mappings.put("/contents/search", new SearchContentsController());
         mappings.put("/contents/pickContents", new PickContentsController());
         
         // 다이어리 관련 request URI 추가
+        
         // 다이어리 관련 request URI 추가
+        
+        // 친구 관련 request URI 추가
+        mappings.put("/friend/list", new FriendListController());
+
         
         logger.info("Initialized Request Mapping!");
     }

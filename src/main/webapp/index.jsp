@@ -1,2 +1,3 @@
-<% response.sendRedirect(request.getContextPath() + "/contents/list"); %> 
-<%-- <% response.sendRedirect(request.getContextPath() + "/contents/search"); %>  --%>
+
+<% response.sendRedirect(request.getContextPath() + "/contents/list"); %>
+<%--<% response.sendRedirect(request.getContextPath() + "/friend/list"); --%>

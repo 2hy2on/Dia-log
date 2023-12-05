@@ -5,7 +5,6 @@ import java.time.LocalDateTime;
 import java.util.Date;
 
 public class Review {
-private String title;
 	
 	private String detail;
 	
@@ -33,13 +32,6 @@ private String title;
 	 
 	private int writerId;
 
-	public String getTitle() {
-		return title;
-	}
-
-	public void setTitle(String title) {
-		this.title = title;
-	}
 
 	public String getDetail() {
 		return detail;
@@ -104,19 +96,5 @@ private String title;
 	public void setWriterId(int writerId) {
 		this.writerId = writerId;
 	}
-	
-	@Override
-	public String toString() {
-	    return "Review{" +
-	            "title='" + title + '\'' +
-	            ", detail='" + detail + '\'' +
-	            ", rate=" + rate +
-	            ", createdAt=" + createdAt +
-	            ", updatedAt=" + updatedAt +
-	            ", watchedAt=" + watchedAt +
-	            ", isPrivate=" + isPrivate +
-	            ", contentId=" + contentId +
-	            ", writerId=" + writerId +
-	            '}';
-	}
+
 }
