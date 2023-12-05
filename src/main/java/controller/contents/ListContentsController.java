@@ -28,9 +28,6 @@ public class ListContentsController implements Controller {
         
         request.setAttribute("contentList", contentList);
 
-    	logger.debug("Method : {}, Request URI : {}, ServletPath : {}", 
-    			request.getMethod(), request.getRequestURI(), request.getServletPath());
-
         return "/contents/Contents.jsp";
     }
 }

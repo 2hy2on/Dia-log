@@ -21,7 +21,7 @@
 					<li><a href="#">통계</a></li>
 				</ul></li>
 			<li><a href="#">OTT 게시판</a></li>
-			<li><a href="${loginUrl}">로그인</a>
+			<li><a href="#">로그인</a>
 				<ul>
 					<li><a href="#">내 정보 수정</a></li>
 					<li><a href="#">Q & A</a></li>

@@ -46,14 +46,12 @@ public class ContentsDAO {
 	 */
 
 	public List<Contents> getContentList() {
-		List<Contents> contentList = new ArrayList<>();
+		String sql =  "SELECT c.contentId, c.contentImg, c.contentType, c.title, c.genre, c.publishDate FROM Contents c";
 
+		jdbcUtil.setSqlAndParameters(sql, null);
 		try {
-			String sql =  "SELECT c.contentId, c.contentImg, c.contentType, c.title, c.genre, c.publishDate FROM Contents c";
-
-			jdbcUtil.setSqlAndParameters(sql, new Object[] { });
-
 			ResultSet rs = jdbcUtil.executeQuery();
+			List<Contents> contentList = new ArrayList<Contents>();
 
 			while (rs.next()) {
 				Contents cont = new Contents();
@@ -67,13 +65,14 @@ public class ContentsDAO {
 				
 				contentList.add(cont);
 			}
+			return contentList;
+			
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
 			jdbcUtil.close();
 		}
-
-		return contentList;
+		return null;
 	}
 	
 	public List<Contents> searchContentsByTitle(String title) {

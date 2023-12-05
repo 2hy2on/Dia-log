@@ -1,11 +1,13 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ page import="model.*"%>
+<%@ page import="java.util.*"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="utf-8">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Filtering</title>
 <link
@@ -180,114 +182,36 @@ header h1 {
 </style>
 </head>
 <body>
-
-
+	<% 
+	List<Contents> contentList = (List<Contents>)request.getAttribute("contentList");
+	
+	if (contentList != null && !contentList.isEmpty()) {
+		Iterator<Contents> iterator = contentList.iterator();
+	%>
 	<div class="gallery">
 		<div class="container text-center">
 			<div class="row">
+				<%
+				while (iterator.hasNext()) {
+					Contents content = iterator.next();
+				%>
 				<div class="col">
 					<article class="card" data-bs-toggle="modal"
 						data-bs-target="#exampleModal">
 						<figure>
-							<img src="https://ifh.cc/g/HX4k8k.jpg" alt="movie">
+							<img src="<%= content.getContentImg() %>"
+								alt=<%= content.getGenre() %>>
 							<figcaption>
-								<p class="h6">TOY STORY</p>
+								<p class="h6"><%= content.getTitle() %></p>
 							</figcaption>
 						</figure>
 					</article>
 				</div>
-				<div class="col">
-					<article class="card" data-bs-toggle="modal"
-						data-bs-target="#exampleModal">
-						<figure>
-							<img src="https://ifh.cc/g/5rxv5D.jpg" alt="movie">
-							<figcaption>
-								<p class="h6">하울의 움직이는 성</p>
-							</figcaption>
-						</figure>
-					</article>
-				</div>
-				<div class="col">
-					<article class="card" data-bs-toggle="modal"
-						data-bs-target="#exampleModal">
-						<figure>
-							<img src="https://ifh.cc/g/2DomCY.jpg" alt="movie">
-							<figcaption>
-								<p class="h6">라푼젤</p>
-							</figcaption>
-						</figure>
-					</article>
-				</div>
-				<div class="col">
-					<article class="card" data-bs-toggle="modal"
-						data-bs-target="#exampleModal">
-						<figure>
-							<img
-								src="https://avatars.githubusercontent.com/u/26498125?v=4img/movie13.jpg"
-								alt="movie">
-							<figcaption>
-								<p class="h6">angel denon</p>
-							</figcaption>
-						</figure>
-					</article>
-				</div>
-			</div>
-			<div class="row">
-				<div class="col">
-					<article class="card" data-bs-toggle="modal"
-						data-bs-target="#exampleModal">
-						<figure>
-							<img
-								src="https://avatars.githubusercontent.com/u/26498125?v=4img/movie14.jpg"
-								alt="movie">
-							<figcaption>
-								<p class="h6">다음 카드</p>
-							</figcaption>
-						</figure>
-					</article>
-				</div>
-				<div class="col">
-					<article class="card" data-bs-toggle="modal"
-						data-bs-target="#exampleModal">
-						<figure>
-							<img
-								src="https://avatars.githubusercontent.com/u/26498125?v=4img/movie15.jpg"
-								alt="movie">
-							<figcaption>
-								<p class="h6">또 다른 카드</p>
-							</figcaption>
-						</figure>
-					</article>
-				</div>
-				<div class="col">
-					<article class="card" data-bs-toggle="modal"
-						data-bs-target="#exampleModal">
-						<figure>
-							<img
-								src="https://avatars.githubusercontent.com/u/26498125?v=4img/movie16.jpg"
-								alt="movie">
-							<figcaption>
-								<p class="h6">여기도 카드</p>
-							</figcaption>
-						</figure>
-					</article>
-				</div>
-				<div class="col">
-					<article class="card" data-bs-toggle="modal"
-						data-bs-target="#exampleModal">
-						<figure>
-							<img
-								src="https://avatars.githubusercontent.com/u/26498125?v=4img/movie17.jpg"
-								alt="movie">
-							<figcaption>
-								<p class="h6">마지막 카드</p>
-							</figcaption>
-						</figure>
-					</article>
-				</div>
+				<% } %>
 			</div>
 		</div>
 	</div>
+	<% } %>
 
 	<div class="modal fade" id="exampleModal" tabindex="-1"
 		aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -305,22 +229,6 @@ header h1 {
 							<input type="date">
 						</div>
 						<div class="mb-3">
-							<label for="message-text" class="col-form-label">Review
-								Score :</label>
-							<div class="star-rating space-x-4 mx-auto">
-								<input type="radio" id="5-stars" name="rating" value="5"
-									v-model="ratings" /> <label for="5-stars" class="star pr-4">★</label>
-								<input type="radio" id="4-stars" name="rating" value="4"
-									v-model="ratings" /> <label for="4-stars" class="star">★</label>
-								<input type="radio" id="3-stars" name="rating" value="3"
-									v-model="ratings" /> <label for="3-stars" class="star">★</label>
-								<input type="radio" id="2-stars" name="rating" value="2"
-									v-model="ratings" /> <label for="2-stars" class="star">★</label>
-								<input type="radio" id="1-star" name="rating" value="1"
-									v-model="ratings" /> <label for="1-star" class="star">★</label>
-							</div>
-						</div>
-						<div class="mb-3">
 							<label for="recipient-name" class="col-form-label">my
 								review:</label> <input type="text" class="form-control"
 								id="recipient-name">
@@ -332,8 +240,7 @@ header h1 {
 					</form>
 				</div>
 				<div class="modal-footer">
-					<button type="button" class="btn btn-danger">삭제하기</button>
-					<button type="button" class="btn btn-primary">저장하기</button>
+					<button type="button" class="btn btn-danger" onclick="alert('담기 완료')">담기</button>
 				</div>
 			</div>
 		</div>
