@@ -80,7 +80,7 @@ input {
 		</div>
 	</div>
 	<ul>
-	<c:if test="${contentList} != null">
+	<c:if test="${contentList}.length != 0">
 		<!-- EL을 사용하여 가져온 데이터를 표시 -->
 		<c:forEach var="content" items="${contentList}">
 			<li>${content.title}- ${content.genre} - ${content.publishDate}</li>

@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -178,6 +180,8 @@ header h1 {
 </style>
 </head>
 <body>
+
+
 	<div class="gallery">
 		<div class="container text-center">
 			<div class="row">
@@ -196,9 +200,7 @@ header h1 {
 					<article class="card" data-bs-toggle="modal"
 						data-bs-target="#exampleModal">
 						<figure>
-							<img
-								src="https://ifh.cc/g/5rxv5D.jpg"
-								alt="movie">
+							<img src="https://ifh.cc/g/5rxv5D.jpg" alt="movie">
 							<figcaption>
 								<p class="h6">하울의 움직이는 성</p>
 							</figcaption>
@@ -209,9 +211,7 @@ header h1 {
 					<article class="card" data-bs-toggle="modal"
 						data-bs-target="#exampleModal">
 						<figure>
-							<img
-								src="https://ifh.cc/g/2DomCY.jpg"
-								alt="movie">
+							<img src="https://ifh.cc/g/2DomCY.jpg" alt="movie">
 							<figcaption>
 								<p class="h6">라푼젤</p>
 							</figcaption>

@@ -45,6 +45,37 @@ public class ContentsDAO {
 	 * return false; }
 	 */
 
+	public List<Contents> getContentList() {
+		List<Contents> contentList = new ArrayList<>();
+
+		try {
+			String sql =  "SELECT c.contentId, c.contentImg, c.contentType, c.title, c.genre, c.publishDate FROM Contents c";
+
+			jdbcUtil.setSqlAndParameters(sql, new Object[] { });
+
+			ResultSet rs = jdbcUtil.executeQuery();
+
+			while (rs.next()) {
+				Contents cont = new Contents();
+
+				cont.setContentId(rs.getInt("contentId"));
+				cont.setContentImg(rs.getString("contentImg"));
+				cont.setContentType(ContentType.valueOf(rs.getString("contentType")));
+				cont.setTitle(rs.getString("title"));
+				cont.setGenre(rs.getString("genre"));
+				cont.setPublishDate(rs.getDate("publishDate").toLocalDate());
+				
+				contentList.add(cont);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			jdbcUtil.close();
+		}
+
+		return contentList;
+	}
+	
 	public List<Contents> searchContentsByTitle(String title) {
 		List<Contents> contentList = new ArrayList<>();
 
@@ -59,6 +90,9 @@ public class ContentsDAO {
 				Contents cont = new Contents();
 
 				cont.setContentId(rs.getInt("contentId"));
+				cont.setContentImg(rs.getString("contentImg"));
+				cont.setReviews(null);
+				cont.setContentType(ContentType.valueOf(rs.getString("contentType")));
 				cont.setTitle(rs.getString("title"));
 				cont.setGenre(rs.getString("genre"));
 				cont.setPublishDate(rs.getDate("publishDate").toLocalDate());
@@ -115,7 +149,7 @@ public class ContentsDAO {
 //		cont.setGenre("애니메이션/모험/로맨스");
 //		cont.setPublishDate(currentDate);
 
-//		ContentsDAO dao = new ContentsDAO();
-//		System.out.println(dao.searchContentsByTitle("라푼젤"));
+		ContentsDAO dao = new ContentsDAO();
+		System.out.println(dao.getContentList());
 	}
 }
