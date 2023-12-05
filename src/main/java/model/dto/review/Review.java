@@ -27,7 +27,16 @@ public class Review {
 	private boolean isPrivate;
 	
 	private String mediaImg;
+	private String title;
 	
+	public String getTitle() {
+		return title;
+	}
+
+	public void setTitle(String title) {
+		this.title = title;
+	}
+
 	private int contentId;
 	 
 	private int writerId;

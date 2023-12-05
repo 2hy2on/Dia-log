@@ -54,7 +54,7 @@ public class ReviewDAO {
     			review.setMediaImg(rs.getString("contentImg"));
 				review.setPrivate(rs.getBoolean("isPrivate"));
 				review.setRate(rs.getFloat("rate"));
-			
+				review.setTitle(rs.getString("title"));
 				review.setUpdatedAt(rs.getObject("updatedAt", LocalDateTime.class));
 				review.setWatchedAt(date);
 				review.setWriterId(userId);

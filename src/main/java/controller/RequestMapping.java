@@ -6,7 +6,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import controller.contents.ListContentsController;
 import controller.diary.DiaryController;
-
+import controller.review.ReadReviewForDateController;
 import controller.contents.SearchContentsController;
 
 
@@ -28,7 +28,7 @@ public class RequestMapping {
         
         
         // 다이어리 관련 request URI 추가
-        
+        mappings.put("/diary/reviewList", new ReadReviewForDateController());
         // 다이어리 관련 request URI 추가
         
         
