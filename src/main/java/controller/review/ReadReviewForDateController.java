@@ -24,12 +24,12 @@ public class ReadReviewForDateController implements Controller{
 
         // Further processing...
         String modifiedDateStr = dateStr.replace("-", "/");
-        logger.info("Received dateStr: {}", modifiedDateStr);
+//        logger.info("Received dateStr: {}", modifiedDateStr);
 
 	        ReviewManager manager = ReviewManager.getInstance();
 //////\
 	        List<Review> reviewDateList = manager.getReviewByDate(userId, modifiedDateStr);
-	        
+	        logger.info("Received dateStr: {}",reviewDateList.get(0).getContentId());
 	        request.setAttribute("reviewDateList", reviewDateList);
 	        //logger.info("Contents of reviewDateList: {}",  request.getAttribute("reviewDateList"));
 		 return "/diary/review.jsp";

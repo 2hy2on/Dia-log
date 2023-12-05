@@ -48,14 +48,16 @@ public class ReviewDAO {
 			while (rs.next()) {
 				Review review = new Review();
 
+				review.setReviewId(rs.getInt("reviewId"));
 				review.setDetail(rs.getString("detail"));
 				review.setContentId(rs.getInt("contentId"));
-				review.setCreatedAt(rs.getObject("createdAt", LocalDateTime.class));
+//				review.setCreatedAt(rs.getObject("createdAt", LocalDateTime.class));
     			review.setMediaImg(rs.getString("contentImg"));
 				review.setPrivate(rs.getBoolean("isPrivate"));
 				review.setRate(rs.getFloat("rate"));
+			
 				review.setTitle(rs.getString("title"));
-				review.setUpdatedAt(rs.getObject("updatedAt", LocalDateTime.class));
+//				review.setUpdatedAt(rs.getObject("updatedAt", LocalDateTime.class));
 				review.setWatchedAt(date);
 				review.setWriterId(userId);
 

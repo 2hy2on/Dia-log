@@ -32,4 +32,8 @@ public class ReviewManager {
 	public List<Review> getReviewByDate(int user, String dateStr){
 		return reviewDAO.getReviewByDate(user, dateStr);
 	}
+	
+	public boolean updateReview(Review review) {
+		return reviewDAO.updateReview(review);
+	}
 }
