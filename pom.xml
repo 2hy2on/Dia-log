@@ -101,4 +101,5 @@
 		</plugins>
 		<finalName>dialog</finalName>
 	</build>
+
 </project>
