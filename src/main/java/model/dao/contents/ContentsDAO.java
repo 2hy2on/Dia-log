@@ -76,65 +76,65 @@ public class ContentsDAO {
 	}
 	
 	public List<Contents> searchContentsByTitle(String title) {
-		List<Contents> contentList = new ArrayList<>();
+	    List<Contents> contentList = new ArrayList<>();
 
-		try {
-			String sql = "SELECT * FROM Contents WHERE title = ?";
-			Object[] param = new Object[] { title };
+	    try {
+	        String sql = "SELECT * FROM Contents WHERE title LIKE ?";
+	        String keyword = "%" + title + "%";
 
-			jdbcUtil.setSqlAndParameters(sql, param);
-			ResultSet rs = jdbcUtil.executeQuery();
+	        jdbcUtil.setSqlAndParameters(sql, new Object[] { keyword });
+	        ResultSet rs = jdbcUtil.executeQuery();
 
-			while (rs.next()) {
-				Contents cont = new Contents();
+	        while (rs.next()) {
+	            Contents cont = new Contents();
 
-				cont.setContentId(rs.getInt("contentId"));
-				cont.setContentImg(rs.getString("contentImg"));
-				cont.setReviews(null);
-				cont.setContentType(ContentType.valueOf(rs.getString("contentType")));
-				cont.setTitle(rs.getString("title"));
-				cont.setGenre(rs.getString("genre"));
-				cont.setPublishDate(rs.getDate("publishDate").toLocalDate());
+	            cont.setContentId(rs.getInt("contentId"));
+	            cont.setContentImg(rs.getString("contentImg"));
+	            cont.setReviews(null);
+	            cont.setContentType(ContentType.valueOf(rs.getString("contentType")));
+	            cont.setTitle(rs.getString("title"));
+	            cont.setGenre(rs.getString("genre"));
+	            cont.setPublishDate(rs.getDate("publishDate").toLocalDate());
 
-				contentList.add(cont);
-			}
-		} catch (Exception ex) {
-			jdbcUtil.rollback(); // 트랜잭션 rollback 실행
-			ex.printStackTrace();
-		} finally {
-			jdbcUtil.commit(); // 트랜잭션 commit 실행
-			jdbcUtil.close();
-		}
+	            contentList.add(cont);
+	        }
+	    } catch (Exception ex) {
+	        jdbcUtil.rollback(); // 트랜잭션 rollback 실행
+	        ex.printStackTrace();
+	    } finally {
+	        jdbcUtil.commit(); // 트랜잭션 commit 실행
+	        jdbcUtil.close();
+	    }
 
-		return contentList;
+	    return contentList;
 	}
+
 	
-	 public boolean pickContent(int userId, int contentId) {
-	      LocalDateTime currentDateTime = LocalDateTime.now();
-	      LocalDate currentDate = LocalDate.now();
-	      StringBuilder query = new StringBuilder();
-	      query.append(
-	            "INSERT INTO Review (createdAt, updatedAt, watchedAt, contentId, writerId) VALUES (?, ?, ?,?, ?)");
+	public boolean pickContent(int userId, int contentId) {
+        LocalDateTime currentDateTime = LocalDateTime.now();
+        LocalDate currentDate = LocalDate.now();
+        StringBuilder query = new StringBuilder();
+        query.append("INSERT INTO Review (createdAt, updatedAt, watchedAt, contentId, writerId) VALUES (?, ?, ?,?, ?)");
 
-	      Object[] param = new Object[] {currentDateTime, currentDateTime, currentDate, contentId, userId};
+        Object[] param = new Object[] {currentDateTime, currentDateTime, currentDate, contentId, userId};
 
-	      jdbcUtil.setSqlAndParameters(query.toString(), param); // JDBCUtil 에 insert문과 매개 변수 설정
+        jdbcUtil.setSqlAndParameters(query.toString(), param); // JDBCUtil 에 insert문과 매개 변수 설정
 
-	      try {
-	         ResultSet rs = jdbcUtil.executeQuery();
-	         if (rs.next()) {
-	            return true;
-	         }
-	      } catch (Exception ex) {
-	         jdbcUtil.rollback(); // 트랜잭션 rollback 실행
-	         ex.printStackTrace();
-	      } finally {
-	         jdbcUtil.commit(); // 트랜잭션 commit 실행
-	         jdbcUtil.close();
-	      }
-	      return false;
-	   }
-	 
+        try {
+            int affectedRows = jdbcUtil.executeUpdate(); // executeUpdate 사용
+            if (affectedRows > 0) {
+                return true;
+            }
+        } catch (Exception ex) {
+            jdbcUtil.rollback(); // 트랜잭션 rollback 실행
+            ex.printStackTrace();
+        } finally {
+            jdbcUtil.commit(); // 트랜잭션 commit 실행
+            jdbcUtil.close();
+        }
+        return false;
+    }
+	
 	public static void main(String[] args) throws SQLException {
 //		LocalDate currentDate = LocalDate.now();
 //		Movie movie = new Movie();

@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ page import="model.*"%>
+<%@ page import="java.util.*"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
 <html>
@@ -8,6 +10,11 @@
 <title>Insert title here</title>
 <!-- <link href="../../css/contents/search.css" rel="stylesheet"
 	type="text/css"> -->
+<script>
+	function submitForm() {
+		document.forms["search"].submit();
+	}
+</script>
 <style>
 body {
 	width: 100%;
@@ -58,7 +65,8 @@ input {
 <body>
 	<div class="container" style="display: flex;">
 		<div class="row" style="margin: auto;">
-			<form method="post" name="search" action="#">
+			<form name="search" method="POST"
+				action="<c:url value='/contents/search' />">
 				<table class="pull-right">
 					<tr>
 						<td><select>
@@ -69,9 +77,10 @@ input {
 						</select></td>
 						<td>
 							<div class="search">
-								<input type="text" placeholder="검색어 입력"> <img
+								<input type="text" name="title" placeholder="검색어 입력"> <img
 									id="search-icon"
-									src="https://s3.ap-northeast-2.amazonaws.com/cdn.wecode.co.kr/icon/search.png">
+									src="https://s3.ap-northeast-2.amazonaws.com/cdn.wecode.co.kr/icon/search.png"
+									alt="Submit" onclick="submitForm()">
 							</div>
 						</td>
 					</tr>
@@ -79,13 +88,26 @@ input {
 			</form>
 		</div>
 	</div>
-	<ul>
-	<c:if test="${contentList}.length != 0">
-		<!-- EL을 사용하여 가져온 데이터를 표시 -->
-		<c:forEach var="content" items="${contentList}">
-			<li>${content.title}- ${content.genre} - ${content.publishDate}</li>
-		</c:forEach>
-	</c:if>
-	</ul>
+
+	<div class="search-results">
+		<% 
+        List<Contents> searchList = (List<Contents>)request.getAttribute("searchList");
+        
+        if (searchList != null && !searchList.isEmpty()) {
+            Iterator<Contents> iterator = searchList.iterator();
+            
+            while (iterator.hasNext()) {
+                Contents content = iterator.next();
+    %>
+		<div class="search-result">
+			<h3><%= content.getTitle() %></h3>
+			<p><%= content.getGenre() %></p>
+		</div>
+		<% 
+            } 
+        } %>
+	</div>
+
+
 </body>
 </html>

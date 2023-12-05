@@ -20,11 +20,6 @@ public class ListContentsController implements Controller {
         ContentsManager manager = ContentsManager.getInstance();
         List<Contents> contentList = manager.getContentList();
         
-        for (Contents content : contentList) {
-            logger.debug("Content ID: {}, Title: {}, Genre: {}", 
-                    content.getContentId(), content.getTitle(), content.getGenre());
-        }
-        logger.debug("Content List Size: {}", contentList.size());
         
         request.setAttribute("contentList", contentList);
 

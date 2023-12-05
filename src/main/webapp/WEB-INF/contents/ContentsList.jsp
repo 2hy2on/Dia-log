@@ -9,7 +9,7 @@
 <meta charset="utf-8">
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Filtering</title>
+<title>ContentsList</title>
 <link
 	href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
 	rel="stylesheet"
@@ -42,8 +42,8 @@ body {
 
 .card {
 	display: inline-flex;
-	width: 180px;
-	height: 180px;
+	width: 200px;
+	height: 200px;
 	background-color: var(- -background);
 	border-radius: 10px;
 	transition: 1000ms all;
@@ -183,32 +183,37 @@ header h1 {
 </head>
 <body>
 	<% 
-	List<Contents> contentList = (List<Contents>)request.getAttribute("contentList");
-	
-	if (contentList != null && !contentList.isEmpty()) {
-		Iterator<Contents> iterator = contentList.iterator();
+    List<Contents> contentList = (List<Contents>)request.getAttribute("contentList");
+    
+    if (contentList != null && !contentList.isEmpty()) {
+        Iterator<Contents> iterator = contentList.iterator();
+        int index = 1;
 	%>
 	<div class="gallery">
 		<div class="container text-center">
+			<%
+            while (iterator.hasNext()) {
+                Contents content = iterator.next();
+                
+                if (index % 4 == 1) { %>
 			<div class="row">
-				<%
-				while (iterator.hasNext()) {
-					Contents content = iterator.next();
-				%>
+				<% } %>
 				<div class="col">
 					<article class="card" data-bs-toggle="modal"
 						data-bs-target="#exampleModal">
 						<figure>
 							<img src="<%= content.getContentImg() %>"
-								alt=<%= content.getGenre() %>>
+								alt="<%= content.getGenre() %>">
 							<figcaption>
 								<p class="h6"><%= content.getTitle() %></p>
 							</figcaption>
 						</figure>
 					</article>
 				</div>
-				<% } %>
+				<% index++; } %>
+				<% if (index % 4 == 1) { %>
 			</div>
+			<% } %>
 		</div>
 	</div>
 	<% } %>
@@ -240,7 +245,8 @@ header h1 {
 					</form>
 				</div>
 				<div class="modal-footer">
-					<button type="button" class="btn btn-danger" onclick="alert('담기 완료')">담기</button>
+					<button type="button" class="btn btn-danger"
+						onclick="alert('담기 완료')">담기</button>
 				</div>
 			</div>
 		</div>
