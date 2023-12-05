@@ -1,0 +1,99 @@
+[33mcommit 1b6343c27ebc78af4af6958e2eaa554ee881b250[m[33m ([m[1;36mHEAD -> [m[1;32mcontents[m[33m)[m
+Author: dkyuuum <dkyuuum@gmail.com>
+Date:   Mon Dec 4 22:31:57 2023 +0900
+
+    [ADD] 메인 Contents 목록 ui 추가
+
+[33mcommit 2d467a846e8aba19d79392ad23cb8250acfccec8[m[33m ([m[1;31morigin/contents[m[33m)[m
+Author: dkyuuum <dkyuuum@gmail.com>
+Date:   Thu Nov 30 03:47:36 2023 +0900
+
+    [CHORE] ContentsDAO 불필요 코드 주석 처리
+
+[33mcommit 19c20c9c2c76d6b56ba52c4545cc5be7a994c12a[m
+Author: dkyuuum <dkyuuum@gmail.com>
+Date:   Thu Nov 30 03:39:41 2023 +0900
+
+    [ADD] Contents 관련 DAO 조회 및 검색 코드 구현
+
+[33mcommit 57d82008b04fed7f9b2aad850b3bb6531bcb1191[m
+Merge: 3020f0d e117aad
+Author: 2hy2on <80164690+2hy2on@users.noreply.github.com>
+Date:   Tue Nov 28 23:30:46 2023 +0900
+
+    Merge pull request #3 from Dialog-project/review
+    
+    [FEAT] 미디어종류별 통계...테이블 확인 필요
+
+[33mcommit e117aad94f9d40f63b1fef3f113d7178f3cbbcde[m
+Author: 2hy2on <mashin0128@gmail.com>
+Date:   Tue Nov 28 17:39:03 2023 +0900
+
+    [FEAT] 미디어종류별 통계...테이블 확인 필요
+
+[33mcommit 3020f0d658addebb4f098a321935180e4e7a6c26[m
+Merge: 09c4256 61aca6a
+Author: 2hy2on <80164690+2hy2on@users.noreply.github.com>
+Date:   Tue Nov 28 17:10:50 2023 +0900
+
+    Merge pull request #2 from Dialog-project/visit
+    
+    [FEAT] 방문자 등록, 조회
+
+[33mcommit 61aca6a890a02d7ff5a4851181c7af0e7a899412[m[33m ([m[1;31morigin/visit[m[33m)[m
+Author: 2hy2on <mashin0128@gmail.com>
+Date:   Tue Nov 28 17:09:25 2023 +0900
+
+    [FEAT] 방문자 등록, 조회
+
+[33mcommit 09c42560cb170d3499b88740dccb17c4392b1dcd[m
+Merge: 21f3005 bc1abc7
+Author: 2hy2on <80164690+2hy2on@users.noreply.github.com>
+Date:   Tue Nov 28 09:57:03 2023 +0900
+
+    Merge pull request #1 from Dialog-project/review
+    
+    [FEAT] 리뷰 등록, 삭제, 수정, 날짜별 조회 dao
+
+[33mcommit bc1abc7b87f6092fa02077c5be647cb48fc4db30[m
+Author: 2hy2on <mashin0128@gmail.com>
+Date:   Tue Nov 28 00:59:50 2023 +0900
+
+    [ADD] 리뷰 등록, 삭제, 수정, 날짜별 조회
+
+[33mcommit 21f30054c69f4e4366602cb2e82f3663660995cf[m
+Merge: 5dec37c f2411ec
+Author: 2hy2on <mashin0128@gmail.com>
+Date:   Mon Nov 27 20:58:04 2023 +0900
+
+    Merge branch 'main' of https://github.com/Dialog-project/Dia-log
+
+[33mcommit 5dec37c08d0e220eb1f56e6ea2ddd1ac10d80b30[m
+Author: 2hy2on <mashin0128@gmail.com>
+Date:   Mon Nov 27 20:57:25 2023 +0900
+
+    [ADD] 폴더 구조
+
+[33mcommit f2411ec2a9c8b9f99a8bfc3e6c95cebd919df67d[m
+Author: 2hy2on <80164690+2hy2on@users.noreply.github.com>
+Date:   Mon Nov 27 20:11:33 2023 +0900
+
+    Update README.md
+
+[33mcommit e37757ef44274c278aa3ec455332b7846e0f8a3e[m
+Author: 2hy2on <80164690+2hy2on@users.noreply.github.com>
+Date:   Mon Nov 27 20:11:08 2023 +0900
+
+    Update README.md
+
+[33mcommit f92cb8abff017672776844f4a06ce6c68f008bbc[m
+Author: 2hy2on <mashin0128@gmail.com>
+Date:   Mon Nov 27 20:09:10 2023 +0900
+
+    [ADD] 초기설정 pom
+
+[33mcommit e6d1e7c9e2004c21b27e9c212536828f8c1e6b21[m
+Author: 2hy2on <80164690+2hy2on@users.noreply.github.com>
+Date:   Mon Nov 27 20:05:24 2023 +0900
+
+    Initial commit

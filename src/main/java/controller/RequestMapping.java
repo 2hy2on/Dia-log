@@ -5,11 +5,16 @@ import java.util.Map;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import controller.contents.ListContentsController;
+import controller.contents.PickContentsController;
 
 import controller.friend.FriendListController;
 
 import controller.diary.DiaryController;
+<<<<<<< HEAD
 import controller.review.ReadReviewForDateController;
+=======
+import controller.review.FilterReviewController;
+>>>>>>> 364f7dd41dd36acd98285b108c3a3fae67ef0b43
 import controller.contents.SearchContentsController;
 
 
@@ -22,16 +27,18 @@ public class RequestMapping {
     public void initMapping() {
     	// 각 uri에 대응되는 controller 객체를 생성 및 저장
         mappings.put("/", new ForwardController("index.jsp"));
-        mappings.put("/contents/list", new ListContentsController());
+        
+        // 메인 컨텐츠 관련 request URI 추가
         mappings.put("/diary", new DiaryController());
-        mappings.put("/contents/search", new SearchContentsController());
-
 
         // 메인 컨텐츠 관련 request URI 추가
-        
+        mappings.put("/contents/list", new ListContentsController());
+        mappings.put("/contents/search", new SearchContentsController());
+        mappings.put("/contents/pickContents", new PickContentsController());
         
         // 다이어리 관련 request URI 추가
         mappings.put("/diary/reviewList", new ReadReviewForDateController());
+        mappings.put("/diary/filter", new FilterReviewController());
         // 다이어리 관련 request URI 추가
         
         // 친구 관련 request URI 추가
