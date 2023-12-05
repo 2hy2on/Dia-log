@@ -5,9 +5,8 @@ import java.time.LocalDateTime;
 import java.util.Date;
 
 public class Review {
-private String title;
 	
-	private String content;
+	private String detail;
 	
 	private Float rate;
 	
@@ -33,20 +32,13 @@ private String title;
 	 
 	private int writerId;
 
-	public String getTitle() {
-		return title;
+
+	public String getDetail() {
+		return detail;
 	}
 
-	public void setTitle(String title) {
-		this.title = title;
-	}
-
-	public String getContent() {
-		return content;
-	}
-
-	public void setContent(String content) {
-		this.content = content;
+	public void setDetail(String detail) {
+		this.detail = detail;
 	}
 
 	public Float getRate() {
@@ -104,19 +96,5 @@ private String title;
 	public void setWriterId(int writerId) {
 		this.writerId = writerId;
 	}
-	
-	@Override
-	public String toString() {
-	    return "Review{" +
-	            "title='" + title + '\'' +
-	            ", content='" + content + '\'' +
-	            ", rate=" + rate +
-	            ", createdAt=" + createdAt +
-	            ", updatedAt=" + updatedAt +
-	            ", watchedAt=" + watchedAt +
-	            ", isPrivate=" + isPrivate +
-	            ", contentId=" + contentId +
-	            ", writerId=" + writerId +
-	            '}';
-	}
+
 }

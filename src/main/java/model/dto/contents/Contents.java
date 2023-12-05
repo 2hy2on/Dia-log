@@ -1,15 +1,18 @@
 package model.dto.contents;
 
 import java.time.LocalDate;
+import java.util.List;
+
+import model.dto.review.Review;
 
 public class Contents {
     private int contentId;
-    private Enum<?> contentType;
+    private ContentType contentType;
     private String contentImg;
-    private String reviews; // 추후 List<Review>로 수정
-    private LocalDate publishDate;
+    private List<Review> reviews; // 추후 로 수정
     private String title;
     private String genre;
+    private LocalDate publishDate;
     
     public int getContentId() {
         return contentId;
@@ -20,7 +23,7 @@ public class Contents {
     public Enum<?> getContentType() {
         return contentType;
     }
-    public void setContentType(Enum<?> contentType) {
+    public void setContentType(ContentType contentType) {
         this.contentType = contentType;
     }
     public String getContentImg() {
@@ -29,10 +32,10 @@ public class Contents {
     public void setContentImg(String contentImg) {
         this.contentImg = contentImg;
     }
-    public String getReviews() {
+    public List<Review> getReviews() {
         return reviews;
     }
-    public void setReviews(String reviews) {
+    public void setReviews(List<Review> reviews) {
         this.reviews = reviews;
     }
     public LocalDate getPublishDate() {
@@ -53,17 +56,23 @@ public class Contents {
     public void setGenre(String genre) {
         this.genre = genre;
     }
+    public enum ContentType {
+        Movie,
+        Music,
+        Book,
+    }
     
-    public Contents(int contentId, Enum<?> contentType, String contentImg, String reviews, LocalDate publishDate,
-            String title, String genre) {
+    public Contents() {}
+    
+    public Contents(int contentId, ContentType contentType, String contentImg, List<Review> reviews, String title, String genre, LocalDate publishDate) {
         super();
         this.contentId = contentId;
         this.contentType = contentType;
         this.contentImg = contentImg;
         this.reviews = reviews;
-        this.publishDate = publishDate;
         this.title = title;
         this.genre = genre;
+        this.publishDate = publishDate;
     }
     
     @Override
