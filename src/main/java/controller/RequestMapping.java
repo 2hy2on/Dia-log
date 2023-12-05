@@ -9,7 +9,7 @@ import controller.contents.ListContentsController;
 import controller.friend.FriendListController;
 
 import controller.diary.DiaryController;
-
+import controller.review.FilterReviewController;
 import controller.contents.SearchContentsController;
 
 
@@ -26,12 +26,11 @@ public class RequestMapping {
         mappings.put("/diary", new DiaryController());
         mappings.put("/contents/search", new SearchContentsController());
 
-
         // 메인 컨텐츠 관련 request URI 추가
         
         
         // 다이어리 관련 request URI 추가
-        
+        mappings.put("/diary/filter", new FilterReviewController());
         // 다이어리 관련 request URI 추가
         
         // 친구 관련 request URI 추가
