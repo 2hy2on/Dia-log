@@ -27,7 +27,10 @@ String jsonResult = (String) request.getAttribute("jsonResult");
 		
 		 var events = JSON.parse('<%= jsonResult %>');
 			
+		  var dateForReview = localStorage.getItem("dateForReview");
 
+		    // Set the value to dateHeader
+		    $('#dateHeader').text(dateForReview);
 
 
 		/*  className colors
@@ -132,7 +135,6 @@ String jsonResult = (String) request.getAttribute("jsonResult");
 
 			events:  events,
 		});
-		console.log(events)
 
 
 	});
@@ -193,12 +195,14 @@ String jsonResult = (String) request.getAttribute("jsonResult");
         box-shadow: 0 1px 2px #C3C3C3;
 		
 		}
-
+	#dateHeader{
+		color: #ffffff;
+	}
 </style>
 </head>
 <body>
 <div id='wrap'>
-
+<div id="dateHeader"></div>
 	<div id='calendar'></div>
 
 <div style='clear:both'></div>
