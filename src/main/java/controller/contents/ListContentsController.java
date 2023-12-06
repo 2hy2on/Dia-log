@@ -20,7 +20,6 @@ public class ListContentsController implements Controller {
         ContentsManager manager = ContentsManager.getInstance();
         List<Contents> contentList = manager.getContentList();
         
-        
         request.setAttribute("contentList", contentList);
 
         return "/contents/Contents.jsp";
