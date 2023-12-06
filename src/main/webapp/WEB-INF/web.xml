@@ -29,6 +29,10 @@
   	<servlet-class>controller.DispatcherServlet</servlet-class>
   </servlet>
   <servlet>
+    <servlet-name>LoginRedirectController</servlet-name>
+    <servlet-class>controller.login.LoginRedirectController</servlet-class>
+</servlet>
+  <servlet>
         <servlet-name>LoginController</servlet-name>
         <servlet-class>controller.login.LoginController</servlet-class>
     </servlet>
@@ -40,4 +44,8 @@
         <servlet-name>LoginController</servlet-name>
         <url-pattern>/showContents</url-pattern>
     </servlet-mapping>
+    <servlet-mapping>
+    <servlet-name>LoginRedirectController</servlet-name>
+    <url-pattern>/loginRedirect</url-pattern>
+</servlet-mapping>
 </web-app>

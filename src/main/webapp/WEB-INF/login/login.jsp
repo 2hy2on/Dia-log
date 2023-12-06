@@ -62,7 +62,7 @@
 <body>
     <section class="login-form">
         <h1>DIA-LOG</h1>
-        <form action="login_ok.jsp" method="post">
+	<form action="<%= request.getContextPath() %>/login" method="post">
             <div class="input">
                 <input type="text" name="ID" id="ID"> <label for="ID">ID</label>
             </div>
@@ -73,6 +73,7 @@
                 <button type="submit">LOGIN</button>
             </div>
         </form>
+<li><a href="<%= request.getContextPath() %>/register-form">회원가입</a></li>
     </section>
 </body>
 </html>

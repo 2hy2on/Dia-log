@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@ page import="model.*"%>
+<%@ page import="model.dto.contents.Contents"%>
 <%@ page import="java.util.*"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
@@ -8,59 +8,22 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<!-- <link href="../../css/contents/search.css" rel="stylesheet"
-	type="text/css"> -->
+<link rel="stylesheet" href="<c:url value='/css/contents/search.css' />"
+	type="text/css">
+<link
+	href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+	rel="stylesheet"
+	integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN"
+	crossorigin="anonymous">
+<link rel="stylesheet"
+	href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+<link rel="stylesheet"
+	href="<c:url value='/css/contents/contentsList.css' />" type="text/css">
 <script>
 	function submitForm() {
 		document.forms["search"].submit();
 	}
 </script>
-<style>
-body {
-	width: 100%;
-	margin: 0;
-}
-
-.pull-right select {
-	padding: 0 20px;
-	height: 30px;
-	background-color: #FCF8EC;
-	color: #000;
-	right: 30px;
-	margin-top: 15px;
-	margin-right: 15px;
-	border: 1px solid #fff;
-	border-radius: 30px;
-	text-color: #000;
-}
-
-/* select:hover {
-	border: 2px solid #000;
-} */
-.search {
-	position: relative;
-	width: 300px;
-	margin-top: 20px;
-}
-
-input {
-	width: 100%;
-	border: 1px solid #bbb;
-	border-radius: 15px;
-	padding: 10px 12px;
-	font-size: 14px;
-	background-color: #FCF8EC;
-	margin-bottom: 20px;
-}
-
-.search img {
-	position: absolute;
-	width: 17px;
-	top: 10px;
-	right: 12px;
-	margin: 0;
-}
-</style>
 </head>
 <body>
 	<div class="container" style="display: flex;">
@@ -89,25 +52,42 @@ input {
 		</div>
 	</div>
 
-	<div class="search-results">
-		<% 
+	<% 
         List<Contents> searchList = (List<Contents>)request.getAttribute("searchList");
         
         if (searchList != null && !searchList.isEmpty()) {
             Iterator<Contents> iterator = searchList.iterator();
-            
+            int index = 1;
+        %>
+
+	<div class="gallery">
+		<div class="container text-center">
+
+			<%
             while (iterator.hasNext()) {
                 Contents content = iterator.next();
-    %>
-		<div class="search-result">
-			<h3><%= content.getTitle() %></h3>
-			<p><%= content.getGenre() %></p>
+                if (index % 5 == 1) { %>
+			<div class="row">
+				<% } %>
+				<div class="col">
+					<article class="card" data-bs-toggle="modal"
+						data-bs-target="#exampleModal">
+						<figure>
+							<img src="<%= content.getContentImg() %>"
+								alt="<%= content.getGenre() %>">
+							<figcaption>
+								<p class="h6"><%= content.getTitle() %></p>
+							</figcaption>
+						</figure>
+					</article>
+				</div>
+				<% index++; 
+			} %>
+				<% if (index % 5 == 1) { %>
+			</div>
+			<% } 
+			}%>
 		</div>
-		<% 
-            } 
-        } %>
 	</div>
-
-
 </body>
 </html>

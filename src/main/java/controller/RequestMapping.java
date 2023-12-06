@@ -12,6 +12,7 @@ import controller.friend.FriendListController;
 import controller.diary.DiaryController;
 import controller.review.ReadReviewForDateController;
 import controller.review.DeleteReviewController;
+
 import controller.review.FilterReviewController;
 import controller.contents.SearchContentsController;
 
@@ -35,11 +36,16 @@ public class RequestMapping {
         mappings.put("/diary", new DiaryController());
         mappings.put("/diary/reviewList", new ReadReviewForDateController());
         mappings.put("/diary/filter", new FilterReviewController());
+
              //다이어리 리뷰 삭제 
         mappings.put("/review/delete", new DeleteReviewController());
+
         // 친구 관련 request URI 추가
         mappings.put("/friend/list", new FriendListController());
 
+//        // 유저 관련 request URI 추가
+//        mappings.put("/user/loginForm", new LoginController());
+        
         
         logger.info("Initialized Request Mapping!");
     }

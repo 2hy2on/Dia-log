@@ -27,8 +27,8 @@ public class SearchContentsController implements Controller {
 		
 		request.setAttribute("searchList", searchList);
 
-		/* return "redirect:/contents/list"; */
-		return "/contents/SearchResults.jsp";
+//		return "redirect:/contents/list";
+		return "/contents/Contents.jsp";
 	}
 
 }
