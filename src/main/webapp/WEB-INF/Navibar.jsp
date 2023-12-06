@@ -18,9 +18,7 @@
 					<li><a href="#">리뷰</a></li>
 					<li><a href="#">친구</a></li>
 					<li><a href="#">통계</a></li>
-				</ul></li>
-			<li><a href="#">OTT 게시판</a></li>
-		<li><a href="#">로그인</a></li>
+				
 				<ul>
 					<li><a href="Mypage.jsp">내 정보 수정</a></li>
 					<li><a href="#">Q & A</a></li>
