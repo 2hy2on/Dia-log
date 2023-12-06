@@ -1,6 +1,7 @@
 package controller.diary;
 
 import java.io.PrintWriter;
+
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -19,7 +20,7 @@ import model.dto.review.ReviewDiary;
 import model.service.Review.ReviewManager;
 
 public class DiaryController implements Controller {
-//    private static final Logger logger = LoggerFactory.getLogger(DiaryController.class);
+    private static final Logger logger = LoggerFactory.getLogger(DiaryController.class);
     
 	@Override
 	public String execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
