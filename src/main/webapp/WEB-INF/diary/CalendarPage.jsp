@@ -24,19 +24,24 @@
         }
 
         .calendarLayer {
-            width: 400px; /* Set a fixed width for each section */
-            margin-left: 20px; /* Adjust the margin as needed */
+            /* Set a fixed width for each section */
+            width: 600px;
+            
         }
 
         .listLayer {
-            width: 400px; /* Set a fixed width for each section */
-            margin-left: 20px; /* Adjust the margin as needed */
+             /* Set a fixed width for each section */
+             /* Adjust the marg width: 0px;in as needed */
             margin-top: 100px;
+            margin-right: 100px;
         }
     </style>
     <title>Insert title here</title>
 </head>
+<div>
+<jsp:include page="../Navibar.jsp" /> 
 
+</div>
 <body>
 
     <div class="container">

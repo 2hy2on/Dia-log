@@ -45,8 +45,13 @@ if (reviewDateList != null) {
 <script>
     var reviewList = JSON.parse('<%= jsonResult %>');
     console.log(reviewList)
+	var rId 
     function updateModalContent(reviewId) {
+    	rId = reviewId
+    	//localStorage.setItem("reviewId",reviewId)
         var review = reviewList.find(function (r) {
+ 
+   
             return r.reviewId === reviewId;
         });
 
@@ -58,12 +63,76 @@ if (reviewDateList != null) {
             // Set the checked attribute for the correct radio button
             var star = document.getElementById(review.rate + '-stars');
                 star.checked = true
-                
-            
+                console.log("=============")
+                console.log(localStorage.getItem("dateForReview"))
+                document.getElementById('watchedAt').value = localStorage.getItem("dateForReview");
         }
     }
+    function saveReview() {
+        var reviewId = rId
+        var watchedAt = document.getElementById('watchedAt').value;
+        var rating = document.querySelector('input[name="rating"]:checked').value;
+        var reviewText = document.getElementById('message-text').value;
+        
+        var data = {
+           reviewId:  String(reviewId),
+            watchedAt: watchedAt,
+            rating:  String(rating),
+            reviewText: reviewText
+        };
+        
+        console.log(data.reviewId)
+        // Make an AJAX request using fetch
+        fetch("<c:url value='/review/update'/>", {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json;charset=UTF-8'
+            },
+            body: JSON.stringify(data)
+        })
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+            // You can handle the response here if needed
+            console.log('Review updated successfully.');
+            
+            // Reload the page
+            
+            location.reload();
+        
+            
+        })
+        .catch(error => {
+            console.error('Error updating review:', error);
+        });
+    }
 
+    function deleteReview() {
+        console.log(rId);
+        fetch("<c:url value='/review/delete'/>?reviewId=" + encodeURIComponent(rId), {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json;charset=UTF-8'
+            },
+        })
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+            // You can handle the response here if needed
+            console.log('Review delete successfully.');
 
+            // Reload the page after a short delay (adjust the delay as needed)
+            setTimeout(function () {
+                location.reload();
+            }, 1000); // 1000 milliseconds = 1 second
+        })
+        .catch(error => {
+            console.error('Error deleting review:', error);
+        });
+   
+    }
        
 </script>
     <div class="gallery">
@@ -135,7 +204,7 @@ if (reviewDateList != null) {
                </form>
             </div>
             <div class="modal-footer">
-               <button type="button" class="btn btn-danger" >삭제하기</button>
+               <button type="button" class="btn btn-danger" onclick="deleteReview()">삭제하기</button>
                <button type="button" class="btn btn-primary" onclick="saveReview()">저장하기</button>
             </div>
          </div>

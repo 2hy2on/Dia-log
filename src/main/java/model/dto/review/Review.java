@@ -14,7 +14,7 @@ public class Review {
 	
 	private LocalDateTime createdAt;
 
-	private java.sql.Date watchedAt;
+	private Date watchedAt;
 
 	private boolean isPrivate;
 	
@@ -35,12 +35,12 @@ public class Review {
 
 
 
-	public java.sql.Date getWatchedAt() {
+	public Date getWatchedAt() {
 		return watchedAt;
 	}
 
 	public void setWatchedAt(Date date) {
-		this.watchedAt = (java.sql.Date) date;
+		this.watchedAt = date;
 	}
 
 	public String getTitle() {
