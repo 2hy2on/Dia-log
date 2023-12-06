@@ -19,32 +19,6 @@ public class ContentsDAO {
 		jdbcUtil = new JDBCUtil(); // JDBCUtil 객체 생성
 	}
 
-	/*
-	 * public boolean createContents(Contents cont) { StringBuilder query = new
-	 * StringBuilder(); String sql =
-	 * "INSERT INTO Contents (contentId, contentType, contentImg, title, genre, publishDate) VALUES (?, ?, ?, ?, ?, ?)"
-	 * ;
-	 * 
-	 * // query에 SQL 쿼리 추가 query.append(sql);
-	 * 
-	 * // JDBCUtil 객체 생성 JDBCUtil jdbcUtil = new JDBCUtil();
-	 * 
-	 * Object[] param = new Object[] { cont.getContentId(), cont.getContentType(),
-	 * cont.getContentImg(), // cont.getReviews(), cont.getTitle(), cont.getGenre(),
-	 * cont.getPublishDate() };
-	 * 
-	 * // query에 대한 SQL 및 매개변수 설정 jdbcUtil.setSqlAndParameters(query.toString(),
-	 * param);
-	 * 
-	 * try { // executeQuery 대신 executeUpdate 사용 int affectedRows =
-	 * jdbcUtil.executeUpdate(); if (affectedRows > 0) { return true; } } catch
-	 * (Exception ex) { jdbcUtil.rollback(); // 트랜잭션 rollback 실행
-	 * ex.printStackTrace(); } finally { jdbcUtil.commit(); // 트랜잭션 commit 실행
-	 * jdbcUtil.close(); }
-	 * 
-	 * return false; }
-	 */
-
 	public List<Contents> getContentList() {
 		String sql =  "SELECT c.contentId, c.contentImg, c.contentType, c.title, c.genre, c.publishDate FROM Contents c";
 
@@ -108,7 +82,6 @@ public class ContentsDAO {
 
 	    return contentList;
 	}
-
 	
 	public boolean pickContent(int userId, int contentId) {
         LocalDateTime currentDateTime = LocalDateTime.now();
@@ -136,19 +109,7 @@ public class ContentsDAO {
     }
 	
 	public static void main(String[] args) throws SQLException {
-//		LocalDate currentDate = LocalDate.now();
-//		Movie movie = new Movie();
-//		Contents cont = new Contents();
-//
-//		cont.setContentId(0);
-//		cont.setContentImg("https://ifh.cc/g/2DomCY.jpg");
-//		cont.setContentType(ContentType.Movie);
-//		cont.setReviews(null);
-//		cont.setTitle("라푼젤");
-//		cont.setGenre("애니메이션/모험/로맨스");
-//		cont.setPublishDate(currentDate);
-
-		ContentsDAO dao = new ContentsDAO();
-		System.out.println(dao.getContentList());
+//		ContentsDAO dao = new ContentsDAO();
+//		System.out.println(dao.getContentList());
 	}
 }

@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@ page import="model.dto.contents.Contents" %>
+<%@ page import="model.dto.contents.Contents"%>
 <%@ page import="java.util.*"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
@@ -17,8 +17,8 @@
 	crossorigin="anonymous">
 <link rel="stylesheet"
 	href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
-<link rel="stylesheet" href="<c:url value='/css/contents/contentsList.css' />"
-	type="text/css">
+<link rel="stylesheet"
+	href="<c:url value='/css/contents/contentsList.css' />" type="text/css">
 
 </head>
 <body>
@@ -50,13 +50,13 @@
 						</figure>
 					</article>
 				</div>
-				<% index++; } %>
+				<% index++; 
+				} %>
 				<% if (index % 5 == 1) { %>
 			</div>
 			<% } %>
 		</div>
 	</div>
-	<% } %>
 
 	<div class="modal fade" id="exampleModal" tabindex="-1"
 		aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -91,5 +91,6 @@
 			</div>
 		</div>
 	</div>
+	<% } %>
 </body>
 </html>
