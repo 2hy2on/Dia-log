@@ -25,8 +25,6 @@ public class RequestMapping {
     	// 각 uri에 대응되는 controller 객체를 생성 및 저장
         mappings.put("/", new ForwardController("index.jsp"));
         
-        // 메인 컨텐츠 관련 request URI 추가
-        mappings.put("/diary", new DiaryController());
 
         // 메인 컨텐츠 관련 request URI 추가
         mappings.put("/contents/list", new ListContentsController());
@@ -34,12 +32,16 @@ public class RequestMapping {
         mappings.put("/contents/pickContents", new PickContentsController());
         
         // 다이어리 관련 request URI 추가
+        mappings.put("/diary", new DiaryController());
         mappings.put("/diary/reviewList", new ReadReviewForDateController());
         mappings.put("/diary/filter", new FilterReviewController());
         
         // 친구 관련 request URI 추가
         mappings.put("/friend/list", new FriendListController());
 
+//        // 유저 관련 request URI 추가
+//        mappings.put("/user/loginForm", new LoginController());
+        
         
         logger.info("Initialized Request Mapping!");
     }
