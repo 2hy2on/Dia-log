@@ -73,6 +73,7 @@
                 <button type="submit">LOGIN</button>
             </div>
         </form>
+        <li><a href="LoginForm.jsp">회원가입</a></li>
     </section>
 </body>
 </html>
