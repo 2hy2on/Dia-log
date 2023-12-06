@@ -11,6 +11,8 @@ import controller.friend.FriendListController;
 
 import controller.diary.DiaryController;
 import controller.review.ReadReviewForDateController;
+import controller.review.DeleteReviewController;
+
 import controller.review.FilterReviewController;
 import controller.contents.SearchContentsController;
 
@@ -22,9 +24,8 @@ public class RequestMapping {
     private Map<String, Controller> mappings = new HashMap<String, Controller>();
 
     public void initMapping() {
-    	// 각 uri에 대응되는 controller 객체를 생성 및 저장
+       // 각 uri에 대응되는 controller 객체를 생성 및 저장
         mappings.put("/", new ForwardController("index.jsp"));
-        
 
         // 메인 컨텐츠 관련 request URI 추가
         mappings.put("/contents/list", new ListContentsController());
@@ -35,7 +36,10 @@ public class RequestMapping {
         mappings.put("/diary", new DiaryController());
         mappings.put("/diary/reviewList", new ReadReviewForDateController());
         mappings.put("/diary/filter", new FilterReviewController());
-        
+
+             //다이어리 리뷰 삭제 
+        mappings.put("/review/delete", new DeleteReviewController());
+
         // 친구 관련 request URI 추가
         mappings.put("/friend/list", new FriendListController());
 
@@ -46,8 +50,8 @@ public class RequestMapping {
         logger.info("Initialized Request Mapping!");
     }
 
-    public Controller findController(String uri) {	
-    	// 주어진 uri에 대응되는 controller 객체를 찾아 반환
+    public Controller findController(String uri) {   
+       // 주어진 uri에 대응되는 controller 객체를 찾아 반환
         return mappings.get(uri);
     }
 }

@@ -189,7 +189,7 @@ String jsonResult = (String) request.getAttribute("jsonResult");
 	#calendar {
  		float: right; 
         
-		width: 800px;
+		width: 600px;
 		background-color: #FFFFFF;
 		  border-radius: 6px;
         box-shadow: 0 1px 2px #C3C3C3;
