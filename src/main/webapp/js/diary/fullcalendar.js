@@ -2379,7 +2379,7 @@ function BasicView(element, calendar, viewName) {
 		if (!opt('selectable')) { // if selectable, SelectionManager will worry about dayClick
 			var date = parseISO8601($(this).data('date'));
 			trigger('dayClick', this, date, true, ev);
-			console.log(date+"ddddddddddddddddddddd")
+			console.log(date+"ddddddddddddddddddddd기지롱")
 		}
 	}
 	
@@ -5834,13 +5834,39 @@ function SelectionManager() {
 					var datePart = dateObj.toDateString();
 					
 					
-					console.log(dates[0]+"ddddddddddddddddddddd")
+					
 				 var dateHeaderElement = document.getElementById("dateHeader");
+				 
         		if (dateHeaderElement) { //text바꿔줌
             	// localStorage에서 가져온 값을 #dateHeader에 설정
             	
             		//dateHeaderElement.textContent = dates[0].split('00:00:00')[0];
-            		dateHeaderElement.textContent = datePart
+            	//	dateHeaderElement.textContent = datePart
+            		
+            		localStorage.setItem("dateForReview",datePart)
+            		var inputDate = new Date(datePart);
+
+// Format the output date string as 'YYYY/MM/DD'
+					var outputDateString = inputDate.getFullYear() + '-' +
+                      ('0' + (inputDate.getMonth() + 1)).slice(-2) + '-' +
+                      ('0' + inputDate.getDate()).slice(-2);
+
+					console.log(outputDateString); // Output: '2023/12/08'
+					
+					$.ajax({
+    						type: 'GET',
+    					url: "/dialog/diary/reviewList", // Replace with your server endpoint
+    					data: { dateStr: outputDateString },
+    					success: function(response) {
+       					 // Handle the success response from the server if needed
+       					 console.log('Ajax request successful', response);
+       					  $('#reviewContainer').html(response);
+    					},
+    					error: function(error) {
+        			// Handle errors if the request fails
+        				console.error('Ajax request failed', error);
+    }
+});
         			}
         			
 					renderSelection(dates[0], dates[1], true);

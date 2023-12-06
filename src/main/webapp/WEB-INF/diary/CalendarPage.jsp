@@ -44,7 +44,6 @@
             <jsp:include page="fullcalendar.jsp" />
         </div>
         <div class="listLayer">
-            <div id="dateName"></div>
             <jsp:include page="review.jsp" />
         </div>
     </div>

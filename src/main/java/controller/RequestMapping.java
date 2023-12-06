@@ -10,7 +10,11 @@ import controller.contents.PickContentsController;
 import controller.friend.FriendListController;
 
 import controller.diary.DiaryController;
+<<<<<<< HEAD
+import controller.review.ReadReviewForDateController;
+=======
 import controller.review.FilterReviewController;
+>>>>>>> 364f7dd41dd36acd98285b108c3a3fae67ef0b43
 import controller.contents.SearchContentsController;
 
 
@@ -33,6 +37,7 @@ public class RequestMapping {
         mappings.put("/contents/pickContents", new PickContentsController());
         
         // 다이어리 관련 request URI 추가
+        mappings.put("/diary/reviewList", new ReadReviewForDateController());
         mappings.put("/diary/filter", new FilterReviewController());
         // 다이어리 관련 request URI 추가
         

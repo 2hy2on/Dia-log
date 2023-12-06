@@ -9,12 +9,31 @@ public class Review {
 	private String detail;
 	
 	private Float rate;
-	
+	private int reviewId;
 	private LocalDateTime updatedAt;
 	
 	private LocalDateTime createdAt;
 
 	private java.sql.Date watchedAt;
+
+	private boolean isPrivate;
+	
+	private String mediaImg;
+	private String title;
+
+	private int contentId;
+	 
+	private int writerId;
+	
+	public int getReviewId() {
+		return reviewId;
+	}
+
+	public void setReviewId(int reviewId) {
+		this.reviewId = reviewId;
+	}
+
+
 
 	public java.sql.Date getWatchedAt() {
 		return watchedAt;
@@ -24,13 +43,14 @@ public class Review {
 		this.watchedAt = (java.sql.Date) date;
 	}
 
-	private boolean isPrivate;
-	
-	private String mediaImg;
-	
-	private int contentId;
-	 
-	private int writerId;
+	public String getTitle() {
+		return title;
+	}
+
+	public void setTitle(String title) {
+		this.title = title;
+	}
+
 
 
 	public String getDetail() {
