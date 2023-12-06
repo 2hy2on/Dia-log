@@ -74,6 +74,7 @@ public class ReviewDAO {
 		return null;
 	}
 
+
 	public boolean deleteReview(int reviewId) {
 
 		StringBuilder query = new StringBuilder();
@@ -103,9 +104,9 @@ public class ReviewDAO {
 		LocalDateTime currentDateTime = LocalDateTime.now();
 		LocalDate currentDate = LocalDate.now();
 		query.append(
-				"UPDATE Review SET rate=?, watchedAt=?,isPrivate=?, detail=?,updatedAt=? where contentId =? and writerId=?");
+				"UPDATE Review SET rate=?, watchedAt=?,isPrivate=?, detail=?,updatedAt=? where reviewId =?");
 
-		Object[] param = new Object[] { review.getRate(), review.getWatchedAt(), review.isPrivate(), review.getDetail(), currentDate, review.getContentId(), review.getWriterId() };
+		Object[] param = new Object[] { review.getRate(), review.getWatchedAt(), review.isPrivate(), review.getDetail(), currentDate, review.getReviewId() };
 
 		jdbcUtil.setSqlAndParameters(query.toString(), param); // JDBCUtil 에 insert문과 매개 변수 설정
 

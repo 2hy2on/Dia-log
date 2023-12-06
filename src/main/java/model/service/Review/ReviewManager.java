@@ -36,4 +36,9 @@ public class ReviewManager {
 	public boolean updateReview(Review review) {
 		return reviewDAO.updateReview(review);
 	}
+
+	public boolean deleteReview(int reviewId) {
+		return reviewDAO.deleteReview(reviewId);
+		
+	}
 }

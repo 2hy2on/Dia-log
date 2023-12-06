@@ -5843,7 +5843,7 @@ function SelectionManager() {
             		//dateHeaderElement.textContent = dates[0].split('00:00:00')[0];
             	//	dateHeaderElement.textContent = datePart
             		
-            		localStorage.setItem("dateForReview",datePart)
+            		
             		var inputDate = new Date(datePart);
 
 // Format the output date string as 'YYYY/MM/DD'
@@ -5852,11 +5852,12 @@ function SelectionManager() {
                       ('0' + inputDate.getDate()).slice(-2);
 
 					console.log(outputDateString); // Output: '2023/12/08'
-					
+					localStorage.setItem("dateForReview",outputDateString)
 					$.ajax({
     						type: 'GET',
     					url: "/dialog/diary/reviewList", // Replace with your server endpoint
     					data: { dateStr: outputDateString },
+    					//async: false,
     					success: function(response) {
        					 // Handle the success response from the server if needed
        					 console.log('Ajax request successful', response);
@@ -5865,6 +5866,7 @@ function SelectionManager() {
     					error: function(error) {
         			// Handle errors if the request fails
         				console.error('Ajax request failed', error);
+        				// $('#reviewContainer').html(response.responseText);
     }
 });
         			}
