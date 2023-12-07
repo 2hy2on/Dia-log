@@ -8,31 +8,14 @@
         
         
         
-<<<<<<< HEAD
-        <wb-resource deploy-path="/WEB-INF/classes" source-path="/src/main/java"/>
-                                        
-        
-        
-        
-        <wb-resource deploy-path="/WEB-INF/classes" source-path="/src/main/resources"/>
-                                
-        
-        
-=======
->>>>>>> 95801cd02192b6de808cd833da47b88034dd69db
         <wb-resource deploy-path="/" source-path="/target/m2e-wtp/web-resources"/>
                                         
         
         
         
         <wb-resource deploy-path="/" source-path="/src/main/webapp" tag="defaultRootSource"/>
-<<<<<<< HEAD
-        <wb-resource deploy-path="/WEB-INF/classes" source-path="/src/test/java"/>
-        <wb-resource deploy-path="/WEB-INF/classes" source-path="/src/test/resources"/>
-=======
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/src/main/java"/>
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/src/main/resources"/>
->>>>>>> 95801cd02192b6de808cd833da47b88034dd69db
                                         
         
         
