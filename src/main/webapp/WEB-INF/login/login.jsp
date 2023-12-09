@@ -89,8 +89,8 @@ body {
 </head>
 <body>
 	<%@ include file="../Navibar.jsp"%>
-	<h4 class="login-title">로그인</h4>
 	<section class="login-form">
+	<h1 class="login-title">로그인</h4>
 		<form action="<%=request.getContextPath()%>/login" method="post">
 			<div class="input">
 				<input type="text" name="ID" id="ID"> <label for="ID">ID</label>
