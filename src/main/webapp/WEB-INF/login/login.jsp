@@ -81,8 +81,8 @@ body {
 
 .login-title {
 	color: #456268;
-	margin-top: 50px;
-	margin-bottom: 30px;
+	margin-top: -300px;
+	margin-bottom: 10px;
 	text-align: center;
 }
 </style>
