@@ -4,6 +4,8 @@ import java.util.HashMap;
 import java.util.Map;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import controller.board.BoardController;
 import controller.contents.ListContentsController;
 import controller.contents.PickContentsController;
 
@@ -46,7 +48,7 @@ public class RequestMapping {
 //        // 유저 관련 request URI 추가
 //        mappings.put("/user/loginForm", new LoginController());
         
-        
+         mappings.put("/board", new BoardController());
         logger.info("Initialized Request Mapping!");
     }
 
