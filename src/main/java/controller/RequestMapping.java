@@ -6,6 +6,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import controller.board.BoardController;
+import controller.board.BoardWriteController;
 import controller.contents.ListContentsController;
 import controller.contents.PickContentsController;
 
@@ -49,6 +50,7 @@ public class RequestMapping {
 //        mappings.put("/user/loginForm", new LoginController());
         
          mappings.put("/board", new BoardController());
+         mappings.put("/board/write", new BoardWriteController());
         logger.info("Initialized Request Mapping!");
     }
 
