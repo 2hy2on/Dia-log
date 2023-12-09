@@ -138,7 +138,7 @@
             <%
             }
             %>
-            <a href="Write.jsp" class="btn">글쓰기</a>
+        <a href="/dialog/board/write" class="btn">글쓰기</a>
         </div>
     </div>
 </body>
