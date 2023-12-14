@@ -27,9 +27,8 @@
                <li><a href="#">통계</a></li>
             </ul></li>
          <li><a href="<c:url value='/board'/>">OTT 게시판</a></li>
-         <li><a href="<c:url value='/login/login.jsp'/>">로그인 </a>
+         <li><a href="<c:url value='/mypage'/>">마이페이지 </a>
             <ul>
-               <li><a href="Mypage.jsp">내 정보 수정</a></li>
                <li><a href="logoutAction.jsp">로그아웃</a></li>
             </ul></li>
       </ul>

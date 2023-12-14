@@ -11,7 +11,8 @@ import controller.contents.ListContentsController;
 import controller.contents.PickContentsController;
 
 import controller.friend.FriendListController;
-
+import controller.login.LoginController;
+import controller.login.MypageController;
 import controller.diary.DiaryController;
 import controller.review.ReadReviewForDateController;
 import controller.review.DeleteReviewController;
@@ -48,6 +49,8 @@ public class RequestMapping {
 
 //        // 유저 관련 request URI 추가
 //        mappings.put("/user/loginForm", new LoginController());
+        mappings.put("/login", new LoginController()); // 여기에 추가
+        mappings.put("/mypage", new MypageController()); // 여기에 추가
         
          mappings.put("/board", new BoardController());
          mappings.put("/board/write", new BoardWriteController());
