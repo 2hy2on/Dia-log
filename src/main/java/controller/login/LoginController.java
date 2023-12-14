@@ -18,7 +18,7 @@ public class LoginController implements Controller {
         // Check if the user is already logged in
         if (session.getAttribute("ID") != null) {
             // If already logged in, redirect to the home page
-            return "/login/Mypage.jsp";
+            return "redirect:/contents/list";
         }
 
         // Get user input from the login form
@@ -35,7 +35,7 @@ public class LoginController implements Controller {
             case 1:
                 // Login successful
                 session.setAttribute("ID", userID);
-                return "/login/Mypage.jsp"; // Redirect to the home page
+                return "redirect:/contents/list"; // Redirect to the home page
             case 0:
                 // Password incorrect
                 request.setAttribute("errorMessage", "비밀번호가 틀렸습니다.");

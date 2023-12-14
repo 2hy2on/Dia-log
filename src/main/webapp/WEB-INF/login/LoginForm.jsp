@@ -87,12 +87,11 @@ body{
     width: 80%;
 }
 </style>
-<link rel="stylesheet" href="style2.css">
 </head>
 <body>
 	<div class="wrap">
 		<h1>회원가입</h1>
-		<form method="post" action="FormAction.jsp">
+		<form method="post" action="/dialog/login/register">
 			<dl>
 				<dt>이름</dt>
 				<dd>

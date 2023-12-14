@@ -99,7 +99,7 @@ body {
 				<input type="password" name="password" id="password"> <label
 					for="password">PASSWORD</label>
 			</div>
-			<li><a href="<%=request.getContextPath()%>/register-form">회원가입</a></li>
+			<li><a href="<%=request.getContextPath()%>/login/registerPage">회원가입</a></li>
 			<div class="btn">
 				<button type="submit">LOGIN</button>
 			</div>
