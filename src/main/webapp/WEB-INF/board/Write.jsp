@@ -71,10 +71,9 @@
 <body>
     <header>
         <jsp:include page="../Navibar.jsp" />
-    </header>
-    
+    </header>    
     <div class="container">
-        <form method="post" action="writeAction.jsp">
+       <form method="post" action="/dialog/board/writeAction">
             <table class="table">
                 <thead>
                     <tr>

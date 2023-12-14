@@ -41,7 +41,7 @@
         .content {
             flex: 1;
             padding: 10px;
-            margin-top: 100px; /* 조절 가능한 여백 추가 */
+            margin-top: 30px; /* 조절 가능한 여백 추가 */
         }
 
         .content table {
@@ -129,12 +129,12 @@
             <%
             if (pageNumber != 1) {
             %>
-            <a href="board.jsp?pageNumber=<%=pageNumber - 1%>" class="btn btn-success btn-arrow-left">이전</a>
+             <a href="<%=request.getContextPath()%>/board?pageNumber=<%=pageNumber - 1%>" class="btn btn-success btn-arrow-left">이전</a>
             <%
             }
             if (boardDAO.nextPage(pageNumber + 1)) {
             %>
-            <a href="board.jsp?pageNumber=<%=pageNumber + 1%>" class="btn btn-success btn-arrow-left">다음</a>
+          <a href="<%=request.getContextPath()%>/board?pageNumber=<%=pageNumber + 1%>" class="btn btn-success btn-arrow-left">다음</a>
             <%
             }
             %>
