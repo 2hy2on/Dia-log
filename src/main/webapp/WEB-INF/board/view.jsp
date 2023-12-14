@@ -9,7 +9,34 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 </head>
-<body>
+<style type="text/css">
+  * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            display: flex;
+            flex-direction: column;
+            height: 100vh;
+            background-size: cover;
+        }
+        .container {
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            margin-top: 50px;
+        }
+
+        .navi {
+            width: 200px;
+            padding: 10px;
+            background-color: #eeeeee;
+        }
+</style>
+<body>		
+<jsp:include page="../Navibar.jsp" />
 	<%
 	String ID = null;
 	if (session.getAttribute("ID") != null) {
@@ -60,14 +87,16 @@
 			</table>
 			<a href= "board.jsp" class = "btn btn-primary">목록</a>
 			<%
+			 System.out.println("ID: " + ID);
+		    System.out.println("board.getID(): " + board.getID());
 			if(ID != null && ID.equals(board.getID())){
 			%>
-			<a href = "update.jsp?boardID=<%=boardID %>" class = "btn btn-primary">수정</a>
-			<a href = "deleteAction.jsp?boardID=<%=boardID %>" class = "btn btn-primary">삭제</a>
+			<a href = "update.jsp?boardID=<%=boardID %>" class = "btn btn-primary" style="margin-top: 20px;">수정</a>
+			<a href = "deleteAction.jsp?boardID=<%=boardID %>" class = "btn btn-primary" style="margin-top: 20px;">삭제</a>
 			<%
 			}
 			%>
-			<input type="submit" value="글쓰기">
+			<input type="submit" value="글쓰기" style="margin-top: 20px;">
 			
 		</div>
 	</div>

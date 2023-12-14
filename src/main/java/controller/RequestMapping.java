@@ -7,6 +7,7 @@ import org.slf4j.LoggerFactory;
 
 import controller.board.BoardController;
 import controller.board.BoardWriteController;
+import controller.board.ViewBoardController;
 import controller.board.WriteActionController;
 import controller.contents.ListContentsController;
 import controller.contents.PickContentsController;
@@ -53,9 +54,11 @@ public class RequestMapping {
         mappings.put("/login", new LoginController()); // 여기에 추가
         mappings.put("/mypage", new MypageController()); // 여기에 추가
         
+        //게시판 관련 request URI 추가
          mappings.put("/board", new BoardController());
          mappings.put("/board/write", new BoardWriteController());
          mappings.put("/board/writeAction", new WriteActionController());
+         mappings.put("/board/view", new ViewBoardController());
          
         logger.info("Initialized Request Mapping!");
     }
