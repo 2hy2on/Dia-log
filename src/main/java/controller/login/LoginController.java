@@ -24,7 +24,8 @@ public class LoginController implements Controller {
         // Get user input from the login form
         String userID = request.getParameter("ID");
         String password = request.getParameter("password");
-
+        
+        session.setAttribute("ID", userID);
         // Validate the login credentials
         UserDAO userDAO = new UserDAO();
         int loginResult = userDAO.login(userID, password);
