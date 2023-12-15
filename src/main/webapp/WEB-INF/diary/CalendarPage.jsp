@@ -14,7 +14,7 @@
             justify-content: space-around; /* Spread items horizontally */
             align-items: center; /* Center items vertically */
             margin: 0 auto; /* Center the container horizontally */
-            margin-top: 100px;
+            margin-top: 60px;
         }
 
         #dateName {
