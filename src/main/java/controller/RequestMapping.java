@@ -19,6 +19,7 @@ import controller.login.RegisterController;
 import controller.login.RegisterPageController;
 import controller.diary.DiaryController;
 import controller.review.ReadReviewForDateController;
+import controller.visit.ReadOverviewController;
 import controller.review.DeleteReviewController;
 
 import controller.review.FilterReviewController;
@@ -63,6 +64,9 @@ public class RequestMapping {
          mappings.put("/board/write", new BoardWriteController());
          mappings.put("/board/writeAction", new WriteActionController());
          mappings.put("/board/view", new ViewBoardController());
+         
+         //통계 관련 reques uri 추가
+         mappings.put("/readOverview", new ReadOverviewController());
          
         logger.info("Initialized Request Mapping!");
     }

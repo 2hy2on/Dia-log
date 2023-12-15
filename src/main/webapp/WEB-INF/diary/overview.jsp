@@ -1,3 +1,6 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!doctype html>
 <html class="no-js h-100" lang="en">
   <head>
@@ -7,16 +10,30 @@
         margin-right: auto;
     }
 </style>
+<script>
+  // Set the JSON data as a JavaScript variable
+   <%
+//Retrieve the jsonResult attribute
+String jsonResult = (String) request.getAttribute("reviewTypeNumJsonResult");
+%>
+var reviewTypeNumJsonResult = JSON.parse('<%= jsonResult %>');
+  // Now you can use reviewTypeNumJsonResult in your JavaScript code
+</script>
+
+
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <div>
+		<jsp:include page="../Navibar.jsp"/> 
+		</div>
     <title>diary overview</title>
     <meta name="description" content="A high-quality &amp; free Bootstrap admin dashboard template pack that comes with lots of templates and components.">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link href="https://use.fontawesome.com/releases/v5.0.6/css/all.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
-    <link rel="stylesheet" id="main-stylesheet" data-version="1.1.0" href="../css/diary/shards-dashboards.1.1.0.min.css">
-    <link rel="stylesheet" href="styles/diary/extras.1.1.0.min.css">
+    <link rel="stylesheet" id="main-stylesheet" data-version="1.1.0" href="<c:url value='/css/diary/shards-dashboards.1.1.0.min.css'/>">
+    <link rel="stylesheet" href="<c:url value='/css/diary/extras.1.1.0.min.css'/>">
     <script async defer src="https://buttons.github.io/buttons.js"></script>
   </head>
   <body class="h-100">
@@ -56,13 +73,7 @@
             <!-- <iframe style="width: 91px; height: 21px;"src="https://yvoschaap.com/producthunt/counter.html#href=https%3A%2F%2Fwww.producthunt.com%2Fr%2Fp%2F112998&layout=wide" width="56" height="65" scrolling="no" frameborder="0" allowtransparency="true"></iframe> -->
           </div>
         </div>
-        <!--   <div id="social-share" data-url="https://designrevision.com/downloads/shards-dashboard-lite/" data-text="🔥 Check out Shards Dashboard Lite, a free and beautiful Bootstrap 4 admin dashboard template!" data-title="share"></div> -->
-        <div class="loading-overlay">
-          <div class="spinner"></div>
-        </div>
-      </div>
-      <div class="close">
-        <i class="material-icons">close</i>
+        <!--   <div id="social-share" data-url="https://designrevision.com/downloads/shards-dashboard-lite/" data-text="ð¥ Check out Shards Dashboard Lite, a free and beautiful Bootstrap 4 admin dashboard template!" data-title="share"></div> -->
       </div>
     </div>
     <div class="container-fluid">
@@ -171,7 +182,7 @@
                       </div>
                       <div class="notification__content">
                         <span class="notification__category">Analytics</span>
-                        <p>Your website’s active users count increased by
+                        <p>Your websiteâs active users count increased by
                           <span class="text-success text-semibold">28%</span> in the last week. Great job!</p>
                       </div>
                     </a>
@@ -183,7 +194,7 @@
                       </div>
                       <div class="notification__content">
                         <span class="notification__category">Sales</span>
-                        <p>Last week your store’s sales count decreased by
+                        <p>Last week your storeâs sales count decreased by
                           <span class="text-danger text-semibold">5.52%</span>. It could have been worse!</p>
                       </div>
                     </a>
@@ -232,7 +243,7 @@
                   <div class="card-body p-0 d-flex">
                     <div class="d-flex flex-column m-auto">
                       <div class="stats-small__data text-center">
-                        <span class="stats-small__label text-uppercase">스릴러</span>
+                        <span class="stats-small__label text-uppercase">hello</span>
                         <h6 class="stats-small__value count my-3">2,390</h6>
                       </div>
                       <div class="stats-small__data">
@@ -264,7 +275,7 @@
                   <div class="card-body p-0 d-flex">
                     <div class="d-flex flex-column m-auto">
                       <div class="stats-small__data text-center">
-                        <span class="stats-small__label text-uppercase">로맨스</span>
+                        <span class="stats-small__label text-uppercase">eee</span>
                         <h6 class="stats-small__value count my-3">8,147</h6>
                       </div>
                       <div class="stats-small__data">
@@ -280,7 +291,7 @@
                   <div class="card-body p-0 d-flex">
                     <div class="d-flex flex-column m-auto">
                       <div class="stats-small__data text-center">
-                        <span class="stats-small__label text-uppercase">액션</span>
+                        <span class="stats-small__label text-uppercase">ì¡ì</span>
                         <h6 class="stats-small__value count my-3">2,413</h6>
                       </div>
                       <div class="stats-small__data">
@@ -323,9 +334,9 @@
                           <input type="text" class="input-sm form-control" name="start" placeholder="Start Date" id="blog-overview-date-range-1">
                           <input type="text" class="input-sm form-control" name="end" placeholder="End Date" id="blog-overview-date-range-2">
                           <span class="input-group-append">
-                            <span class="input-group-text">
-                              <i class="material-icons"></i>
-                            </span>
+                            <!-- <span class="input-group-text">
+                              <i class="material-icons">î¤</i>
+                            </span> -->
                           </span>
                         </div>
                       </div>
@@ -342,12 +353,12 @@
               <div class="col-lg-4 col-md-6 col-sm-12 mb-4">
                 <div class="card card-small h-100">
                   <div class="card-header border-bottom">
-                    <h6 class="m-0">장르</h6>
+                    <h6 class="m-0">ì¥ë¥´</h6>
                   </div>
                   <div class="card-body d-flex py-0">
                     <canvas height="220" class="blog-users-by-device m-auto"></canvas>
                   </div>
-                  <div class="card-footer border-top">
+                  <!--   <div class="card-footer border-top">
                     <div class="row">
                       <div class="col">
                         <select class="custom-select custom-select-sm" style="max-width: 130px;">
@@ -361,7 +372,7 @@
                         <a href="#">Full report &rarr;</a>
                       </div>
                     </div>
-                  </div>
+                  </div> -->
                 </div>
               </div>
               <!-- End Users By Device Stats -->
@@ -409,8 +420,8 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.1/Chart.min.js"></script>
     <script src="https://unpkg.com/shards-ui@latest/dist/js/shards.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Sharrre/2.0.1/jquery.sharrre.min.js"></script>
-    <script src="scripts/extras.1.1.0.min.js"></script>
-    <script src="../js/diary/shards-dashboards.1.1.0.min.js"></script>
-    <script src="../js/diary/app-blog-overview.1.1.0.js"></script>
+    <!--  <script src="<c:url value='scripts/extras.1.1.0.min.js'/>"></script>-->
+    <script src="<c:url value='/js/diary/shards-dashboards.1.1.0.min.js'/>"></script>
+    <script src="<c:url value='/js/diary/app-blog-overview.1.1.0.js'/>"></script>
   </body>
 </html>
