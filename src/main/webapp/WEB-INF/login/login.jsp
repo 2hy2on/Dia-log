@@ -81,16 +81,16 @@ body {
 
 .login-title {
 	color: #456268;
-	margin-top: 50px;
-	margin-bottom: 30px;
+	margin-top: -300px;
+	margin-bottom: 10px;
 	text-align: center;
 }
 </style>
 </head>
 <body>
 	<%@ include file="../Navibar.jsp"%>
-	<h4 class="login-title">로그인</h4>
 	<section class="login-form">
+	<h1 class="login-title">로그인</h4>
 		<form action="<%=request.getContextPath()%>/login" method="post">
 			<div class="input">
 				<input type="text" name="ID" id="ID"> <label for="ID">ID</label>
@@ -99,7 +99,7 @@ body {
 				<input type="password" name="password" id="password"> <label
 					for="password">PASSWORD</label>
 			</div>
-			<li><a href="<%=request.getContextPath()%>/register-form">회원가입</a></li>
+			<li><a href="<%=request.getContextPath()%>/login/registerPage">회원가입</a></li>
 			<div class="btn">
 				<button type="submit">LOGIN</button>
 			</div>

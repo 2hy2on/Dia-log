@@ -128,4 +128,17 @@ public class BoardDAO {
         }
         return null;
         }
+    public int update(int boardID, String boardTitle, String boardContent) {
+        String query = "UPDATE board set boardTitle = ? , boardContent = ? WHERE boardID = ?";    
+        try {
+            PreparedStatement pstmt = conn.prepareStatement(query);
+            pstmt.setString(1, boardTitle);
+            pstmt.setString(2, boardContent);
+            pstmt.setInt(3, boardID);
+            return pstmt.executeUpdate();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return -1;
     }
+    }   

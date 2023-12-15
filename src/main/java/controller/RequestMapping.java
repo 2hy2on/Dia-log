@@ -4,11 +4,19 @@ import java.util.HashMap;
 import java.util.Map;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import controller.board.BoardController;
+import controller.board.BoardWriteController;
+import controller.board.ViewBoardController;
+import controller.board.WriteActionController;
 import controller.contents.ListContentsController;
 import controller.contents.PickContentsController;
 
 import controller.friend.FriendListController;
-
+import controller.login.LoginController;
+import controller.login.MypageController;
+import controller.login.RegisterController;
+import controller.login.RegisterPageController;
 import controller.diary.DiaryController;
 import controller.review.ReadReviewForDateController;
 import controller.review.DeleteReviewController;
@@ -45,8 +53,17 @@ public class RequestMapping {
 
 //        // 유저 관련 request URI 추가
 //        mappings.put("/user/loginForm", new LoginController());
+        mappings.put("/login", new LoginController()); // 여기에 추가
+        mappings.put("/login/registerPage", new RegisterPageController()); // 여기에 추가
+        mappings.put("/login/register", new RegisterController()); // 여기에 추가
+        mappings.put("/mypage", new MypageController()); // 여기에 추가
         
-        
+        //게시판 관련 request URI 추가
+         mappings.put("/board", new BoardController());
+         mappings.put("/board/write", new BoardWriteController());
+         mappings.put("/board/writeAction", new WriteActionController());
+         mappings.put("/board/view", new ViewBoardController());
+         
         logger.info("Initialized Request Mapping!");
     }
 

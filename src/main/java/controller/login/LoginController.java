@@ -1,48 +1,57 @@
 package controller.login;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+
+import controller.Controller;
 import model.dao.user.UserDAO;
 import model.dto.user.User;
 
-import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
-
-@WebServlet("/login")
-public class LoginController extends HttpServlet {
+public class LoginController implements Controller {
 
     @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        // 로그인 페이지로 바로 포워딩
-        request.getRequestDispatcher("/WEB-INF/login/login.jsp").forward(request, response);
-    }
-    private final UserDAO userDAO;
+    public String execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
+        // Get the session
+        HttpSession session = request.getSession();
 
-    public LoginController() {
-        this.userDAO = new UserDAO();
-    }
+        // Check if the user is already logged in
+        if (session.getAttribute("ID") != null) {
+            // If already logged in, redirect to the home page
+            return "redirect:/contents/list";
+        }
 
-    @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        // 사용자 입력 받기
-       
+        // Get user input from the login form
         String userID = request.getParameter("ID");
         String password = request.getParameter("password");
-
-        // 로그인 로직을 UserDAO를 사용하여 구현
+        
+        session.setAttribute("ID", userID);
+        // Validate the login credentials
+        UserDAO userDAO = new UserDAO();
         int loginResult = userDAO.login(userID, password);
 
-        // 로그인 성공 여부에 따라 처리
-        if (loginResult == 1) {
-            request.getSession().setAttribute("ID", userID);
-
-            // 로그인 성공 시 포워딩을 통해 페이지 이동
-            request.getRequestDispatcher("/WEB-INF/contents/Contents.jsp").forward(request, response);
-        } else {
-            // 로그인 실패 시 어떻게 처리할지 추가적인 로직을 구현할 수 있음
-            response.sendRedirect(request.getContextPath() + "/login"); // 로그인 실패 시 로그인 페이지로 리다이렉트
+        // Process the login result
+        switch (loginResult) {
+            case 1:
+                // Login successful
+                session.setAttribute("ID", userID);
+                return "redirect:/contents/list"; // Redirect to the home page
+            case 0:
+                // Password incorrect
+                request.setAttribute("errorMessage", "비밀번호가 틀렸습니다.");
+                return "/login/login.jsp"; // Show login page with error message
+            case -1:
+                // User ID not found
+                request.setAttribute("errorMessage", "존재하지 않는 아이디입니다.");
+                return "/login/login.jsp"; // Show login page with error message
+            case -2:
+                // Database error
+                request.setAttribute("errorMessage", "데이터베이스 오류가 발생했습니다.");
+                return "/login/login.jsp"; // Show login page with error message
+            default:
+                // Unexpected result
+                request.setAttribute("errorMessage", "알 수 없는 오류가 발생했습니다.");
+                return "/login/login.jsp"; // Show login page with error message
         }
     }
 }
