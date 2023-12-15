@@ -11,28 +11,13 @@
 
 body {
 	font-family: 'LINESeedKR-Bd';
-}
-
-* {
-	padding: 0;
 	margin: 0;
 }
 
-ul, ol {
-	list-style: none
-}
-
-#nav3 a {
-	color: #fff;
-	font-size: 15px;
-	text-decoration: none;
-}
-
-nav {
-	width: 80%;
-	overflow: hidden;
-	height: 80px;
-	background-color: #79A3B1;
+/* ul, ol {
+	list-style: none;
+	margin: 0;
+	padding: 0;
 }
 
 #nav3 {
@@ -41,8 +26,20 @@ nav {
 	text-align: center;
 }
 
-#nav3>a {
-	line-height: 80px;
+nav {
+	width: 80%;
+	height: 80px;
+	background-color: #79A3B1;
+}
+
+#nav3 a, .btnLogin {
+	color: #fff;
+	font-size: 15px;
+	text-decoration: none;
+	margin-top: 17px;
+}
+
+#nav3>a, #nav3 .btnLogin {
 	display: block;
 	font-size: 30px;
 	font-weight: 900;
@@ -58,23 +55,148 @@ nav {
 	float: left;
 	line-height: 80px;
 	padding: 0 10px;
+    position: inline-block;
 }
 
-#nav3>a:hover {
-	border-radius: 4px;
+#nav3>ul li a {
+    position: relative;
+    line-height: 50px;
+}
+
+#nav3 .btnLogin {
+	top: 50%;
+	transform: translateY(-50%);
+}
+
+#nav3 li a{
+	transition: all 0.5s;
+}
+
+#nav3>ul li a {
+	transition: background-color 0.3s ease;
+}
+
+#nav3>ul li:hover a {
 	background-color: #456268;
+	padding-left: 10px;
+	padding-right: 10px;
+	padding-bottom: 5px;
+} */
+#nav3 {
+	width: 100%;
+	position: relative;
+	text-align: center;
+	height: 110px;
 }
 
-.btnLogin {
-    color: #fff;
-    font-size: 15px;
-    text-decoration: none;
-    line-height: 80px;
-    display: block;
-    font-size: 30px;
-    font-weight: 900;
-    position: absolute;
-    left: 30px;
-    top: 50%;
-    transform: translateY(-50%);
+nav {
+	width: 80%;
+	height: 80px;
+	background-color: #79A3B1;
+}
+
+ul {
+	list-style-type: none;
+	margin: 0;
+	padding: 0;
+}
+
+#nav3 a, .btnLogin {
+	color: #fff;
+	font-size: 15px;
+	text-decoration: none;
+}
+
+#title {
+	padding-top: 10px;
+	padding-bottom: 10px;
+}
+
+#nav3>a, #nav3 .btnLogin {
+	display: block;
+	font-size: 30px;
+	font-weight: 900;
+	position: relative;
+}
+
+.navi {
+	width: 100%;
+}
+
+.navi>li {
+	float: left;
+	width: 25%; /* 각 메뉴 항목의 너비를 조절, 전체 메뉴를 5개로 가정하고 1/5(20%)로 설정 */
+	position: relative;
+}
+
+li a {
+	background-color: #79A3B1;
+	text-decoration: none;
+	font-weight: bold;
+	color: #000000;
+	display: block;
+	text-align: center;
+}
+
+li a:hover {
+	background-color: #456268;
+	color: white;
+	padding-left: 10px;
+	padding-right: 10px;
+	padding-bottom: 5px;
+}
+
+.navi li ul {
+	display: none;
+	position: absolute;
+	top: 100%;
+	left: 0;
+}
+
+.navi li ul {
+	opacity: 0;
+}
+
+.navi li:hover ul {
+	display: block;
+	opacity: 1;
+	transition: all 1s;
+	background-color: #456268;
+	padding-left: 10px;
+	padding-right: 10px;
+	padding-bottom: 5px;
+}
+
+.navi li a {
+	transition: all 0.5s;
+}
+
+.nav3>ul li a {
+	transition: background-color 0.3s ease;
+}
+
+.navi>li {
+	float: left;
+	width: 20%; /* 각 메뉴 항목의 너비를 조절, 전체 메뉴를 5개로 가정하고 1/5(20%)로 설정 */
+	position: relative;
+}
+
+.navi>li>a {
+	padding-top: 10px;
+	padding-bottom: 10px;
+	display: block;
+	text-align: center;
+}
+
+.navi li ul {
+	display: none;
+	position: absolute;
+	top: 100%;
+	left: 0;
+	height: 10px; width : 100%; /* 하위 메뉴의 너비를 상위 메뉴와 동일하게 설정 */
+	background-color: #456268;
+	padding-left: 10px;
+	padding-right: 10px;
+	padding-bottom: 5px;
+	width: 100%;
 }
