@@ -114,7 +114,10 @@
     //
     // Blog Overview Users
     //
-
+    
+    
+    
+    
     var bouCtx = document.getElementsByClassName('blog-overview-users')[0];
 
     // Data
@@ -224,17 +227,54 @@
     //
 
     // Data 이게 원통 그림
+//    $.ajax({
+//  		url: '/dialog/readOverview', // Replace with your actual API endpoint
+//  		method: 'GET',
+//  		dataType: 'json',
+//  		async: false, // Set to false for synchronous request
+//  		success: function (data) {
+//    	// Assuming your data is an array of values [comic, thrill, action]
+//    		var newData = data;
+//    		console.log(data)
+    	// Call the update function with the new data
+    	//updateUsersByDeviceChart(newData);
+//  },
+//  error: function (error) {
+//    console.error('Error fetching data:', error);
+//  }
+//	});
+
+var dataForUbd = [];
+var totalReviewNum = 0.0;
+var dataForUbdLabel =[]
+var dataForUbdPer = [];
+console.log(reviewTypeNumJsonResult)
+for (var i = 0; i < reviewTypeNumJsonResult.length; i++) {
+  var num = reviewTypeNumJsonResult[i].num;
+  dataForUbdLabel.push(reviewTypeNumJsonResult[i].type)
+  dataForUbd.push(num);
+  totalReviewNum += num;
+}
+//console.log(dataForUbd)
+///console.log(totalReviewNum)
+
+for (var i = 0; i < reviewTypeNumJsonResult.length; i++){
+	 dataForUbdPer.push(dataForUbd / totalReviewNum * 100);
+}
+//console.log(dataForUbdPer)
+//console.log(dataForUbdLabel)
+ 
     var ubdData = {
       datasets: [{
         hoverBorderColor: '#ffffff',
-        data: [68.3, 24.2, 7.5],
+        data: dataForUbdPer,
         backgroundColor: [
           'rgba(121, 163, 177,0.9)',
           'rgba(121, 163, 177,0.5)',
           'rgba(121, 163, 177,0.3)'
         ]
       }],
-      labels: ["Comic", "Thrill", "Action"]
+      labels: dataForUbdLabel
     };
 
     // Options

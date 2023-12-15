@@ -6,6 +6,7 @@ import model.dao.review.ReviewDAO;
 import model.dto.review.Review;
 import model.dto.review.ReviewDiary;
 //import model.dto.review.ReviewMonthly;
+import model.dto.review.ReviewTypeNum;
 
 public class ReviewManager {
 	private static ReviewManager reviewMan = new ReviewManager();
@@ -40,5 +41,9 @@ public class ReviewManager {
 	public boolean deleteReview(int reviewId) {
 		return reviewDAO.deleteReview(reviewId);
 		
+	}
+	
+	public List<ReviewTypeNum> getReviewByType(int userId) {
+		return reviewDAO.getReviewByType(userId);
 	}
 }
