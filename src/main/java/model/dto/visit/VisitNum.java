@@ -1,6 +1,7 @@
 package model.dto.visit;
 
 import java.sql.Date;
+import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 
 public class VisitNum {
@@ -33,4 +34,9 @@ public class VisitNum {
 
 	            '}';
 	}
+	
+	 public String getFormattedStart() {
+	        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+	        return dateFormat.format(visitDate);
+	    }
 }

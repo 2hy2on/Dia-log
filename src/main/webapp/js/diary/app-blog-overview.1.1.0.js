@@ -8,6 +8,55 @@
 
 (function ($) {
   $(document).ready(function () {
+	  
+	   // 버튼 클릭 이벤트 처리
+   $("button").click(function() {
+        // 시작 날짜와 종료 날짜 값을 가져오기
+        var startDate = $("#blog-overview-date-range-1").val();
+        var endDate = $("#blog-overview-date-range-2").val();
+        // 날짜 문자열을 Date 객체로 변환
+        if(startDate == null){
+			return null
+		}
+		
+				
+		// 날짜 문자열을 배열로 분리
+		var startSplit = startDate.split("/");
+		
+		// "YYYY-MM-DD" 형식으로 조립
+		var formattedStartDate = startSplit[2] + "-" + startSplit[0].padStart(2, '0') + "-" + startSplit[1].padStart(2, '0');
+		
+		console.log(formattedStartDate);  // "2023-12-29"
+		
+		var endSplit = endDate.split("/");
+		
+		// "YYYY-MM-DD" 형식으로 조립
+		var formattedEndDate = endSplit[2] + "-" + endSplit[0].padStart(2, '0') + "-" + endSplit[1].padStart(2, '0');
+		
+		console.log(formattedStartDate);  // "2023-12-29"
+        // AJAX를 사용하여 서버에 데이터 요청
+        $.ajax({
+            type: "GET", // 또는 GET 등 요청 방식 설정
+            url: "/dialog/readVisitor", // 실제 서버 엔드포인트로 변경
+            data: {
+                startDate: formattedStartDate,
+                endDate: formattedEndDate
+            },
+            success: function(response) {
+                // 서버에서 받은 데이터를 처리
+                
+                console.log(response);
+  				//var visitContainer = $('#visitContainer');
+
+				// Insert the modified content into the 'visitContainer'
+				$('#overiviewContrainer').html(response);
+				$('#dateText').text(formattedStartDate + " ~ " + formattedEndDate);
+            },
+            error: function(error) {
+                console.error("Error:", error);
+            }
+        });
+    });
 
     // Blog overview date range init.
     $('#blog-overview-date-range').datepicker({});
@@ -116,20 +165,53 @@
     //
     
     
-    
+    console.log(visitNumListJson)
+
+	const startDate = new Date(startDateForVisit);
+	const endDate = new Date(endDateForVisit);
+	const dateList = [];
+	const dataNumList = []
+	var j = 0
+	
+	console.log("=============");
+	console.log(dateList);
+	console.log(dataNumList)
+	console.log(endDate)
+// startDate부터 endDate까지의 날짜를 하루씩 증가시키며 반복
+// startDate부터 endDate까지의 날짜를 하루씩 증가시키며 반복
+for (let currentDate = new Date(startDate); currentDate <= endDate; currentDate.setDate(currentDate.getDate() + 1)) {
+    // currentDate는 각 반복에서의 날짜입니다.
+    console.log("여기!!!!!!");
+
+    // visitNumListJson이 null이면 예외 처리
+    if (visitNumListJson && j < visitNumListJson.length && new Date(visitNumListJson[j].formattedStart).getTime() == currentDate.getTime()) {
+        dataNumList.push(visitNumListJson[j].num);
+        console.log("들어감");
+        j++;
+    } else {
+        console.log("else들어감");
+        dataNumList.push(0);
+    }
+    dateList.push(currentDate.getDate()); // 일(day) 부분을 배열에 추가
+}
+
+	// 결과 확인
+	console.log("결과");
+	console.log(dateList);
+	console.log(dataNumList)
     
     var bouCtx = document.getElementsByClassName('blog-overview-users')[0];
-
+    
     // Data
     var bouData = {
       // Generate the days labels on the X axis.
-      labels: Array.from(new Array(30), function (_, i) {
-        return i === 0 ? 1 : i;
-      }),
+    labels: Array.from(new Array(dateList.length), function (_, i) {
+  return dateList[i]; //
+}),
       datasets: [{
         label: 'Current Month',
         fill: 'start',
-        data: [500, 800, 320, 180, 240, 320, 230, 650, 590, 1200, 750, 940, 1420, 1200, 960, 1450, 1820, 2800, 2102, 1920, 3920, 3202, 3140, 2800, 3200, 3200, 3400, 2910, 3100, 4250],
+        data: dataNumList,
         backgroundColor: 'rgba(121, 163, 177, 0.3)',
         borderColor: 'rgba(121, 163, 177, 1)',
         pointBackgroundColor: '#ffffff',
@@ -140,7 +222,7 @@
       }, {
         label: 'Past Month',
         fill: 'start',
-        data: [380, 430, 120, 230, 410, 740, 472, 219, 391, 229, 400, 203, 301, 380, 291, 620, 700, 300, 630, 402, 320, 380, 289, 410, 300, 530, 630, 720, 780, 1200],
+        data: [],
         backgroundColor: 'rgba(252, 248, 236, 0.4)',
         borderColor: 'rgba(255,65,105,1)',
         pointBackgroundColor: '#ffffff',
@@ -180,7 +262,7 @@
         }],
         yAxes: [{
           ticks: {
-            suggestedMax: 45,
+            suggestedMax: 15,
             callback: function (tick, index, ticks) {
               if (tick === 0) {
                 return tick;
@@ -208,7 +290,7 @@
 
     // Generate the Analytics Overview chart.
     window.BlogOverviewUsers = new Chart(bouCtx, {
-      type: 'LineWithLine',
+      type: 'line',
       data: bouData,
       options: bouOptions
     });

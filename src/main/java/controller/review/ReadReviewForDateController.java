@@ -11,7 +11,7 @@ import org.slf4j.LoggerFactory;
 import controller.Controller;
 import controller.diary.DiaryController;
 import model.dto.review.Review;
-import model.service.Review.ReviewManager;
+import model.service.review.ReviewManager;
 
 public class ReadReviewForDateController implements Controller{
 	   private static final Logger logger = LoggerFactory.getLogger(DiaryController.class);

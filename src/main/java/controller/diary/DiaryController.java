@@ -15,9 +15,9 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import controller.Controller;
 import controller.DispatcherServlet;
 import model.dto.review.ReviewDiary;
-
-//import model.dto.review.ReviewMonthly;
-import model.service.Review.ReviewManager;
+import model.dto.visit.Visit;
+import model.service.review.ReviewManager;
+import model.service.visit.VisitManager;
 
 public class DiaryController implements Controller {
     private static final Logger logger = LoggerFactory.getLogger(DiaryController.class);
@@ -28,10 +28,21 @@ public class DiaryController implements Controller {
 		//	
 		int userId = 3;
 //		//
-	        ReviewManager manager = ReviewManager.getInstance();
+		logger.info("전!!!!!!!");
+		ReviewManager manager = ReviewManager.getInstance();
+	    VisitManager visitMan = VisitManager.getInstance();
+	        
 //////
+	        
 	        List<ReviewDiary> reviewDiaryList = manager.getUserDiary(userId);
-	      
+	        logger.info("후!!!!!!!");
+	        //방문자 수 넣기
+//	        Visit visit = new Visit();
+//	        visit.setVisitorId(userId);
+//	        
+//	        //바꿔야함
+//	        visit.setOwnerId(userId);
+//	        visitMan.createVisitor(visit);
 //////
 //	        // Set the start field as a formatted string
 	        for (ReviewDiary review : reviewDiaryList) {
