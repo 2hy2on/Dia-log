@@ -1,6 +1,7 @@
 package model.dto.contents;
 
 import java.time.LocalDate;
+import java.util.Date;
 
 public class Book extends Contents {
     private String writer;
@@ -26,7 +27,7 @@ public class Book extends Contents {
         super.setTitle(title);
     }
 
-    public void setPublishDate(LocalDate publishDate) {
+    public void setPublishDate(Date publishDate) {
         super.setPublishDate(publishDate);
     }
 
@@ -38,7 +39,7 @@ public class Book extends Contents {
         return super.getTitle();
     }
 
-    public LocalDate getPublishDate() {
+    public Date getPublishDate() {
         return super.getPublishDate();
     }
 

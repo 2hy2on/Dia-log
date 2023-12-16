@@ -67,7 +67,7 @@ public class RequestMapping {
         logger.info("Initialized Request Mapping!");
     }
 
-    public Controller findController(String uri) {   
+    public Controller findController(String uri) {
        // 주어진 uri에 대응되는 controller 객체를 찾아 반환
         return mappings.get(uri);
     }

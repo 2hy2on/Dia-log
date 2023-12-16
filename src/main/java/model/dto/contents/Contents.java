@@ -1,6 +1,7 @@
 package model.dto.contents;
 
 import java.time.LocalDate;
+import java.util.Date;
 import java.util.List;
 
 import model.dto.review.Review;
@@ -12,7 +13,7 @@ public class Contents {
     private List<Review> reviews; // 추후 로 수정
     private String title;
     private String genre;
-    private LocalDate publishDate;
+    private Date publishDate;
     
     public int getContentId() {
         return contentId;
@@ -38,10 +39,10 @@ public class Contents {
     public void setReviews(List<Review> reviews) {
         this.reviews = reviews;
     }
-    public LocalDate getPublishDate() {
+    public Date getPublishDate() {
         return publishDate;
     }
-    public void setPublishDate(LocalDate publishDate) {
+    public void setPublishDate(Date publishDate) {
         this.publishDate = publishDate;
     }
     public String getTitle() {
@@ -64,7 +65,7 @@ public class Contents {
     
     public Contents() {}
     
-    public Contents(int contentId, ContentType contentType, String contentImg, List<Review> reviews, String title, String genre, LocalDate publishDate) {
+    public Contents(int contentId, ContentType contentType, String contentImg, List<Review> reviews, String title, String genre, Date publishDate) {
         super();
         this.contentId = contentId;
         this.contentType = contentType;

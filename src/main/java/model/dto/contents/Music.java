@@ -23,7 +23,7 @@ public class Music extends Contents{
         super.setTitle(title);
     }
 
-    public void setPublishDate(LocalDate publishDate) {
+    public void setPublishDate(Date publishDate) {
         super.setPublishDate(publishDate);
     }
 
@@ -35,7 +35,7 @@ public class Music extends Contents{
         return super.getTitle();
     }
 
-    public LocalDate getPublishDate() {
+    public Date getPublishDate() {
         return super.getPublishDate();
     }
 
