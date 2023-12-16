@@ -49,8 +49,17 @@ public class RequestMapping {
         mappings.put("/review/delete", new DeleteReviewController());
 
         // 친구 관련 request URI 추가
-        mappings.put("/friend/list", new FriendListController());
-
+        mappings.put("/friend", new FriendListController());
+        mappings.put("/friend/request", new FriendListController());
+        mappings.put("/friend/request/send", new FriendListController());
+        mappings.put("/friend/request/receive", new FriendListController());
+        mappings.put("/friend/search", new FriendListController());
+        mappings.put("/friend/list/follower", new FriendListController());
+        mappings.put("/friend/list/followee", new FriendListController());
+        mappings.put("/friend/list/recommend", new FriendListController());
+        mappings.put("/friend/delete/follower", new FriendListController());
+        mappings.put("/friend/delete/followee", new FriendListController());
+       
 //        // 유저 관련 request URI 추가
 //        mappings.put("/user/loginForm", new LoginController());
         mappings.put("/login", new LoginController()); // 여기에 추가

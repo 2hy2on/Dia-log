@@ -42,6 +42,16 @@
               	transform: translateX(-50%);
               }
 
+              #followRequest {
+              	margin-left: 960px;
+              	/* 변경된 부분 */
+              }
+
+              #searchFriend {
+              	margin-left: 10px;
+              	/* 변경된 부분 */
+              }
+
               .underline {
               	border-bottom: 2px solid white;
               	width: 30%;
@@ -111,10 +121,26 @@
 
               .request-group {
               	width: 700px;
-              	height: 1000px;
+              	height: 400px;
               	text-align: center;
               	margin: 10px;
 
+              }
+
+              .btn-custom-danger {
+              	color: #fff;
+              	background-color: #ff7070;
+              	/* 더 연한 빨강 색상 */
+              	border-color: #ff7070;
+              	/* 더 연한 빨강 색상 */
+              }
+
+              .btn-custom-danger:hover {
+              	color: #fff;
+              	background-color: #ff5050;
+              	/* 마우스 호버 시 빨강 색상 조절 */
+              	border-color: #ff5050;
+              	/* 마우스 호버 시 빨강 색상 조절 */
               }
 
               .request-group li img {
