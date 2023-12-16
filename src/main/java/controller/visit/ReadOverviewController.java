@@ -1,5 +1,7 @@
 package controller.visit;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -10,7 +12,9 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import controller.Controller;
 import model.dto.review.ReviewDiary;
 import model.dto.review.ReviewTypeNum;
-import model.service.Review.ReviewManager;
+import model.dto.visit.VisitNum;
+import model.service.review.ReviewManager;
+import model.service.visit.VisitManager;
 
 public class ReadOverviewController implements Controller{
 
@@ -19,17 +23,44 @@ public class ReadOverviewController implements Controller{
 		// TODO Auto-generated method stub
 		
 		ReviewManager manager = ReviewManager.getInstance();
+		VisitManager visitMan = VisitManager.getInstance();
 		
+		//미디어별 통계
 		List<ReviewTypeNum> reviewTypeNumList = manager.getReviewByType(3);
 		
+	     ObjectMapper objectMapper = new ObjectMapper();
+	     String jsonResult = objectMapper.writeValueAsString(reviewTypeNumList);
+////
+	     request.setAttribute("reviewTypeNumJsonResult", jsonResult);
+	     
+	     
+	  // 현재 날짜를 문자열로 변환
+	     DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+	     LocalDate currentDate = LocalDate.now();
+	     String currentDateString = currentDate.format(formatter);
 
-////
+	     // 한 달 뺀 날짜 계산
+	     LocalDate oneMonthAgo = currentDate.minusMonths(1);
+
+	     // 현재 날짜에서 1일을 더해줌
+	     LocalDate currentDatePlusOne = currentDate.plusDays(1);
+
+	     // 1일을 더한 날짜를 문자열로 변환
+	     String currentDatePlusOneString = currentDatePlusOne.format(formatter);
+
+	     // 한 달 뺀 날짜를 문자열로 변환
+	     String oneMonthAgoString = oneMonthAgo.format(formatter);
+	     
+	     List<VisitNum> visitNum = visitMan.getVisitNum(3, oneMonthAgoString, currentDatePlusOneString);
 ////	   // List를 JSON 형태로 변환
-	        ObjectMapper objectMapper = new ObjectMapper();
-	        String jsonResult = objectMapper.writeValueAsString(reviewTypeNumList);
-////
-	        request.setAttribute("reviewTypeNumJsonResult", jsonResult);
-		
+	     ObjectMapper objectMapper2 = new ObjectMapper();
+	     
+	     
+	     String jsonVisitNumList = objectMapper2.writeValueAsString(visitNum);
+
+	     request.setAttribute("jsonVisitNumList", jsonVisitNumList);
+	     request.setAttribute("startDateForVisit", oneMonthAgoString);
+	     request.setAttribute("endDateForVisit", currentDateString);
 		return "/diary/overview.jsp";
 	}
 

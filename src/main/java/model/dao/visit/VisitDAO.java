@@ -3,6 +3,7 @@ package model.dao.visit;
 import java.sql.ResultSet;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 import model.dao.JDBCUtil;
@@ -23,7 +24,11 @@ private JDBCUtil jdbcUtil = null;
     	StringBuilder query = new StringBuilder();
         query.append("INSERT INTO Visit (ownerId, visitorId, visitDate) VALUES (?, ?, ?)");
 
- 		Object[] param = new Object[] {visit.getOwnerId(), visit.getVisitorId(), visit.getVisitDate()};
+        // Get the current date
+        java.util.Date currentDate = Calendar.getInstance().getTime();
+        java.sql.Date sqlDate = new java.sql.Date(currentDate.getTime());
+        Object[] param = new Object[] { visit.getOwnerId(), visit.getVisitorId(), sqlDate };
+
  										
  		jdbcUtil.setSqlAndParameters(query.toString(), param);
  		
@@ -47,7 +52,7 @@ private JDBCUtil jdbcUtil = null;
     	
     	 StringBuilder query = new StringBuilder();
     	    query.append("SELECT COUNT(visitDate) AS visitCount, visitDate ");
-    	    query.append("FROM VISIT WHERE userOwnerId=? AND visitDate BETWEEN TO_DATE(?, 'YYYY-MM-DD') AND TO_DATE(?, 'YYYY-MM-DD') ");
+    	    query.append("FROM VISIT WHERE ownerId=? AND visitDate BETWEEN TO_DATE(?, 'YYYY-MM-DD') AND TO_DATE(?, 'YYYY-MM-DD') ");
     	    query.append("GROUP BY visitDate ORDER BY visitDate");
 
     	    Object[] param = new Object[]{ownerId, startDate, endDate};
@@ -80,28 +85,30 @@ private JDBCUtil jdbcUtil = null;
     	    return null;
     
     }
-    public static void main(String[] args) {
-    	 //       Scanner scanner = new Scanner(System.in);
-    	 ///       Review re = new Review();
-    	 //       re.setContent("안녕ttttt");
-    	 //       re.setContentId(3);
-    	    //           re.setPrivate(false);
-    	    //         re.setRate(4.0f);
-    	        //           re.setTitle("너무나도ererer 요");
-    	        //           re.setWriterId(3);
-    	  //      re.setWatchedAt(null);
-    	  //      ReviewDAO reDao = new ReviewDAO();
-    	        
-    	        
-    	//
-//    	        System.out.println(reDao.registerReview(re));
-    	        //System.out.println(reDao.getReviewByDate(3, "/2023/11/27"));
-    	 //       System.out.println(reDao.deleteReview(8));
-    	 //       System.out.println(reDao.updateReview(12, re));
-//    	        
-//    	        
+//    public static void main(String[] args) {
+//    	 //       Scanner scanner = new Scanner(System.in);
+//    	 ///       Review re = new Review();
+//    	 //       re.setContent("안녕ttttt");
+//    	 //       re.setContentId(3);
+//    	    //           re.setPrivate(false);
+//    	    //         re.setRate(4.0f);
+//    	        //           re.setTitle("너무나도ererer 요");
+//    	        //           re.setWriterId(3);
+//    	  //      re.setWatchedAt(null);
+////    	        ReviewDAO reDao = new ReviewDAO();
+//    	        VisitDAO visi = new VisitDAO();
+//    	        Visit v = new Visit();
+//    	        v.setOwnerId(3);
+//    	        v.setVisitorId(0);
+//    	//
+//    	        System.out.println(visi.createVisitor(v));
+//    	        //System.out.println(reDao.getReviewByDate(3, "/2023/11/27"));
+//    	 //       System.out.println(reDao.deleteReview(8));
+//    	 //       System.out.println(reDao.updateReview(12, re));
+////    	        
+////    	        
 //    	VisitDAO dao = new VisitDAO();
-//    	System.out.println(dao.getVisitNum(2, "2023-11-21", "2023-11-23").get(0));
-//    	        scanner.close();
-    	    }
+//    	System.out.println(dao.getVisitNum(2, "11", "2023-11-23").get(1));
+//////    	        scanner.close();
+//    	    }
 }

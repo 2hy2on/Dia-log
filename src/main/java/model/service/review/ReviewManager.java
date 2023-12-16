@@ -1,4 +1,4 @@
-package model.service.Review;
+package model.service.review;
 
 import java.util.List;
 
@@ -46,4 +46,5 @@ public class ReviewManager {
 	public List<ReviewTypeNum> getReviewByType(int userId) {
 		return reviewDAO.getReviewByType(userId);
 	}
+	
 }

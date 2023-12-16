@@ -20,6 +20,7 @@ import controller.login.RegisterPageController;
 import controller.diary.DiaryController;
 import controller.review.ReadReviewForDateController;
 import controller.visit.ReadOverviewController;
+import controller.visit.ReadVisitorController;
 import controller.review.DeleteReviewController;
 
 import controller.review.FilterReviewController;
@@ -67,6 +68,7 @@ public class RequestMapping {
          
          //통계 관련 reques uri 추가
          mappings.put("/readOverview", new ReadOverviewController());
+         mappings.put("/readVisitor", new ReadVisitorController());
          
         logger.info("Initialized Request Mapping!");
     }

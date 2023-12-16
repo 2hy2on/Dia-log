@@ -21,7 +21,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import controller.Controller;
 import controller.diary.DiaryController;
 import model.dto.review.Review;
-import model.service.Review.ReviewManager;
+import model.service.review.ReviewManager;
 
 public class UpdateReviewController implements Controller {
 	   private static final Logger logger = LoggerFactory.getLogger(UpdateReviewController.class);
