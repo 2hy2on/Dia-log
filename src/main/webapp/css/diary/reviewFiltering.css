@@ -12,7 +12,6 @@
 	              	align-items: center;
 	              	min-height: 100vh;
 	              	margin: 0;
-	              	background: linear-gradient(to bottom, #456268 30%, white 0%, white 100%);
 	              }
 
 	              .gallery {
@@ -82,26 +81,7 @@
 	              	top: 0;
 	              	left: 0;
 	              	right: 0;
-	              	color: #FCF8EC;
 	              	text-align: left;
-	              	padding: 10px 20px;
-	              }
-
-	              header h1 {
-	              	margin: 0;
-	              	padding: 0;
-	              	padding-left: 6%;
-	              }
-
-	              .underline {
-	              	border-bottom: 2px solid white;
-	              	/* 밑줄 굵기 조절 */
-	              	width: 30%;
-	              	/* 밑줄의 너비 조절 */
-	              	margin-top: 10px;
-	              	/* 밑줄의 위 여백 조절 */
-	              	margin-bottom: 20px;
-	              	/* 밑줄의 아래 여백 조절 */
 	              }
 
 	              /* 여기서부터 아이콘 */

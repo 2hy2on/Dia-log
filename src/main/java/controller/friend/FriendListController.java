@@ -130,7 +130,7 @@ public class FriendListController implements Controller {
 			return null;
 		} else if (request.getServletPath().equals("/friend/request/send")) {
 			String friendName = request.getParameter("friendName");
-			User user = friendManager.getUserInfoByName("시니");
+			User user = friendManager.getUserInfoByName("가영");
 			User friend = friendManager.getUserInfoByName(friendName);
 
 			Boolean sendResult = friendManager.sendFollow(user, friend);

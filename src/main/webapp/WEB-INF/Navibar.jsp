@@ -22,7 +22,7 @@
 			<li><a href="<c:url value='/diary'/>">다이어리</a>
 				<ul>
 					<li><a href="<c:url value='/diary/filter'/>">리뷰</a></li>
-					<li><a href="<c:url value='/friend/list'/>">친구</a></li>
+					<li><a href="<c:url value='/friend'/>">친구</a></li>
 					<li><a href="#">통계</a></li>
 				</ul></li>
 			<li><a href="<c:url value='/board'/>">OTT 게시판</a></li>

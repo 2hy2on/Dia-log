@@ -1,5 +1,5 @@
-<%@ page language="java" contentType="text/html; charset=EUC-KR"
-	pageEncoding="EUC-KR"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@page import="model.*"%>
 
@@ -12,6 +12,51 @@
 <!DOCTYPE html>
 <html>
 <head>
+<style>
+#container {
+	width: 55vw;
+}
+
+#sendRequestBt, #receiveFollowBt {
+	background-color: #79A3B1;
+}
+
+#sendRequestBt:hover, #receiveFollowBt:hover, #followRequest:hover,
+	#searchFriend:hover {
+	background-color: #D0E8F2;
+}
+
+#followRequest {
+	display: inline-block;
+	vertical-align: middle;
+	margin-left: 70%;
+	margin-top: 6%;
+	background-color: #79A3B1;
+	transform: translateX(-50%);
+}
+
+#searchFriend {
+	display: inline-block;
+	vertical-align: middle;
+	margin-left: 70%;
+	margin-top: 6%;
+	background-color: #79A3B1;
+	transform: translateX(-50%);
+}
+
+/* ë‹¤ë¥¸ ìŠ¤íƒ€ì¼ë“¤ì€ ê·¸ëŒ€ë¡œ ìœ ì§€í•˜ê³ , ì•„ë˜ ë²„íŠ¼ì— ìŠ¤íƒ€ì¼ ì¶”ê°€ */
+#deleteFollowerBt {
+	color: #fff;
+	background-color: #ff7070; /* ë” ì—°í•œ ë¹¨ê°• ìƒ‰ìƒ */
+	border-color: #ff7070; /* ë” ì—°í•œ ë¹¨ê°• ìƒ‰ìƒ */
+}
+
+#deleteFollowerBt:hover {
+	color: #fff;
+	background-color: #ff5050; /* ë§ˆìš°ìŠ¤ í˜¸ë²„ ì‹œ ë¹¨ê°• ìƒ‰ìƒ ì¡°ì ˆ */
+	border-color: #ff5050; /* ë§ˆìš°ìŠ¤ í˜¸ë²„ ì‹œ ë¹¨ê°• ìƒ‰ìƒ ì¡°ì ˆ */
+}
+</style>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Following</title>
@@ -34,13 +79,13 @@
 			.ready(
 					function() {
 
-						//document ready¿Í µ¿½Ã¿¡ follwerList °¡Á®¿À±â
+						//document readyì™€ ë™ì‹œì— follwerList ê°€ì ¸ì˜¤ê¸°
 						$
-								.ajax({ // ºñµ¿±âÀûÀÎ Ajax request ¹ß»ı ¹× °á°ú Ã³¸®
+								.ajax({ // ë¹„ë™ê¸°ì ì¸ Ajax request ë°œìƒ ë° ê²°ê³¼ ì²˜ë¦¬
 									type : "GET",
 									url : "<c:url value='/friend/list/follower'/>",
 									cache : false,
-									dataType : "json", // °á°ú´Â JSON Çü½ÄÀÇ data (Console¿¡ Ãâ·ÂµÇ´Â log ÂüÁ¶)
+									dataType : "json", // ê²°ê³¼ëŠ” JSON í˜•ì‹ì˜ data (Consoleì— ì¶œë ¥ë˜ëŠ” log ì°¸ì¡°)
 									success : printFollowers,
 									error : function(jqXHR, textStatus,
 											errorThrown) {
@@ -60,11 +105,11 @@
 								.click(
 										function() {
 											$
-													.ajax({ // ºñµ¿±âÀûÀÎ Ajax request ¹ß»ı ¹× °á°ú Ã³¸®
+													.ajax({ // ë¹„ë™ê¸°ì ì¸ Ajax request ë°œìƒ ë° ê²°ê³¼ ì²˜ë¦¬
 														type : "GET",
 														url : "<c:url value='/friend/list/follower'/>",
 														cache : false,
-														dataType : "json", // °á°ú´Â JSON Çü½ÄÀÇ data (Console¿¡ Ãâ·ÂµÇ´Â log ÂüÁ¶)
+														dataType : "json", // ê²°ê³¼ëŠ” JSON í˜•ì‹ì˜ data (Consoleì— ì¶œë ¥ë˜ëŠ” log ì°¸ì¡°)
 														success : printFollowers,
 														error : function(jqXHR,
 																textStatus,
@@ -86,11 +131,11 @@
 								.click(
 										function() {
 											$
-													.ajax({ // ºñµ¿±âÀûÀÎ Ajax request ¹ß»ı ¹× °á°ú Ã³¸®
+													.ajax({ // ë¹„ë™ê¸°ì ì¸ Ajax request ë°œìƒ ë° ê²°ê³¼ ì²˜ë¦¬
 														type : "GET",
 														url : "<c:url value='/friend/list/followee'/>",
 														cache : false,
-														dataType : "json", // °á°ú´Â JSON Çü½ÄÀÇ data (Console¿¡ Ãâ·ÂµÇ´Â log ÂüÁ¶)
+														dataType : "json", // ê²°ê³¼ëŠ” JSON í˜•ì‹ì˜ data (Consoleì— ì¶œë ¥ë˜ëŠ” log ì°¸ì¡°)
 														success : printFollowees,
 														error : function(jqXHR,
 																textStatus,
@@ -113,17 +158,17 @@
 										"click",
 										"#deleteFollowerBt",
 										function() {
-											// Å¬¸¯ÇÑ ¹öÆ°ÀÌ ¼ÓÇÑ li ¿¤¸®¸ÕÆ®¸¦ Ã£À½
+											// í´ë¦­í•œ ë²„íŠ¼ì´ ì†í•œ li ì—˜ë¦¬ë¨¼íŠ¸ë¥¼ ì°¾ìŒ
 											var liElement = $(this).closest(
 													"li");
 
-											// li ¿¤¸®¸ÕÆ®¿¡¼­ ÆÈ·Î¿öÀÇ ÀÌ¸§À» ÃßÃâ
+											// li ì—˜ë¦¬ë¨¼íŠ¸ì—ì„œ íŒ”ë¡œì›Œì˜ ì´ë¦„ì„ ì¶”ì¶œ
 											var followerName = liElement
-													.clone() // li ¿¤¸®¸ÕÆ® º¹Á¦
-													.children() // ÀÚ½Ä ¿¤¸®¸ÕÆ® ¼±ÅÃ (¹öÆ° Æ÷ÇÔ)
-													.remove() // ÀÚ½Ä ¿¤¸®¸ÕÆ® Á¦°Å (¹öÆ° Á¦¿Ü)
-													.end() // Á¦°ÅÇÑ ÀÚ½Ä ¿¤¸®¸ÕÆ® Á¦¿ÜÇÏ°í º¹Á¦º» ¹İÈ¯
-													.text() // ÅØ½ºÆ® ÃßÃâ
+													.clone() // li ì—˜ë¦¬ë¨¼íŠ¸ ë³µì œ
+													.children() // ìì‹ ì—˜ë¦¬ë¨¼íŠ¸ ì„ íƒ (ë²„íŠ¼ í¬í•¨)
+													.remove() // ìì‹ ì—˜ë¦¬ë¨¼íŠ¸ ì œê±° (ë²„íŠ¼ ì œì™¸)
+													.end() // ì œê±°í•œ ìì‹ ì—˜ë¦¬ë¨¼íŠ¸ ì œì™¸í•˜ê³  ë³µì œë³¸ ë°˜í™˜
+													.text() // í…ìŠ¤íŠ¸ ì¶”ì¶œ
 													.trim();
 
 											$
@@ -132,28 +177,28 @@
 														url : "<c:url value='/friend/delete/follower'/>",
 														data : {
 															followerName : followerName
-														}, // ÆÈ·Î¿öÀÇ ÀÌ¸§À» ¼­¹ö¿¡ Àü´Ş
+														}, // íŒ”ë¡œì›Œì˜ ì´ë¦„ì„ ì„œë²„ì— ì „ë‹¬
 														cache : false,
 														dataType : "json",
 														success : function(
 																result) {
-															// °á°ú Ã³¸®
+															// ê²°ê³¼ ì²˜ë¦¬
 															if (result === true) {
 																alert(followerName
-																		+ "´ÔÀ» »èÁ¦Çß½À´Ï´Ù.");
+																		+ "ë‹˜ì„ ì‚­ì œí–ˆìŠµë‹ˆë‹¤.");
 															} else {
-																alert("´Ù½Ã ½ÃµµÇØÁÖ¼¼¿ä. ");
+																alert("ë‹¤ì‹œ ì‹œë„í•´ì£¼ì„¸ìš”. ");
 															}
 														},
 														error : function(jqXHR,
 																textStatus,
 																errorThrown) {
-															// ¿À·ù Ã³¸®
+															// ì˜¤ë¥˜ ì²˜ë¦¬
 															var message = jqXHR
 																	.getResponseHeader("Status");
 															if ((message == null)
 																	|| (message.length <= 0)) {
-																alert("¿¡·¯! ¿äÃ» »óÅÂ´Â "
+																alert("ì—ëŸ¬! ìš”ì²­ ìƒíƒœëŠ” "
 																		+ jqXHR.status);
 															} else {
 																alert(message);
@@ -167,17 +212,17 @@
 										"click",
 										"#deleteFolloweeBt",
 										function() {
-											// Å¬¸¯ÇÑ ¹öÆ°ÀÌ ¼ÓÇÑ li ¿¤¸®¸ÕÆ®¸¦ Ã£À½
+											// í´ë¦­í•œ ë²„íŠ¼ì´ ì†í•œ li ì—˜ë¦¬ë¨¼íŠ¸ë¥¼ ì°¾ìŒ
 											var liElement = $(this).closest(
 													"li");
 
-											// li ¿¤¸®¸ÕÆ®¿¡¼­ ÆÈ·ÎÀ×ÀÇ ÀÌ¸§À» ÃßÃâ
+											// li ì—˜ë¦¬ë¨¼íŠ¸ì—ì„œ íŒ”ë¡œì‰ì˜ ì´ë¦„ì„ ì¶”ì¶œ
 											var followeeName = liElement
-													.clone() // li ¿¤¸®¸ÕÆ® º¹Á¦
-													.children() // ÀÚ½Ä ¿¤¸®¸ÕÆ® ¼±ÅÃ (¹öÆ° Æ÷ÇÔ)
-													.remove() // ÀÚ½Ä ¿¤¸®¸ÕÆ® Á¦°Å (¹öÆ° Á¦¿Ü)
-													.end() // Á¦°ÅÇÑ ÀÚ½Ä ¿¤¸®¸ÕÆ® Á¦¿ÜÇÏ°í º¹Á¦º» ¹İÈ¯
-													.text() // ÅØ½ºÆ® ÃßÃâ
+													.clone() // li ì—˜ë¦¬ë¨¼íŠ¸ ë³µì œ
+													.children() // ìì‹ ì—˜ë¦¬ë¨¼íŠ¸ ì„ íƒ (ë²„íŠ¼ í¬í•¨)
+													.remove() // ìì‹ ì—˜ë¦¬ë¨¼íŠ¸ ì œê±° (ë²„íŠ¼ ì œì™¸)
+													.end() // ì œê±°í•œ ìì‹ ì—˜ë¦¬ë¨¼íŠ¸ ì œì™¸í•˜ê³  ë³µì œë³¸ ë°˜í™˜
+													.text() // í…ìŠ¤íŠ¸ ì¶”ì¶œ
 													.trim();
 
 											$
@@ -186,28 +231,28 @@
 														url : "<c:url value='/friend/delete/followee'/>",
 														data : {
 															followeeName : followeeName
-														}, // ÆÈ·ÎÀ×ÀÇ ÀÌ¸§À» ¼­¹ö¿¡ Àü´Ş
+														}, // íŒ”ë¡œì‰ì˜ ì´ë¦„ì„ ì„œë²„ì— ì „ë‹¬
 														cache : false,
 														dataType : "json",
 														success : function(
 																result) {
-															// °á°ú Ã³¸®
+															// ê²°ê³¼ ì²˜ë¦¬
 															if (result === true) {
 																alert(followeeName
-																		+ "´ÔÀ» ÆÈ·ÎÀ×¿¡¼­ »èÁ¦Çß½À´Ï´Ù.");
+																		+ "ë‹˜ì„ íŒ”ë¡œì‰ì—ì„œ ì‚­ì œí–ˆìŠµë‹ˆë‹¤.");
 															} else {
-																alert("´Ù½Ã ½ÃµµÇØÁÖ¼¼¿ä.");
+																alert("ë‹¤ì‹œ ì‹œë„í•´ì£¼ì„¸ìš”.");
 															}
 														},
 														error : function(jqXHR,
 																textStatus,
 																errorThrown) {
-															// ¿À·ù Ã³¸®
+															// ì˜¤ë¥˜ ì²˜ë¦¬
 															var message = jqXHR
 																	.getResponseHeader("Status");
 															if ((message == null)
 																	|| (message.length <= 0)) {
-																alert("¿¡·¯! ¿äÃ» »óÅÂ´Â "
+																alert("ì—ëŸ¬! ìš”ì²­ ìƒíƒœëŠ” "
 																		+ jqXHR.status);
 															} else {
 																alert(message);
@@ -221,7 +266,7 @@
 										"click",
 										"#sendRequestBt",
 										function() {
-											// Å¬¸¯ÇÑ ¹öÆ°ÀÌ ¼ÓÇÑ li ¿¤¸®¸ÕÆ®¸¦ Ã£À½
+											// í´ë¦­í•œ ë²„íŠ¼ì´ ì†í•œ li ì—˜ë¦¬ë¨¼íŠ¸ë¥¼ ì°¾ìŒ
 											var liElement = $(this).closest(
 													"li");
 											var friendName = liElement.find(
@@ -232,28 +277,28 @@
 														url : "<c:url value='/friend/request/send'/>",
 														data : {
 															friendName : friendName
-														}, // ÆÈ·ÎÀ×ÀÇ ÀÌ¸§À» ¼­¹ö¿¡ Àü´Ş
+														}, // íŒ”ë¡œì‰ì˜ ì´ë¦„ì„ ì„œë²„ì— ì „ë‹¬
 														cache : false,
 														dataType : "json",
 														success : function(
 																result) {
-															// °á°ú Ã³¸®
+															// ê²°ê³¼ ì²˜ë¦¬
 															if (result === true) {
 																alert(friendName
-																		+ "´Ô¿¡°Ô ½Å±¸ ¿äÃ»À» º¸³Â½À´Ï´Ù.");
+																		+ "ë‹˜ì—ê²Œ ì‹ êµ¬ ìš”ì²­ì„ ë³´ëƒˆìŠµë‹ˆë‹¤.");
 															} else {
-																alert("´Ù½Ã ½ÃµµÇØÁÖ¼¼¿ä.");
+																alert("ì´ë¯¸ ì¹œêµ¬ ì‹ ì²­í–ˆìŠµë‹ˆë‹¤.");
 															}
 														},
 														error : function(jqXHR,
 																textStatus,
 																errorThrown) {
-															// ¿À·ù Ã³¸®
+															// ì˜¤ë¥˜ ì²˜ë¦¬
 															var message = jqXHR
 																	.getResponseHeader("Status");
 															if ((message == null)
 																	|| (message.length <= 0)) {
-																alert("¿¡·¯! ¿äÃ» »óÅÂ´Â "
+																alert("ì—ëŸ¬! ìš”ì²­ ìƒíƒœëŠ” "
 																		+ jqXHR.status);
 															} else {
 																alert(message);
@@ -267,15 +312,15 @@
 										"click",
 										"#receiveFollowBt",
 										function() {
-											// Å¬¸¯ÇÑ ¹öÆ°ÀÌ ¼ÓÇÑ li ¿¤¸®¸ÕÆ®¸¦ Ã£À½
+											// í´ë¦­í•œ ë²„íŠ¼ì´ ì†í•œ li ì—˜ë¦¬ë¨¼íŠ¸ë¥¼ ì°¾ìŒ
 											var liElement = $(this).closest(
 													"li");
 											var receivedFriendName = liElement
-													.clone() // li ¿¤¸®¸ÕÆ® º¹Á¦
-													.children() // ÀÚ½Ä ¿¤¸®¸ÕÆ® ¼±ÅÃ (¹öÆ° Æ÷ÇÔ)
-													.remove() // ÀÚ½Ä ¿¤¸®¸ÕÆ® Á¦°Å (¹öÆ° Á¦¿Ü)
-													.end() // Á¦°ÅÇÑ ÀÚ½Ä ¿¤¸®¸ÕÆ® Á¦¿ÜÇÏ°í º¹Á¦º» ¹İÈ¯
-													.text() // ÅØ½ºÆ® ÃßÃâ
+													.clone() // li ì—˜ë¦¬ë¨¼íŠ¸ ë³µì œ
+													.children() // ìì‹ ì—˜ë¦¬ë¨¼íŠ¸ ì„ íƒ (ë²„íŠ¼ í¬í•¨)
+													.remove() // ìì‹ ì—˜ë¦¬ë¨¼íŠ¸ ì œê±° (ë²„íŠ¼ ì œì™¸)
+													.end() // ì œê±°í•œ ìì‹ ì—˜ë¦¬ë¨¼íŠ¸ ì œì™¸í•˜ê³  ë³µì œë³¸ ë°˜í™˜
+													.text() // í…ìŠ¤íŠ¸ ì¶”ì¶œ
 													.trim();
 
 											$
@@ -284,27 +329,28 @@
 														url : "<c:url value='/friend/request/receive'/>",
 														data : {
 															receivedFriendName : receivedFriendName
-														}, // ÆÈ·ÎÀ×ÀÇ ÀÌ¸§À» ¼­¹ö¿¡ Àü´Ş
+														}, // íŒ”ë¡œì‰ì˜ ì´ë¦„ì„ ì„œë²„ì— ì „ë‹¬
 														cache : false,
 														dataType : "json",
 														success : function(
 																result) {
-															// °á°ú Ã³¸®
+															// ê²°ê³¼ ì²˜ë¦¬
 															if (result === true) {
-																alert(receivedFriendName + "´ÔÀÇ ÆÈ·Î¿ì¸¦ ¼ö¶ôÇß½À´Ï´Ù.");
+																alert(receivedFriendName
+																		+ "ë‹˜ì˜ íŒ”ë¡œìš°ë¥¼ ìˆ˜ë½í–ˆìŠµë‹ˆë‹¤.");
 															} else {
-																alert("´Ù½Ã ½ÃµµÇØÁÖ¼¼¿ä.");
+																alert("ë‹¤ì‹œ ì‹œë„í•´ì£¼ì„¸ìš”.");
 															}
 														},
 														error : function(jqXHR,
 																textStatus,
 																errorThrown) {
-															// ¿À·ù Ã³¸®
+															// ì˜¤ë¥˜ ì²˜ë¦¬
 															var message = jqXHR
 																	.getResponseHeader("Status");
 															if ((message == null)
 																	|| (message.length <= 0)) {
-																alert("¿¡·¯! ¿äÃ» »óÅÂ´Â "
+																alert("ì—ëŸ¬! ìš”ì²­ ìƒíƒœëŠ” "
 																		+ jqXHR.status);
 															} else {
 																alert(message);
@@ -317,11 +363,11 @@
 								.click(
 										function() {
 											$
-													.ajax({ // ºñµ¿±âÀûÀÎ Ajax request ¹ß»ı ¹× °á°ú Ã³¸®
+													.ajax({ // ë¹„ë™ê¸°ì ì¸ Ajax request ë°œìƒ ë° ê²°ê³¼ ì²˜ë¦¬
 														type : "GET",
 														url : "<c:url value='/friend/request'/>",
 														cache : false,
-														dataType : "json", // °á°ú´Â JSON Çü½ÄÀÇ data (Console¿¡ Ãâ·ÂµÇ´Â log ÂüÁ¶)
+														dataType : "json", // ê²°ê³¼ëŠ” JSON í˜•ì‹ì˜ data (Consoleì— ì¶œë ¥ë˜ëŠ” log ì°¸ì¡°)
 														success : printUnacceptedFriends,
 														error : function(jqXHR,
 																textStatus,
@@ -343,11 +389,11 @@
 								.click(
 										function() {
 											$
-													.ajax({ // ºñµ¿±âÀûÀÎ Ajax request ¹ß»ı ¹× °á°ú Ã³¸®
+													.ajax({ // ë¹„ë™ê¸°ì ì¸ Ajax request ë°œìƒ ë° ê²°ê³¼ ì²˜ë¦¬
 														type : "GET",
 														url : "<c:url value='/friend/list/recommend'/>",
 														cache : false,
-														dataType : "json", // °á°ú´Â JSON Çü½ÄÀÇ data (Console¿¡ Ãâ·ÂµÇ´Â log ÂüÁ¶)
+														dataType : "json", // ê²°ê³¼ëŠ” JSON í˜•ì‹ì˜ data (Consoleì— ì¶œë ¥ë˜ëŠ” log ì°¸ì¡°)
 														success : printRecommendList,
 														error : function(jqXHR,
 																textStatus,
@@ -385,7 +431,7 @@
 														error : function(jqXHR,
 																textStatus,
 																errorThrown) {
-															// ¿À·ù Ã³¸®
+															// ì˜¤ë¥˜ ì²˜ë¦¬
 															console
 																	.error(
 																			"Error:",
@@ -397,10 +443,10 @@
 					});
 
 	function printUnacceptedFriends(unacceptedFriends) {
-		// ±âÁ¸ ³»¿ëÀ» Áö¿ì°í »õ·Î¿î ³»¿ëÀ¸·Î ¾÷µ¥ÀÌÆ®
+		// ê¸°ì¡´ ë‚´ìš©ì„ ì§€ìš°ê³  ìƒˆë¡œìš´ ë‚´ìš©ìœ¼ë¡œ ì—…ë°ì´íŠ¸
 		$("#unacceptedFriendList").empty();
 
-		// follow µ¥ÀÌÅÍ¸¦ ÀÌ¿ëÇÏ¿© ¸ñ·Ï »ı¼º
+		// follow ë°ì´í„°ë¥¼ ì´ìš©í•˜ì—¬ ëª©ë¡ ìƒì„±
 		if (unacceptedFriends.length > 0) {
 			for (var i = 0; i < unacceptedFriends.length; i++) {
 				var friend = unacceptedFriends[i];
@@ -410,18 +456,18 @@
 										+ '<a class="social-icon" href="#!"></a>'
 										+ friend.followerName
 										+ '<div class="d-flex">'
-										+ '<button type="button" class="btn btn-custom-danger me-1 rounded-pill" id="deleteFollowerBt">¿äÃ» »èÁ¦</button>'
-										+ '<button type="button" class="btn btn-primary me-1 rounded-pill" id="receiveFollowBt">¿äÃ» ¼ö¶ô</button>'
+										+ '<button type="button" class="btn btn-custom-danger me-1 rounded-pill" id="deleteFollowerBt">ìš”ì²­ ì‚­ì œ</button>'
+										+ '<button type="button" class="btn btn-primary me-1 rounded-pill" id="receiveFollowBt">ìš”ì²­ ìˆ˜ë½</button>'
 										+ '</div>' + '</li>');
 			}
 		}
 	}
 
 	function printRecommendList(recommendList) {
-		// ±âÁ¸ ³»¿ëÀ» Áö¿ì°í »õ·Î¿î ³»¿ëÀ¸·Î ¾÷µ¥ÀÌÆ®
+		// ê¸°ì¡´ ë‚´ìš©ì„ ì§€ìš°ê³  ìƒˆë¡œìš´ ë‚´ìš©ìœ¼ë¡œ ì—…ë°ì´íŠ¸
 		$("#recommendationList").empty();
 
-		// follow µ¥ÀÌÅÍ¸¦ ÀÌ¿ëÇÏ¿© ¸ñ·Ï »ı¼º
+		// follow ë°ì´í„°ë¥¼ ì´ìš©í•˜ì—¬ ëª©ë¡ ìƒì„±
 		if (recommendList.length > 0) {
 			for (var i = 0; i < recommendList.length; i++) {
 				var friend = recommendList[i];
@@ -446,17 +492,17 @@
 										+ friend.music_interest
 										+ '</span>'
 										+ '</div>'
-										+ '<button type="button" class="btn btn-primary btn-sm rounded-pill" id="sendRequestBt">Ä£±¸ ½ÅÃ»</button>'
+										+ '<button type="button" class="btn btn-primary btn-sm rounded-pill" id="sendRequestBt">ì¹œêµ¬ ì‹ ì²­</button>'
 										+ '</li>');
 			}
 		}
 	}
 
 	function printFollowers(followers) {
-		// ±âÁ¸ ³»¿ëÀ» Áö¿ì°í »õ·Î¿î ³»¿ëÀ¸·Î ¾÷µ¥ÀÌÆ®
+		// ê¸°ì¡´ ë‚´ìš©ì„ ì§€ìš°ê³  ìƒˆë¡œìš´ ë‚´ìš©ìœ¼ë¡œ ì—…ë°ì´íŠ¸
 		$("#friendList").empty();
 
-		// follow µ¥ÀÌÅÍ¸¦ ÀÌ¿ëÇÏ¿© ¸ñ·Ï »ı¼º
+		// follow ë°ì´í„°ë¥¼ ì´ìš©í•˜ì—¬ ëª©ë¡ ìƒì„±
 		if (followers.length > 0) {
 			for (var i = 0; i < followers.length; i++) {
 				var friend = followers[i];
@@ -465,17 +511,17 @@
 								'<li class="list-group-item d-flex justify-content-between align-items-center">'
 										+ '<a class="social-icon" href="#!"></a>'
 										+ friend.followerName
-										+ '<button type="button" class="btn btn-primary me-1 rounded-pill" id="deleteFollowerBt">ÆÈ·Î¿ö »èÁ¦</button>'
+										+ '<button type="button" class="btn btn-primary me-1 rounded-pill" id="deleteFollowerBt">íŒ”ë¡œì›Œ ì‚­ì œ</button>'
 										+ '</li>');
 			}
 		}
 	}
 
 	function printFollowees(followees) {
-		// ±âÁ¸ ³»¿ëÀ» Áö¿ì°í »õ·Î¿î ³»¿ëÀ¸·Î ¾÷µ¥ÀÌÆ®
+		// ê¸°ì¡´ ë‚´ìš©ì„ ì§€ìš°ê³  ìƒˆë¡œìš´ ë‚´ìš©ìœ¼ë¡œ ì—…ë°ì´íŠ¸
 		$("#friendList").empty();
 
-		// follow µ¥ÀÌÅÍ¸¦ ÀÌ¿ëÇÏ¿© ¸ñ·Ï »ı¼º
+		// follow ë°ì´í„°ë¥¼ ì´ìš©í•˜ì—¬ ëª©ë¡ ìƒì„±
 		if (followees.length > 0) {
 			for (var i = 0; i < followees.length; i++) {
 				var friend = followees[i];
@@ -484,17 +530,17 @@
 								'<li class="list-group-item d-flex justify-content-between align-items-center">'
 										+ '<a class="social-icon" href="#!"></a>'
 										+ friend.followeeName
-										+ '<button type="button" class="btn btn-primary me-1 rounded-pill" id="deleteFolloweeBt">ÆÈ·ÎÀ× Ãë¼Ò</button>'
+										+ '<button type="button" class="btn btn-primary me-1 rounded-pill" id="deleteFolloweeBt">íŒ”ë¡œì‰ ì·¨ì†Œ</button>'
 										+ '</li>');
 			}
 		}
 	}
 
 	function printSearchList(searchFriends) {
-		// ±âÁ¸ ³»¿ëÀ» Áö¿ì°í »õ·Î¿î ³»¿ëÀ¸·Î ¾÷µ¥ÀÌÆ®
+		// ê¸°ì¡´ ë‚´ìš©ì„ ì§€ìš°ê³  ìƒˆë¡œìš´ ë‚´ìš©ìœ¼ë¡œ ì—…ë°ì´íŠ¸
 		$("#searchList").empty();
 
-		// follow µ¥ÀÌÅÍ¸¦ ÀÌ¿ëÇÏ¿© ¸ñ·Ï »ı¼º
+		// follow ë°ì´í„°ë¥¼ ì´ìš©í•˜ì—¬ ëª©ë¡ ìƒì„±
 		if (searchFriends.length > 0) {
 			for (var i = 0; i < searchFriends.length; i++) {
 				var friend = searchFriends[i];
@@ -519,14 +565,14 @@
 										+ friend.music_interest
 										+ '</span>'
 										+ '</div>'
-										+ '<button type="button" class="btn btn-primary btn-primary rounded-pill" id="sendRequestBt">Ä£±¸ ½ÅÃ»</button>'
+										+ '<button type="button" class="btn btn-primary btn-primary rounded-pill" id="sendRequestBt">ì¹œêµ¬ ì‹ ì²­</button>'
 										+ '</li>');
 			}
 		} else {
-			// °Ë»ö °á°ú°¡ ¾øÀ» ¶§ ¸Ş½ÃÁö¸¦ Ãâ·Â
+			// ê²€ìƒ‰ ê²°ê³¼ê°€ ì—†ì„ ë•Œ ë©”ì‹œì§€ë¥¼ ì¶œë ¥
 			$("#searchList")
 					.append(
-							'<li class="list-group-item text-center">°Ë»ö °á°ú°¡ ¾ø½À´Ï´Ù.</li>');
+							'<li class="list-group-item text-center">ê²€ìƒ‰ ê²°ê³¼ê°€ ì—†ìŠµë‹ˆë‹¤.</li>');
 		}
 	}
 </script>
@@ -534,12 +580,11 @@
 
 <body>
 	<header>
-		<h1>FOLLOW</h1>
-		<div class="underline"></div>
+		<%@ include file="../Navibar.jsp"%>
 		<button data-bs-target="#exampleModal" data-bs-toggle="modal"
-			class="btn btn-primary" id="followRequest">ÆÈ·Î¿ì ½ÅÃ»</button>
+			class="btn btn-primary" id="followRequest">íŒ”ë¡œìš° ì‹ ì²­</button>
 		<button data-bs-target="#searchFriendModal" data-bs-toggle="modal"
-			class="btn btn-primary" id="searchFriend">Ä£±¸ °Ë»ö</button>
+			class="btn btn-primary" id="searchFriend">ì¹œêµ¬ ê²€ìƒ‰</button>
 	</header>
 	<script
 		src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
@@ -547,10 +592,10 @@
 		crossorigin="anonymous">
 		
 	</script>
-	<div class="container">
+	<div class="container" id="container">
 		<ul>
-			<li class="active" onclick="setActive(this)" id="followerBt">ÆÈ·Î¿ö</li>
-			<li onclick="setActive(this)" id="followeeBt">ÆÈ·ÎÀ×</li>
+			<li class="active" onclick="setActive(this)" id="followerBt">íŒ”ë¡œì›Œ</li>
+			<li onclick="setActive(this)" id="followeeBt">íŒ”ë¡œì‰</li>
 		</ul>
 		<div class="bar"></div>
 	</div>
@@ -564,7 +609,7 @@
 		<div class="modal-dialog modal-lg">
 			<div class="modal-content">
 				<div class="modal-header">
-					<h1 class="modal-title fs-5" id="searchFriendModalLabel">Ä£±¸ °Ë»ö</h1>
+					<h1 class="modal-title fs-5" id="searchFriendModalLabel">ì¹œêµ¬ ê²€ìƒ‰</h1>
 					<button type="button" class="btn-close" data-bs-dismiss="modal"
 						aria-label="Close"></button>
 				</div>
@@ -573,20 +618,20 @@
 						<div
 							class="mb-3 d-flex justify-content-between align-items-center">
 							<input class="form-control me-2 flex-grow-1" type="search"
-								placeholder="Ä£±¸ °Ë»ö" aria-label="Search">
+								placeholder="ì¹œêµ¬ ê²€ìƒ‰" aria-label="Search">
 							<button class="btn btn-outline-success ms-2 rounded-pill"
 								type="button">Search</button>
 						</div>
 						<ul class="request-group" id='searchList'>
 						</ul>
 
-						<!-- ¿©¹é°ú ÃßÃµ Ä£±¸ ¸®½ºÆ® ±¸ºĞÀ» À§ÇÑ <br> ÅÂ±× -->
-						<p class="fw-bold fs-6">ÃëÇâÀÌ ºñ½ÁÇÑ Ä£±¸¸¦ Ã£¾Æº¸¼¼¿ä</p>
+						<!-- ì—¬ë°±ê³¼ ì¶”ì²œ ì¹œêµ¬ ë¦¬ìŠ¤íŠ¸ êµ¬ë¶„ì„ ìœ„í•œ <br> íƒœê·¸ -->
+						<p class="fw-bold fs-6">ì·¨í–¥ì´ ë¹„ìŠ·í•œ ì¹œêµ¬ë¥¼ ì°¾ì•„ë³´ì„¸ìš”</p>
 						<hr class="my-3">
 
-						<!-- ÃßÃµ Ä£±¸ ¸®½ºÆ® Ãß°¡ -->
+						<!-- ì¶”ì²œ ì¹œêµ¬ ë¦¬ìŠ¤íŠ¸ ì¶”ê°€ -->
 						<ul class="recommendation-group" id='recommendationList'>
-							<!-- ÃßÃµ Ä£±¸ ¸®½ºÆ® ¾ÆÀÌÅÛµéÀ» µ¿ÀûÀ¸·Î Ãß°¡ÇÒ ¼ö ÀÖ½À´Ï´Ù. -->
+							<!-- ì¶”ì²œ ì¹œêµ¬ ë¦¬ìŠ¤íŠ¸ ì•„ì´í…œë“¤ì„ ë™ì ìœ¼ë¡œ ì¶”ê°€í•  ìˆ˜ ìˆìŠµë‹ˆë‹¤. -->
 						</ul>
 					</form>
 				</div>
@@ -602,7 +647,7 @@
 		<div class="modal-dialog modal-lg">
 			<div class="modal-content">
 				<div class="modal-header">
-					<h1 class="modal-title fs-5" id="exampleModalLabel">ÆÈ·Î¿ì ¿äÃ»</h1>
+					<h1 class="modal-title fs-5" id="exampleModalLabel">íŒ”ë¡œìš° ìš”ì²­</h1>
 					<button type="button" class="btn-close" data-bs-dismiss="modal"
 						aria-label="Close"></button>
 				</div>
