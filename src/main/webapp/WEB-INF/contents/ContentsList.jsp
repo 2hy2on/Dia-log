@@ -2,15 +2,17 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ page import="model.dto.contents.Contents"%>
+<%@ page import="model.dto.review.Review"%>
 <%@ page import="java.util.*"%>
-<%@ page import="com.fasterxml.jackson.databind.ObjectMapper" %>
+<%@ page import="com.fasterxml.jackson.databind.ObjectMapper"%>
 <!DOCTYPE html>
 <html>
 <head>
 <%
-List<Contents> contentList = (List<Contents>) request.getAttribute("contentList");
-
-System.out.println(contentList);
+	List<Contents> contentList = (List<Contents>) request.getAttribute("contentList");
+	List<Review> reviewList = (List<Review>) request.getAttribute("reviewList");
+	
+	System.out.println("reviewList: "+reviewList);
 %>
 <meta charset="utf-8">
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
@@ -32,7 +34,6 @@ System.out.println(contentList);
 		ObjectMapper mapper = new ObjectMapper();
    	
 		String jsonStr = mapper.writeValueAsString(contentList);
-		System.out.println(jsonStr);
 %>
 <script>
 		var contentList = JSON.parse('<%=jsonStr%>');
@@ -55,14 +56,57 @@ System.out.println(contentList);
             if (content) {
                 // 모달의 제목, 이미지 등을 업데이트 
                 document.getElementById('exampleModalLabel').innerText = content.title;
-/*                 document.getElementById('message-text').innerText = content.genre; */
-                document.getElementById('contentImage').src = content.contentImg;
-
-                // 모달 열기
-                var myModal = new bootstrap.Modal(document.getElementById('exampleModal'));
-                myModal.show();
+                document.getElementById('content-genre').innerText = content.genre;
+                document.getElementById('content-image').src = content.contentImg;
             }
+            
+            /* $.ajax({
+                type: 'GET',
+                url: '/contents/reviewList',
+                data: { contentId: contentId },
+                success: function (reviews) {
+                	console.log(reviews);
+                },
+                	$(reviews).each(function(){
+						console.log(this.detail);       	
+        			});
+                },
+            
+                error: function () {
+                    console.error('Failed to fetch reviews.');
+                }
+            }); */
+            console.log(cId);
+            
+            fetchReviews(cId)
         }
+        
+        function fetchReviews(contentId) {
+            fetch("<c:url value='/contents/reviewList'/>?reviewId=" + encodeURIComponent(contentId), {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json;charset=UTF-8'
+                },
+            })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                return response.json(); // JSON으로 변환
+            })
+            .then(reviews => {
+                console.log('Reviews:', reviews);
+
+                // 리뷰 정보를 모달에 출력
+                var reviewText = reviews.map(review => review.detail).join('<br>');
+                document.getElementById('content-review').innerHTML = reviewText;
+            })
+            .catch(error => {
+                console.error('Error fetching reviews:', error.message);
+                console.error(error.stack);
+            });
+        }
+
     </script>
 </head>
 <body>
@@ -102,10 +146,10 @@ System.out.println(contentList);
 					</article>
 				</div>
 
-				<div class="modal fade" id="exampleModal"
-					tabindex="-1" aria-labelledby="exampleModalLabel"
-					aria-hidden="true">
-					<input type="hidden" id="contentId" value="<%=content.getContentId()%>">
+				<div class="modal fade" id="exampleModal" tabindex="-1"
+					aria-labelledby="exampleModalLabel" aria-hidden="true">
+					<input type="hidden" id="contentId"
+						value="<%=content.getContentId()%>">
 					<div class="modal-dialog modal-lg">
 						<div class="modal-content">
 							<div class="modal-header">
@@ -114,16 +158,17 @@ System.out.println(contentList);
 							<div class="modal-body">
 								<form>
 									<div class="mb-3">
-										<label for="recipient-name" class="col-form-label">date</label>
-										22<p />
-										<img style="width: 200px; height: 220px" id="contentImage" src="<%=content.getContentImg()%>">
+										<label for="recipient-name" class="col-form-label"></label> <img
+											style="width: 220px; height: 260px" id="content-image"
+											src="<%=content.getContentImg()%>">
 									</div>
-									<!-- <div class="mb-3">
+									<div class="mb-3">
 										<label for="recipient-name" class="col-form-label">genre</label>
-									</div> -->
+										<p id="content-genre" />
+									</div>
 									<div class="mb-3">
 										<label for="message-text" class="col-form-label">review</label>
-										<p id="message-text" />
+										<p id="content-review" />
 									</div>
 								</form>
 							</div>
@@ -150,5 +195,7 @@ System.out.println(contentList);
 	<%
 	}
 	%>
+
 </body>
 </html>
+

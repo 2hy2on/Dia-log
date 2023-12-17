@@ -1,6 +1,7 @@
 package controller;
 
 import java.util.HashMap;
+
 import java.util.Map;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -10,8 +11,8 @@ import controller.board.BoardWriteController;
 import controller.board.ViewBoardController;
 import controller.board.WriteActionController;
 import controller.contents.ListContentsController;
+import controller.contents.ListReviewsController;
 import controller.contents.PickContentsController;
-
 import controller.friend.FriendListController;
 import controller.login.LoginController;
 import controller.login.MypageController;
@@ -39,6 +40,7 @@ public class RequestMapping {
         mappings.put("/contents/list", new ListContentsController());
         mappings.put("/contents/search", new SearchContentsController());
         mappings.put("/contents/pickContents", new PickContentsController());
+        mappings.put("/contents/reviewList", new ListReviewsController());
         
         // 다이어리 관련 request URI 추가
         mappings.put("/diary", new DiaryController());

@@ -8,6 +8,7 @@ import model.dao.contents.ContentsDAO;
 import model.dao.contents.MovieDAO;
 import model.dao.contents.MusicDAO;
 import model.dto.contents.Contents;
+import model.dto.review.Review;
 
 public class ContentsManager {
 	private static ContentsManager contentsMan = new ContentsManager();
@@ -43,4 +44,7 @@ public class ContentsManager {
 		return contentsDAO.pickContent(userId, contentsId);
 	}
 	
+	public List<Review> getReviewList(int contentId) throws SQLException {
+		return contentsDAO.getReviewList(contentId);
+	}
 }
