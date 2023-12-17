@@ -9,7 +9,14 @@ private String Email;
 private String Movie_interest;
 private String Book_interest;
 private String Music_interest;
+private int UserID;
 
+public int getUserID() {
+	return UserID;
+}
+public void setUserID(int userID) {
+	UserID = userID;
+}
 public String getID() {
     return ID;
 }

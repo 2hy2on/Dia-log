@@ -207,44 +207,87 @@ public class ReviewDAO {
     
 	// 미디어 테이블 생성 후 되는 지 확인 하고 제출하기!!!
 
-//    public List<ReviewTypeNum> getReviewByType(int writerId) {
-//    	 StringBuilder query = new StringBuilder();
-//
-//         query.append("SELECT COUNT(mediaType) AS mediaCount, mediaType");
-//         query.append("FROM review, content WHERE review.contentId = content.contentId and review.writerId=? ");
-//         query.append("GROUP BY mediaType");
-//
-//  		Object[] param = new Object[] {writerId};
-//  										
-//  		jdbcUtil.setSqlAndParameters(query.toString(), param);	// JDBCUtil 에 insert문과 매개 변수 설정
-//		
-//  		try {
-//  			ResultSet rs = jdbcUtil.executeQuery();
-//  			List<ReviewTypeNum> list = new ArrayList();
-//  			while(rs.next()) {
-//  				ReviewTypeNum review = new ReviewTypeNum();
-//  				
-//  				review.setNum(rs.getInt("mediaCount"));
-//  				review.setType(rs.getString("mediaType"));
-//  				
-//  				list.add(review);
-//  				
-//  			}
-//  			return list;
-//  		}
-//  		catch (Exception ex) {
-//            jdbcUtil.rollback();    // 트랜잭션 rollback 실행
-//            ex.printStackTrace();
-//        } finally {
-//            jdbcUtil.commit();      // 트랜잭션 commit 실행
-//            jdbcUtil.close();
-//        }
-//        return null; 
-//    }
-//    
+    public List<ReviewTypeNum> getReviewByType(int writerId) {
+    	 StringBuilder query = new StringBuilder();
 
+         query.append("SELECT COUNT(contentType) AS contentCount, contentType FROM review, contents ");
+         query.append("WHERE review.contentId = contents.contentId and review.writerId=? GROUP BY contentType ");
+
+       
+  		Object[] param = new Object[] {writerId};
+  										
+  		jdbcUtil.setSqlAndParameters(query.toString(), param);	// JDBCUtil 에 insert문과 매개 변수 설정
+		
+  		try {
+  			ResultSet rs = jdbcUtil.executeQuery();
+  			List<ReviewTypeNum> list = new ArrayList();
+  			while(rs.next()) {
+  				ReviewTypeNum review = new ReviewTypeNum();
+  				
+  				review.setNum(rs.getInt("contentCount"));
+  				review.setType(rs.getString("contentType"));
+  				
+  				list.add(review);
+  				
+  			}
+  			return list;
+  		}
+  		catch (Exception ex) {
+            jdbcUtil.rollback();    // 트랜잭션 rollback 실행
+            ex.printStackTrace();
+        } finally {
+            jdbcUtil.commit();      // 트랜잭션 commit 실행
+            jdbcUtil.close();
+        }
+        return null; 
+    }
     
-//	 public static void main(String[] args) {
+    public List<ReviewTypeNum> getReviewByGenreForOverview(int writerId) {
+        StringBuilder query = new StringBuilder();
+
+        query.append("WITH ContentGenres AS ( ");
+        query.append(" SELECT ");
+        query.append(" TRIM(REGEXP_SUBSTR(c.genre, '[^/]+', 1, LEVEL)) AS genre, ");
+        query.append(" EXTRACT(MONTH FROM r.watchedAt) AS watchedMonth ");
+        query.append(" FROM contents c ");
+        query.append(" JOIN review r ON c.contentId = r.contentId ");
+        query.append(" WHERE r.writerId = ? ");
+        query.append(" CONNECT BY PRIOR dbms_random.value IS NOT NULL ");
+        query.append(" AND PRIOR r.contentId = c.contentId ");
+        query.append(" AND LEVEL <= REGEXP_COUNT(c.genre, '/') + 1 ) ");
+        query.append("SELECT genre,watchedMonth, COUNT(*) AS contentCount ");
+        query.append("FROM ContentGenres ");
+        query.append("GROUP BY genre, watchedMonth ");
+        query.append("ORDER BY genre, watchedMonth ");
+
+        Object[] param = new Object[]{writerId};
+        jdbcUtil.setSqlAndParameters(query.toString(), param);
+
+        try {
+            ResultSet rs = jdbcUtil.executeQuery();
+            List<ReviewTypeNum> list = new ArrayList<>();
+            
+            while (rs.next()) {
+                ReviewTypeNum review = new ReviewTypeNum();
+
+                review.setNum(rs.getInt("contentCount"));
+                review.setType(rs.getString("genre"));
+                // 여기에서 월 정보를 어떻게 처리할지에 대한 코드를 추가해야 합니다.
+                list.add(review);
+            }
+            return list;
+        } catch (Exception ex) {
+            jdbcUtil.rollback();
+            ex.printStackTrace();
+        } finally {
+            jdbcUtil.commit();
+            jdbcUtil.close();
+        }
+        return null;
+    }
+   
+    
+	 public static void main(String[] args) {
 //	 Scanner scanner = new Scanner(System.in);
 //	 Review re = new Review();
 //	 re.setDetail("짱잼!!!!");
@@ -268,7 +311,8 @@ public class ReviewDAO {
 //	 }
 //	
 //	 
-//	 ReviewDAO reDao = new ReviewDAO();
+	 ReviewDAO reDao = new ReviewDAO();
+	 System.out.println(reDao.getReviewByGenreForOverview(3).get(3).getNum());
 ////
 ////
 ////       System.out.println(reDao.getReviewForDiary(1).get(0).getWatchedAt());
@@ -279,5 +323,5 @@ public class ReviewDAO {
 
 //        scanner.close();
 //	 }
-//	 }
+	 }
 }
