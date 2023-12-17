@@ -18,14 +18,58 @@ String jsonResult = (String) request.getAttribute("reviewTypeNumJsonResult");
 String jsonVisitNumList =  (String)request.getAttribute("jsonVisitNumList");
 String startDateForVisit = (String)request.getAttribute("startDateForVisit");
 String endDateForVisit = (String)request.getAttribute("endDateForVisit");
+String genreNumList = (String)request.getAttribute("genreNumList");
+
 %>
 var reviewTypeNumJsonResult = JSON.parse('<%= jsonResult %>');
 var visitNumListJson = JSON.parse('<%= jsonVisitNumList %>');
+
 var startDateForVisit = '<%= startDateForVisit %>';
 var endDateForVisit = '<%= endDateForVisit %>';
-console.log(startDateForVisit)
+
+var genreNumListJson = JSON.parse('<%= genreNumList%>');
   // Now you can use reviewTypeNumJsonResult in your JavaScript code
+  
+var resultList = [];
+
+for (var i = 0; i < genreNumListJson.length; i++) {
+    var currentGenre = genreNumListJson[i].type;
+    var currentNum = genreNumListJson[i].num;
+
+    // 중복 체크
+    var existingEntry = resultList.find(item => item[0] === currentGenre);
+
+    if (existingEntry) {
+        // 이미 존재하는 경우에만 num 추가
+        existingEntry.push(currentNum);
+    } else {
+        // 존재하지 않는 경우 새로운 entry 추가
+        resultList.push([currentGenre, currentNum]);
+    }
+
+    // 4개까지만 추가되도록 체크
+    if (resultList.length === 5) {
+        break;
+    }
+}
+//resultList에서 숫자 부분만을 추출하고 리스트 안에 리스트 형태로 유지
+var numListArray = resultList.map(item => item.slice(1));
+
+// resultList에서 Genre 부분만 추출
+var genreList = resultList.map(item => item[0]);
+
+
+// 결과 확인
+console.log(numListArray);
+console.log(genreList);
+
+var sumList = numListArray.map(list => list.reduce((acc, num) => acc + num, 0));
+
+//결과 확인
+console.log("각 리스트의 합:", sumList);
+
 </script>
+
 
 
     <meta charset="utf-8">
@@ -68,11 +112,11 @@ console.log(startDateForVisit)
                   <div class="card-body p-0 d-flex">
                     <div class="d-flex flex-column m-auto">
                       <div class="stats-small__data text-center">
-                        <span class="stats-small__label text-uppercase">hello</span>
-                        <h6 class="stats-small__value count my-3">2,390</h6>
+                        <span id="genreName1" class="stats-small__label text-uppercase"></span>
+                        <h6 id="sum1" class="stats-small__value count my-3"></h6>
                       </div>
                       <div class="stats-small__data">
-                        <span class="stats-small__percentage stats-small__percentage--increase">4.7%</span>
+                      
                       </div>
                     </div>
                     <canvas height="120" class="blog-overview-stats-small-1"></canvas>
@@ -84,11 +128,11 @@ console.log(startDateForVisit)
                   <div class="card-body p-0 d-flex">
                     <div class="d-flex flex-column m-auto">
                       <div class="stats-small__data text-center">
-                        <span class="stats-small__label text-uppercase">Pages</span>
-                        <h6 class="stats-small__value count my-3">182</h6>
+                        <span id="genreName2" class="stats-small__label text-uppercase"></span>
+                        <h6 id="sum2" class="stats-small__value count my-3"></h6>
                       </div>
                       <div class="stats-small__data">
-                        <span class="stats-small__percentage stats-small__percentage--increase">12.4%</span>
+                       
                       </div>
                     </div>
                     <canvas height="120" class="blog-overview-stats-small-2"></canvas>
@@ -100,11 +144,11 @@ console.log(startDateForVisit)
                   <div class="card-body p-0 d-flex">
                     <div class="d-flex flex-column m-auto">
                       <div class="stats-small__data text-center">
-                        <span class="stats-small__label text-uppercase">eee</span>
-                        <h6 class="stats-small__value count my-3">8,147</h6>
+                        <span id="genreName3" class="stats-small__label text-uppercase"></span>
+                        <h6 id="sum3" class="stats-small__value count my-3"></h6>
                       </div>
                       <div class="stats-small__data">
-                        <span class="stats-small__percentage stats-small__percentage--decrease">3.8%</span>
+                       
                       </div>
                     </div>
                     <canvas height="120" class="blog-overview-stats-small-3"></canvas>
@@ -116,11 +160,11 @@ console.log(startDateForVisit)
                   <div class="card-body p-0 d-flex">
                     <div class="d-flex flex-column m-auto">
                       <div class="stats-small__data text-center">
-                        <span class="stats-small__label text-uppercase">ì¡ì</span>
-                        <h6 class="stats-small__value count my-3">2,413</h6>
+                        <span id="genreName4" class="stats-small__label text-uppercase"></span>
+                        <h6 id="sum4" class="stats-small__value count my-3"></h6>
                       </div>
                       <div class="stats-small__data">
-                        <span class="stats-small__percentage stats-small__percentage--increase">12.4%</span>
+                    
                       </div>
                     </div>
                     <canvas height="120" class="blog-overview-stats-small-4"></canvas>
@@ -132,11 +176,11 @@ console.log(startDateForVisit)
                   <div class="card-body p-0 d-flex">
                     <div class="d-flex flex-column m-auto">
                       <div class="stats-small__data text-center">
-                        <span class="stats-small__label text-uppercase">Subscribers</span>
-                        <h6 class="stats-small__value count my-3">17,281</h6>
+                        <span id="genreName5" class="stats-small__label text-uppercase"></span>
+                        <h6 id="sum5" class="stats-small__value count my-3"></h6>
                       </div>
                       <div class="stats-small__data">
-                        <span class="stats-small__percentage stats-small__percentage--decrease">2.4%</span>
+                        
                       </div>
                     </div>
                     <canvas height="120" class="blog-overview-stats-small-5"></canvas>
@@ -178,7 +222,7 @@ console.log(startDateForVisit)
               <div class="col-lg-4 col-md-6 col-sm-12 mb-4">
                 <div class="card card-small h-100">
                   <div class="card-header border-bottom">
-                    <h6 class="m-0">ì¥ë¥´</h6>
+                    <h6 class="m-0">미디어</h6>
                   </div>
                   <div class="card-body d-flex py-0">
                     <canvas height="220" class="blog-users-by-device m-auto"></canvas>

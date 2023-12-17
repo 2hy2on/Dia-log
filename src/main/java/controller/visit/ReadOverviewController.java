@@ -34,6 +34,7 @@ public class ReadOverviewController implements Controller{
 	     request.setAttribute("reviewTypeNumJsonResult", jsonResult);
 	     
 	     
+	     
 	  // 현재 날짜를 문자열로 변환
 	     DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 	     LocalDate currentDate = LocalDate.now();
@@ -54,13 +55,21 @@ public class ReadOverviewController implements Controller{
 	     List<VisitNum> visitNum = visitMan.getVisitNum(3, oneMonthAgoString, currentDatePlusOneString);
 ////	   // List를 JSON 형태로 변환
 	     ObjectMapper objectMapper2 = new ObjectMapper();
-	     
-	     
 	     String jsonVisitNumList = objectMapper2.writeValueAsString(visitNum);
 
+
+	 	//장르별 통계
+		List<ReviewTypeNum> reviewGenreNumList = manager.getReviewByGenreNum(3);
+	     ObjectMapper objectMapper3 = new ObjectMapper();
+	     String reviewGenreNumListJson = objectMapper3.writeValueAsString(reviewGenreNumList);
+////
+
+	     
 	     request.setAttribute("jsonVisitNumList", jsonVisitNumList);
 	     request.setAttribute("startDateForVisit", oneMonthAgoString);
 	     request.setAttribute("endDateForVisit", currentDateString);
+	     request.setAttribute("genreNumList", reviewGenreNumListJson);
+	     
 		return "/diary/overview.jsp";
 	}
 

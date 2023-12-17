@@ -8,7 +8,17 @@
 
 (function ($) {
   $(document).ready(function () {
+	  $('#genreName1').text(genreList[0]);
+	  $('#genreName2').text(genreList[1]);
+	  $('#genreName3').text(genreList[2]);
+	  $('#genreName4').text(genreList[3]);
+	  $('#genreName5').text(genreList[4]); 
 	  
+	  $('#sum1').text(sumList[0]);
+	  $('#sum2').text(sumList[1]);
+	  $('#sum3').text(sumList[2]);
+	  $('#sum4').text(sumList[3]);
+	  $('#sum5').text(sumList[4]);
 	   // 버튼 클릭 이벤트 처리
    $("button").click(function() {
         // 시작 날짜와 종료 날짜 값을 가져오기
@@ -70,27 +80,27 @@
       {
 		       backgroundColor: 'rgba(231, 243, 250)',
         borderColor: 'rgb(0,123,255)',
-        data: [1, 2, 1, 3, 5, 4, 7],
+        data: numListArray[0],
       },
       {
         backgroundColor: 'rgba(121, 163, 177, 0.4)',
         borderColor: 'rgba(121, 163, 177, 1)',
-        data: [1, 2, 3, 3, 3, 4, 4]
+        data: numListArray[1]
       },
       {
            backgroundColor: 'rgba(69, 98, 104, 0.4)',
         borderColor: 'rgba(69, 98, 104)',
-        data: [2, 3, 3, 3, 4, 3, 3]
+        data: numListArray[3]
       },
       {
         backgroundColor: 'rgba(164, 209, 233,0.2)',
         borderColor: 'rgb( 164, 209, 233)',
-        data: [1, 7, 1, 3, 1, 4, 8]
+        data: numListArray[4]
       },
       {
         backgroundColor: 'rgba(208, 232, 242, 0.7)',
        borderColor: 'rgb(0,123,255)',
-        data: [3, 2, 3, 2, 4, 5, 4]
+        data: numListArray[5]
       }
     ];
 
@@ -163,9 +173,6 @@
     //
     // Blog Overview Users
     //
-    
-    
-    console.log(visitNumListJson)
 
 	const startDate = new Date(startDateForVisit);
 	const endDate = new Date(endDateForVisit);
@@ -173,32 +180,21 @@
 	const dataNumList = []
 	var j = 0
 	
-	console.log("=============");
-	console.log(dateList);
-	console.log(dataNumList)
-	console.log(endDate)
 // startDate부터 endDate까지의 날짜를 하루씩 증가시키며 반복
 // startDate부터 endDate까지의 날짜를 하루씩 증가시키며 반복
 for (let currentDate = new Date(startDate); currentDate <= endDate; currentDate.setDate(currentDate.getDate() + 1)) {
     // currentDate는 각 반복에서의 날짜입니다.
-    console.log("여기!!!!!!");
 
     // visitNumListJson이 null이면 예외 처리
     if (visitNumListJson && j < visitNumListJson.length && new Date(visitNumListJson[j].formattedStart).getTime() == currentDate.getTime()) {
         dataNumList.push(visitNumListJson[j].num);
-        console.log("들어감");
         j++;
     } else {
-        console.log("else들어감");
         dataNumList.push(0);
     }
     dateList.push(currentDate.getDate()); // 일(day) 부분을 배열에 추가
 }
 
-	// 결과 확인
-	console.log("결과");
-	console.log(dateList);
-	console.log(dataNumList)
     
     var bouCtx = document.getElementsByClassName('blog-overview-users')[0];
     
@@ -209,7 +205,7 @@ for (let currentDate = new Date(startDate); currentDate <= endDate; currentDate.
   return dateList[i]; //
 }),
       datasets: [{
-        label: 'Current Month',
+        label: 'Visitor',
         fill: 'start',
         data: dataNumList,
         backgroundColor: 'rgba(121, 163, 177, 0.3)',
@@ -219,19 +215,6 @@ for (let currentDate = new Date(startDate); currentDate <= endDate; currentDate.
         borderWidth: 1.5,
         pointRadius: 0,
         pointHoverRadius: 3
-      }, {
-        label: 'Past Month',
-        fill: 'start',
-        data: [],
-        backgroundColor: 'rgba(252, 248, 236, 0.4)',
-        borderColor: 'rgba(255,65,105,1)',
-        pointBackgroundColor: '#ffffff',
-        pointHoverBackgroundColor: 'rgba(255,65,105,1)',
-        borderDash: [3, 3],
-        borderWidth: 1,
-        pointRadius: 0,
-        pointHoverRadius: 2,
-        pointBorderColor: 'rgba(255,65,105,1)'
       }]
     };
 

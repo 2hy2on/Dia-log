@@ -47,4 +47,7 @@ public class ReviewManager {
 		return reviewDAO.getReviewByType(userId);
 	}
 	
+	public List<ReviewTypeNum> getReviewByGenreNum(int userId){
+		return reviewDAO.getReviewByGenreForOverview(userId);
+	}
 }
