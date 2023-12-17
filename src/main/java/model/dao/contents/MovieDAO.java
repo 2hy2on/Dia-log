@@ -65,7 +65,7 @@ public class MovieDAO {
 				movie.setContentId(rs.getInt("contentId"));
 				movie.setTitle(rs.getString("title"));
 				movie.setGenre(rs.getString("genre"));
-				movie.setPublishDate(rs.getDate("publishDate").toLocalDate());
+				movie.setPublishDate(rs.getDate("publishDate"));
 				
 				movieList.add(movie);
 			}
@@ -95,7 +95,7 @@ public class MovieDAO {
 				movie.setContentId(rs.getInt("contentId"));
 				movie.setTitle(rs.getString("title"));
 				movie.setGenre(rs.getString("genre"));
-				movie.setPublishDate(rs.getDate("publishDate").toLocalDate());
+				movie.setPublishDate(rs.getDate("publishDate"));
 
 				movie.setActors(rs.getString("actors"));
 				movie.setSummary(rs.getString("summary"));
@@ -136,7 +136,7 @@ public class MovieDAO {
 				movie.setDirector(rs.getString("director"));
 				movie.setTitle(rs.getString("title"));
 				movie.setGenre(rs.getString("genre"));
-				movie.setPublishDate(rs.getDate("publishDate").toLocalDate());
+				movie.setPublishDate(rs.getDate("publishDate"));
 
 				movieList.add(movie);
 			}

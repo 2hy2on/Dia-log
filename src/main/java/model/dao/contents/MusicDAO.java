@@ -65,7 +65,7 @@ public class MusicDAO {
 				music.setContentId(rs.getInt("contentId"));
 				music.setTitle(rs.getString("title"));
 				music.setGenre(rs.getString("genre"));
-				music.setPublishDate(rs.getDate("publishDate").toLocalDate());
+				music.setPublishDate(rs.getDate("publishDate"));
 
 				musicList.add(music);
 			}
@@ -97,7 +97,7 @@ public class MusicDAO {
 				music.setContentId(rs.getInt("contentId"));
 				music.setTitle(rs.getString("title"));
 				music.setGenre(rs.getString("genre"));
-				music.setPublishDate(rs.getDate("publishDate").toLocalDate());
+				music.setPublishDate(rs.getDate("publishDate"));
 
 				music.setSinger(rs.getString("singer"));
 				music.setAlbum(rs.getString("album"));
@@ -133,7 +133,7 @@ public class MusicDAO {
 				music.setAlbum(rs.getString("album"));
 				music.setTitle(rs.getString("title"));
 				music.setGenre(rs.getString("genre"));
-				music.setPublishDate(rs.getDate("publishDate").toLocalDate());
+				music.setPublishDate(rs.getDate("publishDate"));
 
 				musicList.add(music);
 			}
@@ -167,7 +167,7 @@ public class MusicDAO {
 				music.setAlbum(rs.getString("album"));
 				music.setTitle(rs.getString("title"));
 				music.setGenre(rs.getString("genre"));
-				music.setPublishDate(rs.getDate("publishDate").toLocalDate());
+				music.setPublishDate(rs.getDate("publishDate"));
 
 				musicList.add(music);
 			}

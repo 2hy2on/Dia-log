@@ -5,7 +5,9 @@ import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import model.dao.JDBCUtil;
 import model.dto.contents.Contents;
@@ -48,28 +50,40 @@ public class ContentsDAO {
 		}
 		return null;
 	}
-
-	public List<Review> getReviewList(int contentId) {
-	    String sql = "SELECT contentId, detail " +
+	
+	public List<Map<String, Object>> getReviewList(int contentId) {
+	    String sql = "SELECT contentId, detail, rate, writerId " +
 	                 "FROM Review r WHERE contentId = ?";
 
 	    Object[] param = new Object[] { contentId };
-
+	    
 	    jdbcUtil.setSqlAndParameters(sql, param);
 
 	    try {
 	        ResultSet rs = jdbcUtil.executeQuery();
 	        List<Review> reviewList = new ArrayList<Review>();
-
+		    List<Map<String, Object>> mapList = new ArrayList<Map<String, Object>>();
+		    
 	        while (rs.next()) {
 	            Review review = new Review();
-
-	            review.setContentId(rs.getInt("contentId"));
-	            review.setDetail(rs.getString("detail"));
-
-	            reviewList.add(review);
+	            Map<String, Object> map = new HashMap<String, Object>();
+	            
+				/*
+				 * review.setContentId(rs.getInt("contentId"));
+				 * review.setDetail(rs.getString("detail"));
+				 * review.setRate(rs.getFloat("rate"));
+				 * review.setWriterId(rs.getInt("wrtieId"));
+				 */
+	            
+	            map.put("contentId", rs.getInt("contentId"));
+	            map.put("detail", rs.getString("detail"));
+	            map.put("rate", rs.getFloat("rate"));
+	            map.put("writerId", rs.getInt("writerId"));
+	            
+				/* reviewList.add(review); */
+				mapList.add(map);
 	        }
-	        return reviewList;
+	        return mapList;
 
 	    } catch (SQLException e) {
 	        e.printStackTrace();
@@ -91,7 +105,6 @@ public class ContentsDAO {
 
 			while (rs.next()) {
 				Contents cont = new Contents();
-
 				cont.setContentId(rs.getInt("contentId"));
 				cont.setContentImg(rs.getString("contentImg"));
 				cont.setReviews(null);

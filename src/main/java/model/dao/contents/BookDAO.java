@@ -103,7 +103,7 @@ public class BookDAO {
                 book.setTitle(rs.getString("title"));
                 book.setGenre(rs.getString("genre"));
                 
-                book.setPublishDate(rs.getDate("publishDate").toLocalDate());
+                book.setPublishDate(rs.getDate("publishDate"));
                 book.setSummary(rs.getString("summary"));
                 book.setWriter(rs.getString("writer"));
 
@@ -139,7 +139,7 @@ public class BookDAO {
                 book.setWriter(rs.getString("writer"));
                 book.setTitle(rs.getString("title"));
                 book.setGenre(rs.getString("genre"));
-                book.setPublishDate(rs.getDate("publishDate").toLocalDate());
+                book.setPublishDate(rs.getDate("publishDate"));
 
                 bookList.add(book);
             }
