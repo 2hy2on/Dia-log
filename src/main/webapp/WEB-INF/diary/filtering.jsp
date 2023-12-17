@@ -14,21 +14,42 @@
 	crossorigin="anonymous">
 <link rel="stylesheet"
 	href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
-<link rel="stylesheet" href="<c:url value='/css/diary/reviewFiltering.css' />" type="text/css">
+<link rel="stylesheet"
+	href="<c:url value='/css/diary/reviewFiltering.css' />" type="text/css">
 
 </head>
-<header>
-	<h1>My Review</h1>
-	<div class="underline"></div>
-</header>
+
 <script
 	src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
 	integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
 	crossorigin="anonymous">
 	
 </script>
+<script>
+	$(document).ready(function() {
 
+		//document ready와 동시에 follwerList 가져오기
+		$.ajax({ // 비동기적인 Ajax request 발생 및 결과 처리
+			type : "GET",
+			url : "<c:url value='/friend/list/follower'/>",
+			cache : false,
+			dataType : "json", // 결과는 JSON 형식의 data (Console에 출력되는 log 참조)
+			success : printFollowers,
+			error : function(jqXHR, textStatus, errorThrown) {
+				var message = jqXHR.getResponseHeader("Status");
+				if ((message == null) || (message.length <= 0)) {
+					alert("Error! Request status is " + jqXHR.status);
+				} else {
+					alert(message);
+				}
+			}
+		});
+	});
+</script>
 <body>
+	<header>
+		<%@ include file="../Navibar.jsp"%>
+	</header>
 	<div>
 		<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
 			fill="currentColor" class="bi bi-film" viewBox="0 0 16 16"
@@ -40,85 +61,6 @@
 	<div class="gallery">
 		<div class="container text-center">
 			<div class="row">
-				<div class="col">
-					<article class="card" data-bs-toggle="modal"
-						data-bs-target="#exampleModal">
-						<figure>
-							<img src="./img/movie10.jpg" alt="movie">
-							<figcaption>
-								<p class="h6">eagle eye</p>
-							</figcaption>
-						</figure>
-					</article>
-				</div>
-				<div class="col">
-					<article class="card" data-bs-toggle="modal"
-						data-bs-target="#exampleModal">
-						<figure>
-							<img src="./img/movie11.jpg" alt="movie">
-							<figcaption>
-								<p class="h6">narnia</p>
-							</figcaption>
-						</figure>
-					</article>
-				</div>
-				<div class="col">
-					<article class="card" data-bs-toggle="modal"
-						data-bs-target="#exampleModal">
-						<figure>
-							<img src="./img/movie12.jpg" alt="movie">
-							<figcaption>
-								<p class="h6">angel denon</p>
-							</figcaption>
-						</figure>
-					</article>
-				</div>
-				<div class="col">
-					<article class="card" data-bs-toggle="modal"
-						data-bs-target="#exampleModal">
-						<figure>
-							<img src="./img/movie13.jpg" alt="movie">
-							<figcaption>
-								<p class="h6">angel denon</p>
-							</figcaption>
-						</figure>
-					</article>
-				</div>
-			</div>
-			<div class="row">
-				<div class="col">
-					<article class="card" data-bs-toggle="modal"
-						data-bs-target="#exampleModal">
-						<figure>
-							<img src="./img/movie14.jpg" alt="movie">
-							<figcaption>
-								<p class="h6">다음 카드</p>
-							</figcaption>
-						</figure>
-					</article>
-				</div>
-				<div class="col">
-					<article class="card" data-bs-toggle="modal"
-						data-bs-target="#exampleModal">
-						<figure>
-							<img src="./img/movie15.jpg" alt="movie">
-							<figcaption>
-								<p class="h6">또 다른 카드</p>
-							</figcaption>
-						</figure>
-					</article>
-				</div>
-				<div class="col">
-					<article class="card" data-bs-toggle="modal"
-						data-bs-target="#exampleModal">
-						<figure>
-							<img src="./img/movie16.jpg" alt="movie">
-							<figcaption>
-								<p class="h6">여기도 카드</p>
-							</figcaption>
-						</figure>
-					</article>
-				</div>
 				<div class="col">
 					<article class="card" data-bs-toggle="modal"
 						data-bs-target="#exampleModal">
