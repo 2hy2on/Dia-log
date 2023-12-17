@@ -5855,7 +5855,7 @@ function SelectionManager() {
 					localStorage.setItem("dateForReview",outputDateString)
 					$.ajax({
     						type: 'GET',
-    					url: "/Dia-log/diary/reviewList", // Replace with your server endpoint
+    					url: "/diary/diary/reviewList", // Replace with your server endpoint
     					data: { dateStr: outputDateString },
     					//async: false,
     					success: function(response) {

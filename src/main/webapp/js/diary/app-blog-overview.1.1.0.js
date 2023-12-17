@@ -8,6 +8,65 @@
 
 (function ($) {
   $(document).ready(function () {
+	  $('#genreName1').text(genreList[0]);
+	  $('#genreName2').text(genreList[1]);
+	  $('#genreName3').text(genreList[2]);
+	  $('#genreName4').text(genreList[3]);
+	  $('#genreName5').text(genreList[4]); 
+	  
+	  $('#sum1').text(sumList[0]);
+	  $('#sum2').text(sumList[1]);
+	  $('#sum3').text(sumList[2]);
+	  $('#sum4').text(sumList[3]);
+	  $('#sum5').text(sumList[4]);
+	   // 버튼 클릭 이벤트 처리
+   $("button").click(function() {
+        // 시작 날짜와 종료 날짜 값을 가져오기
+        var startDate = $("#blog-overview-date-range-1").val();
+        var endDate = $("#blog-overview-date-range-2").val();
+        // 날짜 문자열을 Date 객체로 변환
+        if(startDate == null){
+			return null
+		}
+		
+				
+		// 날짜 문자열을 배열로 분리
+		var startSplit = startDate.split("/");
+		
+		// "YYYY-MM-DD" 형식으로 조립
+		var formattedStartDate = startSplit[2] + "-" + startSplit[0].padStart(2, '0') + "-" + startSplit[1].padStart(2, '0');
+		
+		console.log(formattedStartDate);  // "2023-12-29"
+		
+		var endSplit = endDate.split("/");
+		
+		// "YYYY-MM-DD" 형식으로 조립
+		var formattedEndDate = endSplit[2] + "-" + endSplit[0].padStart(2, '0') + "-" + endSplit[1].padStart(2, '0');
+		
+		console.log(formattedStartDate);  // "2023-12-29"
+        // AJAX를 사용하여 서버에 데이터 요청
+        $.ajax({
+            type: "GET", // 또는 GET 등 요청 방식 설정
+            url: "/dialog/readVisitor", // 실제 서버 엔드포인트로 변경
+            data: {
+                startDate: formattedStartDate,
+                endDate: formattedEndDate
+            },
+            success: function(response) {
+                // 서버에서 받은 데이터를 처리
+                
+                console.log(response);
+  				//var visitContainer = $('#visitContainer');
+
+				// Insert the modified content into the 'visitContainer'
+				$('#overiviewContrainer').html(response);
+				$('#dateText').text(formattedStartDate + " ~ " + formattedEndDate);
+            },
+            error: function(error) {
+                console.error("Error:", error);
+            }
+        });
+    });
 
     // Blog overview date range init.
     $('#blog-overview-date-range').datepicker({});
@@ -21,27 +80,27 @@
       {
 		       backgroundColor: 'rgba(231, 243, 250)',
         borderColor: 'rgb(0,123,255)',
-        data: [1, 2, 1, 3, 5, 4, 7],
+        data: numListArray[0],
       },
       {
         backgroundColor: 'rgba(121, 163, 177, 0.4)',
         borderColor: 'rgba(121, 163, 177, 1)',
-        data: [1, 2, 3, 3, 3, 4, 4]
+        data: numListArray[1]
       },
       {
            backgroundColor: 'rgba(69, 98, 104, 0.4)',
         borderColor: 'rgba(69, 98, 104)',
-        data: [2, 3, 3, 3, 4, 3, 3]
+        data: numListArray[3]
       },
       {
         backgroundColor: 'rgba(164, 209, 233,0.2)',
         borderColor: 'rgb( 164, 209, 233)',
-        data: [1, 7, 1, 3, 1, 4, 8]
+        data: numListArray[4]
       },
       {
         backgroundColor: 'rgba(208, 232, 242, 0.7)',
        borderColor: 'rgb(0,123,255)',
-        data: [3, 2, 3, 2, 4, 5, 4]
+        data: numListArray[5]
       }
     ];
 
@@ -115,18 +174,40 @@
     // Blog Overview Users
     //
 
-    var bouCtx = document.getElementsByClassName('blog-overview-users')[0];
+	const startDate = new Date(startDateForVisit);
+	const endDate = new Date(endDateForVisit);
+	const dateList = [];
+	const dataNumList = []
+	var j = 0
+	
+// startDate부터 endDate까지의 날짜를 하루씩 증가시키며 반복
+// startDate부터 endDate까지의 날짜를 하루씩 증가시키며 반복
+for (let currentDate = new Date(startDate); currentDate <= endDate; currentDate.setDate(currentDate.getDate() + 1)) {
+    // currentDate는 각 반복에서의 날짜입니다.
 
+    // visitNumListJson이 null이면 예외 처리
+    if (visitNumListJson && j < visitNumListJson.length && new Date(visitNumListJson[j].formattedStart).getTime() == currentDate.getTime()) {
+        dataNumList.push(visitNumListJson[j].num);
+        j++;
+    } else {
+        dataNumList.push(0);
+    }
+    dateList.push(currentDate.getDate()); // 일(day) 부분을 배열에 추가
+}
+
+    
+    var bouCtx = document.getElementsByClassName('blog-overview-users')[0];
+    
     // Data
     var bouData = {
       // Generate the days labels on the X axis.
-      labels: Array.from(new Array(30), function (_, i) {
-        return i === 0 ? 1 : i;
-      }),
+    labels: Array.from(new Array(dateList.length), function (_, i) {
+  return dateList[i]; //
+}),
       datasets: [{
-        label: 'Current Month',
+        label: 'Visitor',
         fill: 'start',
-        data: [500, 800, 320, 180, 240, 320, 230, 650, 590, 1200, 750, 940, 1420, 1200, 960, 1450, 1820, 2800, 2102, 1920, 3920, 3202, 3140, 2800, 3200, 3200, 3400, 2910, 3100, 4250],
+        data: dataNumList,
         backgroundColor: 'rgba(121, 163, 177, 0.3)',
         borderColor: 'rgba(121, 163, 177, 1)',
         pointBackgroundColor: '#ffffff',
@@ -134,19 +215,6 @@
         borderWidth: 1.5,
         pointRadius: 0,
         pointHoverRadius: 3
-      }, {
-        label: 'Past Month',
-        fill: 'start',
-        data: [380, 430, 120, 230, 410, 740, 472, 219, 391, 229, 400, 203, 301, 380, 291, 620, 700, 300, 630, 402, 320, 380, 289, 410, 300, 530, 630, 720, 780, 1200],
-        backgroundColor: 'rgba(252, 248, 236, 0.4)',
-        borderColor: 'rgba(255,65,105,1)',
-        pointBackgroundColor: '#ffffff',
-        pointHoverBackgroundColor: 'rgba(255,65,105,1)',
-        borderDash: [3, 3],
-        borderWidth: 1,
-        pointRadius: 0,
-        pointHoverRadius: 2,
-        pointBorderColor: 'rgba(255,65,105,1)'
       }]
     };
 
@@ -177,7 +245,7 @@
         }],
         yAxes: [{
           ticks: {
-            suggestedMax: 45,
+            suggestedMax: 15,
             callback: function (tick, index, ticks) {
               if (tick === 0) {
                 return tick;
@@ -205,7 +273,7 @@
 
     // Generate the Analytics Overview chart.
     window.BlogOverviewUsers = new Chart(bouCtx, {
-      type: 'LineWithLine',
+      type: 'line',
       data: bouData,
       options: bouOptions
     });
@@ -224,17 +292,54 @@
     //
 
     // Data 이게 원통 그림
+//    $.ajax({
+//  		url: '/dialog/readOverview', // Replace with your actual API endpoint
+//  		method: 'GET',
+//  		dataType: 'json',
+//  		async: false, // Set to false for synchronous request
+//  		success: function (data) {
+//    	// Assuming your data is an array of values [comic, thrill, action]
+//    		var newData = data;
+//    		console.log(data)
+    	// Call the update function with the new data
+    	//updateUsersByDeviceChart(newData);
+//  },
+//  error: function (error) {
+//    console.error('Error fetching data:', error);
+//  }
+//	});
+
+var dataForUbd = [];
+var totalReviewNum = 0.0;
+var dataForUbdLabel =[]
+var dataForUbdPer = [];
+console.log(reviewTypeNumJsonResult)
+for (var i = 0; i < reviewTypeNumJsonResult.length; i++) {
+  var num = reviewTypeNumJsonResult[i].num;
+  dataForUbdLabel.push(reviewTypeNumJsonResult[i].type)
+  dataForUbd.push(num);
+  totalReviewNum += num;
+}
+//console.log(dataForUbd)
+///console.log(totalReviewNum)
+
+for (var i = 0; i < reviewTypeNumJsonResult.length; i++){
+	 dataForUbdPer.push(dataForUbd / totalReviewNum * 100);
+}
+//console.log(dataForUbdPer)
+//console.log(dataForUbdLabel)
+ 
     var ubdData = {
       datasets: [{
         hoverBorderColor: '#ffffff',
-        data: [68.3, 24.2, 7.5],
+        data: dataForUbdPer,
         backgroundColor: [
           'rgba(121, 163, 177,0.9)',
           'rgba(121, 163, 177,0.5)',
           'rgba(121, 163, 177,0.3)'
         ]
       }],
-      labels: ["Comic", "Thrill", "Action"]
+      labels: dataForUbdLabel
     };
 
     // Options

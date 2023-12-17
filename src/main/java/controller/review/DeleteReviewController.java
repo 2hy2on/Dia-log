@@ -7,7 +7,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import controller.Controller;
 import model.dto.review.Review;
-import model.service.Review.ReviewManager;
+import model.service.review.ReviewManager;
 
 public class DeleteReviewController implements Controller{
 

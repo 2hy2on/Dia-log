@@ -52,7 +52,7 @@ public class Contents {
         this.title = title;
     }
     public String getGenre() {
-        return genre;
+        return genre.toString();
     }
     public void setGenre(String genre) {
         this.genre = genre;
@@ -61,6 +61,10 @@ public class Contents {
         Movie,
         Music,
         Book,
+    }
+    
+    public String getContentTypeAsString() {
+        return contentType.name();
     }
     
     public Contents() {}

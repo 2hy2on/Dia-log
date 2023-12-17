@@ -2,17 +2,15 @@ package model.dao.contents;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 import model.dao.JDBCUtil;
 import model.dto.contents.Contents;
 import model.dto.contents.Contents.ContentType;
-import model.dto.contents.Movie;
+import model.dto.review.Review;
 
 public class ContentsDAO {
 	private JDBCUtil jdbcUtil = null;
@@ -28,7 +26,6 @@ public class ContentsDAO {
 		try {
 			ResultSet rs = jdbcUtil.executeQuery();
 			List<Contents> contentList = new ArrayList<Contents>();
-			SimpleDateFormat dtFormat = new SimpleDateFormat("yy/mm/dd");
 
 			while (rs.next()) {
 				Contents cont = new Contents();
@@ -50,6 +47,36 @@ public class ContentsDAO {
 			jdbcUtil.close();
 		}
 		return null;
+	}
+
+	public List<Review> getReviewList(int contentId) {
+	    String sql = "SELECT contentId, detail " +
+	                 "FROM Review r WHERE contentId = ?";
+
+	    Object[] param = new Object[] { contentId };
+
+	    jdbcUtil.setSqlAndParameters(sql, param);
+
+	    try {
+	        ResultSet rs = jdbcUtil.executeQuery();
+	        List<Review> reviewList = new ArrayList<Review>();
+
+	        while (rs.next()) {
+	            Review review = new Review();
+
+	            review.setContentId(rs.getInt("contentId"));
+	            review.setDetail(rs.getString("detail"));
+
+	            reviewList.add(review);
+	        }
+	        return reviewList;
+
+	    } catch (SQLException e) {
+	        e.printStackTrace();
+	    } finally {
+	        jdbcUtil.close();
+	    }
+	    return null;
 	}
 
 	public List<Contents> searchContentsByTitle(String title) {
@@ -142,7 +169,7 @@ public class ContentsDAO {
 	}
 
 	public static void main(String[] args) throws SQLException {
-//		ContentsDAO dao = new ContentsDAO();
-//		System.out.println(dao.getContentList());
+		ContentsDAO dao = new ContentsDAO();
+		System.out.println(dao.getReviewList(0));
 	}
 }
