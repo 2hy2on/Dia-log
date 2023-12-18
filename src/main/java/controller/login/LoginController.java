@@ -32,9 +32,9 @@ public class LoginController implements Controller {
         
         
         // Process the login result
+
         switch (loginResult) {     
 //                session.setAttribute("ID", userID);
-               
             case 0:
                 // Password incorrect
                 request.setAttribute("errorMessage", "비밀번호가 틀렸습니다.");
