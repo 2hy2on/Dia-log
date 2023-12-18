@@ -15,18 +15,17 @@ public class MypageController implements Controller {
         HttpSession session = request.getSession();
         Object userObject = session.getAttribute("ID");
 
-        // 사용자 정보가 없으면 로그인 페이지로 리다이렉트
-        if (userObject == null) {
-            return "redirect:/login";
-        }
-
         // 사용자 ID를 가져와서 사용자 정보를 조회
         String userID = (String) userObject;
+        System.out.println("User ID: " + userID);
+
         UserDAO userDAO = new UserDAO();
         User user = userDAO.getUserInfo(userID);
 
         // 사용자 정보가 없으면 로그인 페이지로 리다이렉트
         if (user == null) {
+            // 세션을 초기화하고 새로운 아이디로 다시 로그인
+            session.invalidate();
             return "redirect:/login";
         }
 
