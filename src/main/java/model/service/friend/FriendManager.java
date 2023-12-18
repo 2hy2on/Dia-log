@@ -66,5 +66,7 @@ public class FriendManager {
 	public User getUserInfoByName(String userName) throws SQLException {
 		return followDAO.getUserInfoByName(userName);
 	}
-
+	public User getUserInfoByUserID(int userid) throws SQLException {
+		return followDAO.getUserInfoByUserID(userid);
+	}
 }

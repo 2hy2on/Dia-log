@@ -2,13 +2,13 @@ package controller.friend;
 
 import java.util.List;
 
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import controller.Controller;
 import controller.DispatcherServlet;
+import model.dao.user.UserDAO;
 import model.dto.friend.Follow;
 import model.dto.user.User;
 import model.service.friend.FriendManager;
@@ -128,7 +128,7 @@ public class FriendListController implements Controller {
 			return null;
 		} else if (request.getServletPath().equals("/friend/request/send")) {
 			String friendName = request.getParameter("friendName");
-			User user = friendManager.getUserInfoByName("가영");
+			User user = friendManager.getUserInfoByUserID(userId);
 			User friend = friendManager.getUserInfoByName(friendName);
 
 			Boolean sendResult = friendManager.sendFollow(user, friend);
@@ -144,10 +144,10 @@ public class FriendListController implements Controller {
 			return null;
 		} else if (request.getServletPath().equals("/friend/request/receive")) {
 			String friendName = request.getParameter("receivedFriendName");
-			User user = friendManager.getUserInfoByName("나영");
+
 			User friend = friendManager.getUserInfoByName(friendName);
 
-			Boolean receiveResult = friendManager.receiveFollow(user.getUserID(), friend.getUserID());
+			Boolean receiveResult = friendManager.receiveFollow(userId, friend.getUserID());
 
 			ObjectMapper mapper = new ObjectMapper();
 			String jsonString = mapper.writeValueAsString(receiveResult);
