@@ -6,6 +6,7 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -26,7 +27,15 @@ public class DiaryController implements Controller {
 	public String execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
 //		  int userId = Integer.parseInt(request.getParameter("userId"));
 		//	
-		int userId = 3;
+		 HttpSession session = request.getSession();
+		int userIdStr = (int) session.getAttribute("ID");
+			
+			
+		//logger.info(userIdStr);
+		
+		
+		//int userId = 3;
+		
 //		//
 		logger.info("전!!!!!!!");
 		ReviewManager manager = ReviewManager.getInstance();
@@ -34,7 +43,7 @@ public class DiaryController implements Controller {
 	        
 //////
 	        
-	        List<ReviewDiary> reviewDiaryList = manager.getUserDiary(userId);
+	        List<ReviewDiary> reviewDiaryList = manager.getUserDiary(userIdStr);
 	        logger.info("후!!!!!!!");
 	        //방문자 수 넣기
 //	        Visit visit = new Visit();
