@@ -7,6 +7,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import controller.board.BoardController;
+import controller.board.BoardViewController;
 import controller.board.BoardWriteController;
 import controller.board.ViewBoardController;
 import controller.board.WriteActionController;
@@ -74,10 +75,10 @@ public class RequestMapping {
         
         //게시판 관련 request URI 추가
          mappings.put("/board", new BoardController());
+         mappings.put("/board/list", new BoardViewController());
          mappings.put("/board/write", new BoardWriteController());
          mappings.put("/board/writeAction", new WriteActionController());
          mappings.put("/board/view", new ViewBoardController());
-         
          //통계 관련 reques uri 추가
          mappings.put("/readOverview", new ReadOverviewController());
          mappings.put("/readVisitor", new ReadVisitorController());
