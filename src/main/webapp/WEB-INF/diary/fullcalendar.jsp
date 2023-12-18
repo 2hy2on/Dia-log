@@ -148,6 +148,7 @@ String jsonResult = (String) request.getAttribute("jsonResult");
 		text-align: center;
 		font-size: 10px;
 		font-family: "Helvetica Nueue",Arial,Verdana,sans-serif;
+
 		}
 
 	#wrap {
