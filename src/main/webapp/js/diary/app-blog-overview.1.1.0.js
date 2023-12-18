@@ -313,6 +313,7 @@ var dataForUbd = [];
 var totalReviewNum = 0.0;
 var dataForUbdLabel =[]
 var dataForUbdPer = [];
+console.log("===================")
 console.log(reviewTypeNumJsonResult)
 for (var i = 0; i < reviewTypeNumJsonResult.length; i++) {
   var num = reviewTypeNumJsonResult[i].num;
@@ -320,13 +321,14 @@ for (var i = 0; i < reviewTypeNumJsonResult.length; i++) {
   dataForUbd.push(num);
   totalReviewNum += num;
 }
+
 //console.log(dataForUbd)
 ///console.log(totalReviewNum)
 
 for (var i = 0; i < reviewTypeNumJsonResult.length; i++){
-	 dataForUbdPer.push(dataForUbd / totalReviewNum * 100);
+	 dataForUbdPer[i] = (dataForUbd[i] / totalReviewNum * 100);
 }
-//console.log(dataForUbdPer)
+console.log(dataForUbdPer)
 //console.log(dataForUbdLabel)
  
     var ubdData = {

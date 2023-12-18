@@ -4,9 +4,11 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import controller.Controller;
 import controller.DispatcherServlet;
+import model.dao.user.UserDAO;
 import model.dto.friend.Follow;
 import model.dto.user.User;
 import model.service.friend.FriendManager;
@@ -23,10 +25,11 @@ public class FriendListController implements Controller {
 	@Override
 	public String execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		FriendManager friendManager = FriendManager.getInstance();
+		HttpSession session = request.getSession();
+		int userId = (int) session.getAttribute("ID");
 
 		// FriendListcontroller 세부기능 분류 후, JSON 생성
 		if (request.getServletPath().equals("/friend/list/follower")) {
-			int userId = 4;
 			List<Follow> followerList = friendManager.getFollowers(userId);
 
 			ObjectMapper mapper = new ObjectMapper();
@@ -40,7 +43,6 @@ public class FriendListController implements Controller {
 			return null;
 
 		} else if (request.getServletPath().equals("/friend/list/followee")) {
-			int userId = 4;
 			List<Follow> followeeList = friendManager.getFollowees(userId);
 
 			ObjectMapper mapper = new ObjectMapper();
@@ -53,7 +55,6 @@ public class FriendListController implements Controller {
 
 			return null;
 		} else if (request.getServletPath().equals("/friend/request")) {
-			int userId = 4;
 			List<Follow> unacceptedFriends = friendManager.getUnacceptedFriends(userId);
 
 			ObjectMapper mapper = new ObjectMapper();
@@ -66,7 +67,6 @@ public class FriendListController implements Controller {
 
 			return null;
 		} else if (request.getServletPath().equals("/friend/search")) {
-			int userId = 4;
 			String searchTerm = request.getParameter("searchTerm");
 			List<User> searchFriendList = friendManager.searchFriend(searchTerm);
 
@@ -80,7 +80,6 @@ public class FriendListController implements Controller {
 
 			return null;
 		} else if (request.getServletPath().equals("/friend/list/recommend")) {
-			int userId = 66;
 
 			List<User> recommendationList = friendManager.recsFriend(userId);
 
@@ -94,7 +93,6 @@ public class FriendListController implements Controller {
 
 			return null;
 		} else if (request.getServletPath().equals("/friend/delete/followee")) {
-			int userId = 4;
 			String followeeName = request.getParameter("followeeName");
 			User friend = friendManager.getUserInfoByName(followeeName);
 			int friendId = friend.getUserID();
@@ -112,7 +110,7 @@ public class FriendListController implements Controller {
 
 			return null;
 		} else if (request.getServletPath().equals("/friend/delete/follower")) {
-			int userId = 4;
+
 			String followerName = request.getParameter("followerName");
 			User friend = friendManager.getUserInfoByName(followerName);
 			int friendId = friend.getUserID();
@@ -130,7 +128,7 @@ public class FriendListController implements Controller {
 			return null;
 		} else if (request.getServletPath().equals("/friend/request/send")) {
 			String friendName = request.getParameter("friendName");
-			User user = friendManager.getUserInfoByName("가영");
+			User user = friendManager.getUserInfoByUserID(userId);
 			User friend = friendManager.getUserInfoByName(friendName);
 
 			Boolean sendResult = friendManager.sendFollow(user, friend);
@@ -146,10 +144,10 @@ public class FriendListController implements Controller {
 			return null;
 		} else if (request.getServletPath().equals("/friend/request/receive")) {
 			String friendName = request.getParameter("receivedFriendName");
-			User user = friendManager.getUserInfoByName("나영");
+
 			User friend = friendManager.getUserInfoByName(friendName);
 
-			Boolean receiveResult = friendManager.receiveFollow(user.getUserID(), friend.getUserID());
+			Boolean receiveResult = friendManager.receiveFollow(userId, friend.getUserID());
 
 			ObjectMapper mapper = new ObjectMapper();
 			String jsonString = mapper.writeValueAsString(receiveResult);

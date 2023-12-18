@@ -9,6 +9,19 @@
         margin-left: auto;
         margin-right: auto;
     }
+    #space{
+    	height: 50px;
+    }
+    .container-fluid{
+font-family: inherit;
+  font-size: inherit;
+  font-weight: inherit;
+    }
+    #overiviewContrainer{
+    font-family: inherit;
+  font-size: inherit;
+  font-weight: inherit;
+    }
 </style>
 <script>
   // Set the JSON data as a JavaScript variable
@@ -76,6 +89,8 @@ console.log("각 리스트의 합:", sumList);
     <meta http-equiv="x-ua-compatible" content="ie=edge">
     <div>
 		<jsp:include page="../Navibar.jsp"/> 
+	</div>
+	<div id="space">
 	</div>
     <title>diary overview</title>
     <meta name="description" content="A high-quality &amp; free Bootstrap admin dashboard template pack that comes with lots of templates and components.">

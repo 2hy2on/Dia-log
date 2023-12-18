@@ -8,7 +8,10 @@ import model.dao.contents.BookDAO;
 import model.dao.contents.ContentsDAO;
 import model.dao.contents.MovieDAO;
 import model.dao.contents.MusicDAO;
+import model.dto.contents.Book;
 import model.dto.contents.Contents;
+import model.dto.contents.Movie;
+import model.dto.contents.Music;
 import model.dto.review.Review;
 
 public class ContentsManager {
@@ -37,15 +40,20 @@ public class ContentsManager {
 		return contentsDAO.getContentList();
 	}
 	
+	public List<Map<String, Object>> getReviewList(int contentId) throws SQLException {
+		return contentsDAO.getReviewList(contentId);
+	}
+
 	public List<Contents> searchContentsByTitle(String title) throws SQLException {
 		return contentsDAO.searchContentsByTitle(title);
 	}
-	
-	public boolean pickContent(int userId, int contentsId) throws SQLException {
-		return contentsDAO.pickContent(userId, contentsId);
+
+	public List<Contents> searchContentsByGenre(String title, String contentType) throws SQLException {
+		return contentsDAO.searchContentsByGenre(title, contentType);
 	}
-	
-	public List<Map<String, Object>> getReviewList(int contentId) throws SQLException {
-		return contentsDAO.getReviewList(contentId);
+
+	public static void main(String[] args) throws SQLException {
+		ContentsManager manager = new ContentsManager();
+		System.out.println(manager.searchContentsByGenre("범죄", "Movie"));
 	}
 }

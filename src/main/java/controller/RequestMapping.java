@@ -2,6 +2,7 @@ package controller;
 
 import java.util.HashMap;
 
+
 import java.util.Map;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -21,6 +22,7 @@ import controller.login.RegisterController;
 import controller.login.RegisterPageController;
 import controller.diary.DiaryController;
 import controller.review.ReadReviewForDateController;
+import controller.review.UpdateReviewController;
 import controller.visit.ReadOverviewController;
 import controller.visit.ReadVisitorController;
 import controller.review.DeleteReviewController;
@@ -42,13 +44,18 @@ public class RequestMapping {
         // 메인 컨텐츠 관련 request URI 추가
         mappings.put("/contents/list", new ListContentsController());
         mappings.put("/contents/search", new SearchContentsController());
+        mappings.put("/contents/search/movie", new SearchContentsController());
+        mappings.put("/contents/search/music", new SearchContentsController());
+        mappings.put("/contents/search/book", new SearchContentsController());
         mappings.put("/contents/pickContents", new PickContentsController());
         mappings.put("/contents/reviewList", new ListReviewsController());
         
         // 다이어리 관련 request URI 추가
         mappings.put("/diary", new DiaryController());
+        
         mappings.put("/diary/reviewList", new ReadReviewForDateController());
         mappings.put("/diary/filter", new FilterReviewController());
+        mappings.put("/diary/filter/genre", new FilterReviewController());
 
              //다이어리 리뷰 삭제 
         mappings.put("/review/delete", new DeleteReviewController());
@@ -82,8 +89,11 @@ public class RequestMapping {
          //통계 관련 reques uri 추가
          mappings.put("/readOverview", new ReadOverviewController());
          mappings.put("/readVisitor", new ReadVisitorController());
-         
+         // 리뷰 업데이트 추가
+         mappings.put("/review/update", new UpdateReviewController()); // 여기에 추가
+
         logger.info("Initialized Request Mapping!");
+        
     }
 
     public Controller findController(String uri) {

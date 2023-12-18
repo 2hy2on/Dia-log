@@ -23,10 +23,13 @@
 				<ul>
 					<li><a href="<c:url value='/diary/filter'/>">리뷰</a></li>
 					<li><a href="<c:url value='/friend'/>">친구</a></li>
-					<li><a href="#">통계</a></li>
+					<li><a href="<c:url value='/readOverview'/>">통계</a></li>
 				</ul></li>
 			<li><a href="<c:url value='/board'/>">OTT 게시판</a></li>
+
      <li><a href="<c:url value='/mypage'/>">마이페이지 </a>
+
+
 				<ul>
 					<li><a href="logoutAction.jsp">로그아웃</a></li>
 				</ul></li>

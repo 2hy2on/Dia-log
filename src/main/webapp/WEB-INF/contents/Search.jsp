@@ -20,9 +20,9 @@
 <link rel="stylesheet"
 	href="<c:url value='/css/contents/contentsList.css' />" type="text/css">
 <script>
-	function submitForm() {
-		document.forms["search"].submit();
-	}
+		function submitForm() {
+			document.forms["search"].submit();
+		}
 </script>
 </head>
 <body>
@@ -32,7 +32,7 @@
 				action="<c:url value='/contents/search' />">
 				<table class="pull-right">
 					<tr>
-						<td><select>
+						<td><select name="contentType">
 								<option value="0">선택</option>
 								<option value="movie">영화</option>
 								<option value="music">음악</option>
@@ -51,7 +51,7 @@
 			</form>
 		</div>
 	</div>
-
+	
 	<%
 	List<Contents> searchList = (List<Contents>) request.getAttribute("searchList");
 
@@ -62,7 +62,6 @@
 
 	<div class="gallery">
 		<div class="container text-center">
-
 			<%
 			while (iterator.hasNext()) {
 				Contents content = iterator.next();

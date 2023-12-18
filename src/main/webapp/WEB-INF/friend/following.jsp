@@ -13,6 +13,16 @@
 <html>
 <head>
 <style>
+.bi-journal {
+	display: none; /* 초기에는 숨깁니다. */
+	max-width: 100%; /* 부모 요소의 크기에 맞게 이미지 크기를 조절합니다. */
+	max-height: 100%; /* 부모 요소의 크기에 맞게 이미지 크기를 조절합니다. */
+}
+
+.social-icon:hover .bi-journal {
+	display: block; /* 호버 시에만 보이도록 설정합니다. */
+}
+
 #container {
 	width: 55vw;
 }
@@ -453,7 +463,9 @@
 				$("#unacceptedFriendList")
 						.append(
 								'<li class="list-group-item d-flex justify-content-between align-items-center">'
-										+ '<a class="social-icon" href="#!"></a>'
+										+ '<a class="social-icon social-icon-journal" href="/dialog/diary?ownerId='
+										+ friend.followerId
+										+ '"><i class="bi bi-journal"></i></a>'
 										+ friend.followerName
 										+ '<div class="d-flex">'
 										+ '<button type="button" class="btn btn-custom-danger me-1 rounded-pill" id="deleteFollowerBt">요청 삭제</button>'
@@ -509,7 +521,9 @@
 				$("#friendList")
 						.append(
 								'<li class="list-group-item d-flex justify-content-between align-items-center">'
-										+ '<a class="social-icon" href="#!"></a>'
+										+ '<a class="social-icon social-icon-journal" href="/dialog/diary?ownerId='
+										+ friend.followerId
+										+ '"><i class="bi bi-journal"></i></a>'
 										+ friend.followerName
 										+ '<button type="button" class="btn btn-primary me-1 rounded-pill" id="deleteFollowerBt">팔로워 삭제</button>'
 										+ '</li>');
@@ -528,10 +542,13 @@
 				$("#friendList")
 						.append(
 								'<li class="list-group-item d-flex justify-content-between align-items-center">'
-										+ '<a class="social-icon" href="#!"></a>'
+										+ '<a class="social-icon social-icon-journal" href="/dialog/diary?ownerId='
+										+ friend.followeeId
+										+ '"><i class="bi bi-journal"></i></a>'
 										+ friend.followeeName
 										+ '<button type="button" class="btn btn-primary me-1 rounded-pill" id="deleteFolloweeBt">팔로잉 취소</button>'
 										+ '</li>');
+
 			}
 		}
 	}
@@ -547,6 +564,9 @@
 				$("#searchList")
 						.append(
 								'<li class="list-group-item d-flex align-items-center" style="margin-bottom: 5px;">'
+										+ '<a class="social-icon social-icon-journal" href="/dialog/diary?ownerId='
+										+ friend.userID
+										+ '"><i class="bi bi-journal"></i></a>'
 										+ '<div class="me-auto">'
 										+ '<span>'
 										+ friend.userName

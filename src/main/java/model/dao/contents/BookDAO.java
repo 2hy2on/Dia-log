@@ -83,40 +83,6 @@ public class BookDAO {
         return bookDetail;
     }
     
-    public List<Book> searchBookByTitle(String title) {
-        List<Book> bookList = new ArrayList<>();
-
-        try {
-            // SQL 쿼리: Book 테이블에서 title에 해당하는 책 정보를 조회
-            String sql = "SELECT * FROM Book WHERE title = ?";
-            Object[] param = new Object[] { title };
-
-            jdbcUtil.setSqlAndParameters(sql, param);
-            ResultSet rs = jdbcUtil.executeQuery();
-
-            while (rs.next()) {
-                Book book = new Book();
-
-                book.setContentId(rs.getInt("contentId"));
-                book.setSummary(rs.getString("summary"));
-                book.setWriter(rs.getString("writer"));
-                book.setTitle(rs.getString("title"));
-                book.setGenre(rs.getString("genre"));
-                book.setPublishDate(rs.getDate("publishDate"));
-
-                bookList.add(book);
-            }
-        } catch (Exception ex) {
-            jdbcUtil.rollback(); // 트랜잭션 rollback 실행
-            ex.printStackTrace();
-        } finally {
-            jdbcUtil.commit(); // 트랜잭션 commit 실행
-            jdbcUtil.close();
-        }
-
-        return bookList;
-    }
-
     public static void main(String[] args) throws SQLException {
 //        int contentId = 1;
 //
