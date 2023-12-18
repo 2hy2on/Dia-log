@@ -218,7 +218,7 @@ public class FollowDAO {
 	                user.setMovie_interest(rs.getString("MOVIE_INTEREST"));
 	                user.setBook_interest(rs.getString("BOOK_INTEREST"));
 	                user.setMusic_interest(rs.getString("MUSIC_INTEREST"));
-
+	                user.setUserID(rs.getInt("USERID"));
 				searchFriendsList.add(user);
 			}
 			return searchFriendsList;
@@ -380,54 +380,40 @@ public class FollowDAO {
 		}
 		return null;
 	}
+	
+	public User getUserInfoByUserID(int userid) {
+		// 전체 user에서 원하는 친구 찾기 (이름으로 찾기)
+		StringBuilder query = new StringBuilder();
+		query.append("SELECT * FROM USER4 ");
+		query.append("WHERE userid=? ");
 
-//	public static void main(String[] args) {
-//		Scanner scanner = new Scanner(System.in);
-//		FollowDAO followDAO = new FollowDAO();
-//
-//	}
-//		Iterator<User> iterator = followeeList.iterator();
-//		while (iterator.hasNext()) {
-//			User user = iterator.next();
-//			System.out.println(user.getUserName() + user.getID() + user.getPassword() + "내가 찾은 사람");
-//			System.out.println();
-//		}
-//	}
-//		List<Follow> followList = followDAO.getFollowers(4);
-//		List<Follow> followeeList = followDAO.getFollowees(4);
-//
-//		Iterator<Follow> iterator = followList.iterator();
-//		while (iterator.hasNext()) {
-//			Follow follow = iterator.next();
-//			System.out.println(follow.getFolloweeName() + "를 팔로우하는 사람: " + follow.getFollowerName());
-//			System.out.println();
-//		}
-//	}
+		Object[] param = new Object[] { userid };
 
-//		Iterator<Follow> iterator1 = followeeList.iterator();
-//		while (iterator1.hasNext()) {
-//			Follow followee = iterator1.next();
-//			System.out.println(followee.getFollowerName() + "가 팔로잉하는 사람: " + followee.getFolloweeName());
-//			System.out.println();
-//		}
-//		System.out.println(followDAO.deleteFollowee(3, 2));
-//		System.out.println(followDAO.receiveFollow(2, 5));
+		jdbcUtil.setSqlAndParameters(query.toString(), param);
 
-//		List<User> userlist = followDAO.recsFriend(4);
-//		System.out.println(userlist.size());
-//		Iterator<User> iterator2 = userlist.iterator();
-//		while (iterator2.hasNext()) {
-//			User user = iterator2.next();
-//			System.out.println(user.getBook_interest() + user.getMovie_interest() + user.getUserName());
-//			System.out.println();
-//		}
-//		User user = new User();
-//		user.setUserID(5);
-//		User friend = new User();
-//		friend.setUserID(0);
-//		
-//		
-//		System.out.println(followDAO.sendFollow(user, friend));
-//		scanner.close();
-//	}
+		try {
+			 User user = new User();
+			ResultSet rs = jdbcUtil.executeQuery();
+			while (rs.next()) {
+	                user.setID(rs.getString("ID"));
+	                user.setPassword(rs.getString("PASSWORD"));
+	                user.setUserName(rs.getString("userName"));
+	                user.setGender(rs.getString("GENDER"));
+	                user.setEmail(rs.getString("Email"));
+	                user.setMovie_interest(rs.getString("MOVIE_INTEREST"));
+	                user.setBook_interest(rs.getString("BOOK_INTEREST"));
+	                user.setMusic_interest(rs.getString("MUSIC_INTEREST"));
+	                user.setUserID(rs.getInt("USERID"));
+			}
+			return user;
+		} catch (Exception ex) {
+			jdbcUtil.rollback(); // 트랜잭션 rollback 실행
+			ex.printStackTrace();
+		} finally {
+			jdbcUtil.commit(); // 트랜잭션 commit 실행
+			jdbcUtil.close();
+		}
+		return null;
+	}
+
 }
