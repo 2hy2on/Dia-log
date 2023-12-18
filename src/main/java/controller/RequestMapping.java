@@ -48,6 +48,7 @@ public class RequestMapping {
         
         // 다이어리 관련 request URI 추가
         mappings.put("/diary", new DiaryController());
+        
         mappings.put("/diary/reviewList", new ReadReviewForDateController());
         mappings.put("/diary/filter", new FilterReviewController());
 
