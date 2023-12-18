@@ -19,6 +19,7 @@ import controller.login.RegisterController;
 import controller.login.RegisterPageController;
 import controller.diary.DiaryController;
 import controller.review.ReadReviewForDateController;
+import controller.review.UpdateReviewController;
 import controller.visit.ReadOverviewController;
 import controller.visit.ReadVisitorController;
 import controller.review.DeleteReviewController;
@@ -78,8 +79,11 @@ public class RequestMapping {
          //통계 관련 reques uri 추가
          mappings.put("/readOverview", new ReadOverviewController());
          mappings.put("/readVisitor", new ReadVisitorController());
+         // 리뷰 업데이트 추가
+         mappings.put("/review/update", new UpdateReviewController()); // 여기에 추가
          
         logger.info("Initialized Request Mapping!");
+        
     }
 
     public Controller findController(String uri) {   
