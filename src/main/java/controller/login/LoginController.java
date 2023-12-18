@@ -31,26 +31,27 @@ public class LoginController implements Controller {
         int loginResult = userDAO.login(userID, password);
 
         // Process the login result
-        switch (loginResult) {     
-//      session.setAttribute("ID", userID); 
-  case 0:
-      // Password incorrect
-      request.setAttribute("errorMessage", "비밀번호가 틀렸습니다.");
-      return "/login/login.jsp"; // Show login page with error message
-  case -1:
-      // User ID not found
-      request.setAttribute("errorMessage", "존재하지 않는 아이디입니다.");
-      return "/login/login.jsp"; // Show login page with error message
-  case -2:
-      // Database error
-      request.setAttribute("errorMessage", "데이터베이스 오류가 발생했습니다.");
-      return "/login/login.jsp"; // Show login page with error message
-  default:
-//      request.setAttribute("errorMessage", "알 수 없는 오류가 발생했습니다.");           
-      session.setAttribute("ID", loginResult);
-       return "redirect:/contents/list"; // Redirect to the home page
-}
-
-
+        switch (loginResult) {
+            case 1:
+                // Login successful
+                session.setAttribute("ID", userID);
+                return "redirect:/contents/list"; // Redirect to the home page
+            case 0:
+                // Password incorrect
+                request.setAttribute("errorMessage", "비밀번호가 틀렸습니다.");
+                return "/login/login.jsp"; // Show login page with error message
+            case -1:
+                // User ID not found
+                request.setAttribute("errorMessage", "존재하지 않는 아이디입니다.");
+                return "/login/login.jsp"; // Show login page with error message
+            case -2:
+                // Database error
+                request.setAttribute("errorMessage", "데이터베이스 오류가 발생했습니다.");
+                return "/login/login.jsp"; // Show login page with error message
+            default:
+                // Unexpected result
+                request.setAttribute("errorMessage", "알 수 없는 오류가 발생했습니다.");
+                return "/login/login.jsp"; // Show login page with error message
+        }
     }
 }

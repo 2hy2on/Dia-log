@@ -1,11 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@page import="model.dao.user.UserDAO" %>
-<%@ page import="model.dto.user.User" %>
-<%
-    String ID = (String)session.getAttribute("ID");
-    UserDAO userDAO = new UserDAO();
-    User user = userDAO.getUserInfo(ID);
-%>
+ <%@ page import="model.dto.user.User" %>
+ <%
+     String ID = (String)session.getAttribute("ID");
+     UserDAO userDAO = new UserDAO();
+     User user = userDAO.getUserInfo(ID);
+ %>
 
 <!DOCTYPE html>
 <html>
