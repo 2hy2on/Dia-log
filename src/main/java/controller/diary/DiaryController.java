@@ -27,23 +27,17 @@ public class DiaryController implements Controller {
 	public String execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
 //		  int userId = Integer.parseInt(request.getParameter("userId"));
 		//	
-		 HttpSession session = request.getSession();
-		int userIdStr = (int) session.getAttribute("ID");
-			
-			
-		//logger.info(userIdStr);
-		
-		
-		//int userId = 3;
-		
+	      HttpSession session = request.getSession();
+	      int userId = (int) session.getAttribute("ID");
+
 //		//
 		logger.info("전!!!!!!!");
 		ReviewManager manager = ReviewManager.getInstance();
-	    VisitManager visitMan = VisitManager.getInstance();
+	    //VisitManager visitMan = VisitManager.getInstance();
 	        
 //////
 	        
-	        List<ReviewDiary> reviewDiaryList = manager.getUserDiary(userIdStr);
+	        List<ReviewDiary> reviewDiaryList = manager.getUserDiary(userId);
 	        logger.info("후!!!!!!!");
 	        //방문자 수 넣기
 //	        Visit visit = new Visit();
@@ -63,7 +57,7 @@ public class DiaryController implements Controller {
 	        String jsonResult = objectMapper.writeValueAsString(reviewDiaryList);
 ////
 	        request.setAttribute("jsonResult", jsonResult);
-	        
+//	        
 	        
 	        return "/diary/CalendarPage.jsp";
 	
