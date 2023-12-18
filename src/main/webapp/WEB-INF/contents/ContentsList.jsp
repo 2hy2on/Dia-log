@@ -9,10 +9,10 @@
 <html>
 <head>
 <%
-	List<Contents> contentList = (List<Contents>) request.getAttribute("contentList");
-	List<Review> reviewList = (List<Review>) request.getAttribute("reviewList");
-	
-	System.out.println("reviewList: "+reviewList);
+List<Contents> contentList = (List<Contents>) request.getAttribute("contentList");
+List<Map<String, Object>> reviewList = (List<Map<String, Object>>) request.getAttribute("reviewList");
+
+/* System.out.println("reviewList: " + reviewList); */
 %>
 <meta charset="utf-8">
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
@@ -31,13 +31,15 @@
 	href="<c:url value='/css/contents/contentsList.css' />" type="text/css">
 <%
 /* if (contentList != null) { */
-		ObjectMapper mapper = new ObjectMapper();
-   	
-		String jsonStr = mapper.writeValueAsString(contentList);
+ObjectMapper mapper = new ObjectMapper();
+String jsonContentList = mapper.writeValueAsString(contentList);
+String jsonReviewList = mapper.writeValueAsString(reviewList);
 %>
 <script>
-		var contentList = JSON.parse('<%=jsonStr%>');
-		console.log({"JSON_contentList": contentList});
+		var contentList = JSON.parse('<%=jsonContentList%>');
+		var reviewList = JSON.parse('<%=jsonReviewList%>')
+//		console.log({"JSON_contentList": contentList});
+		console.log('Review List:', reviewList);
 
 		var cId = 0;
 		
@@ -60,38 +62,53 @@
                 document.getElementById('content-image').src = content.contentImg;
             }
             
+            /* $.ajax({
+                type: 'GET',
+                url: '/contents/reviewList',
+                data: { contentId: contentId },
+                dataType: 'json',
+                success: function (reviews) {
+                	console.log(reviews);
+                
+                	$(reviews).each(function(){
+						console.log(this.detail);       	
+        			});
+                },
+                error: function () {
+                    console.error('Failed to fetch reviews.');
+                }
+            });  */
             console.log(cId);
-            
+        
             fetchReviews(cId);
         }
         
         function fetchReviews(contentId) {
-            fetch("<c:url value='/contents/reviewList'/>?reviewId=" + encodeURIComponent(contentId), {
+            fetch("<c:url value='/contents/reviewList'/>?contentId=" + encodeURIComponent(contentId), {
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json;charset=UTF-8'
                 },
             })
             .then(response => {
-                if (!response.ok) {
-                    throw new Error('Network response was not ok');
-                }
-                return response.json(); // JSON으로 변환
+                console.log('Raw Response:', response);
+                return response.json();
             })
-            .then(reviews => {
-                console.log('Reviews:', reviews);
-
-                // 리뷰 정보를 모달에 출력
-                var reviewText = reviews.map(review => review.detail).join('<br>');
-                document.getElementById('content-review').innerHTML = reviewText;
+            .then(data => {
+                console.log('Parsed JSON:', data);
+                
+                const review = data.map(review => '- '+review.detail+'\n\n').join('');
+                
+                document.getElementById('content-review').innerText = review
             })
             .catch(error => {
                 console.error('Error fetching reviews:', error.message);
                 console.error(error.stack);
             });
         }
+  
 
-    </script>
+</script>
 </head>
 <body>
 	<%
@@ -106,10 +123,10 @@
 			while (iterator.hasNext()) {
 				Contents content = iterator.next();
 				/* 
-				            String title = content.getTitle();
-				            String img = content.getContentImg();
-				            String genre = content.getGenre();
-				         */
+				String title = content.getTitle();
+				String img = content.getContentImg();
+				String genre = content.getGenre();
+				 */
 				if (index % 5 == 1) {
 			%>
 			<div class="row">
@@ -147,11 +164,11 @@
 											src="<%=content.getContentImg()%>">
 									</div>
 									<div class="mb-3">
-										<label for="recipient-name" class="col-form-label">genre</label>
+										<label for="recipient-name" class="col-form-label">[genre]</label>
 										<p id="content-genre" />
 									</div>
 									<div class="mb-3">
-										<label for="message-text" class="col-form-label">review</label>
+										<label for="message-text" class="col-form-label">[review]</label>
 										<p id="content-review" />
 									</div>
 								</form>

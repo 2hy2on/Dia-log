@@ -22,14 +22,6 @@ public class ListContentsController implements Controller {
 
         List<Contents> contentList = manager.getContentList();
         request.setAttribute("contentList", contentList);
-        
-        String contentIdStr = request.getParameter("contentId");
-        int contentId = Integer.parseInt(contentIdStr);
-
-        List<Review> reviewList = manager.getReviewList(contentId);
-        
-        request.setAttribute("reviewList", reviewList);
-
 
         return "/contents/Contents.jsp";
     }
