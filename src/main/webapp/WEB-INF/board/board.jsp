@@ -33,13 +33,6 @@ body {
 	align-items: flex-start;
 	margin-top: 50px;
 }
-
-.navi {
-	width: 200px;
-	padding: 10px;
-	background-color: #eeeeee;
-}
-
 .content {
 	flex: 1;
 	padding: 10px;
