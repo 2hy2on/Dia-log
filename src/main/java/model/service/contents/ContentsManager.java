@@ -40,27 +40,20 @@ public class ContentsManager {
 		return contentsDAO.getContentList();
 	}
 	
-	public List<Contents> searchContentsByTitle(String title) throws SQLException {
-		return contentsDAO.searchContentsByTitle(title);
-	}
-	
-//	public boolean pickContent(int userId, int contentsId) throws SQLException {
-//		return contentsDAO.pickContent(userId, contentsId);
-//	}
-	
 	public List<Map<String, Object>> getReviewList(int contentId) throws SQLException {
 		return contentsDAO.getReviewList(contentId);
 	}
-	
-	public List<Movie> searchMovieByTitle(String title) throws SQLException {
-		return movieDAO.searchMovieByTitle(title);
+
+	public List<Contents> searchContentsByTitle(String title) throws SQLException {
+		return contentsDAO.searchContentsByTitle(title);
 	}
-	
-	public List<Music> searchMusicByTitle(String title) throws SQLException {
-		return musicDAO.searchMusicByTitle(title);
+
+	public List<Contents> searchContentsByGenre(String title, String contentType) throws SQLException {
+		return contentsDAO.searchContentsByGenre(title, contentType);
 	}
-	
-	public List<Book> searchBookByTitle(String title) throws SQLException {
-		return bookDAO.searchBookByTitle(title);
+
+	public static void main(String[] args) throws SQLException {
+		ContentsManager manager = new ContentsManager();
+		System.out.println(manager.searchContentsByGenre("범죄", "Movie"));
 	}
 }

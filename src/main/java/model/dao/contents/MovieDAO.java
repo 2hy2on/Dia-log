@@ -83,11 +83,13 @@ public class MovieDAO {
 
 	public List<Movie> searchMovieByTitle(String title) {
 		List<Movie> movieList = new ArrayList<>();
-
+		System.out.println(title);
 		try {
 			// Movie 테이블에서 title에 해당하는 영화 정보를 조회
-			String sql = "SELECT * FROM Movie WHERE title = ?";
-			Object[] param = new Object[] { title };
+			String sql = "SELECT * FROM Movie WHERE title LIKE ?";
+			String keyword = "%" + title + "%";
+			
+			Object[] param = new Object[] { keyword };
 
 			jdbcUtil.setSqlAndParameters(sql, param);
 			ResultSet rs = jdbcUtil.executeQuery();
@@ -103,6 +105,7 @@ public class MovieDAO {
 				movie.setTitle(rs.getString("title"));
 				movie.setGenre(rs.getString("genre"));
 				movie.setPublishDate(rs.getDate("publishDate"));
+				movie.setContentImg(rs.getString("contentImg"));
 
 				movieList.add(movie);
 			}
