@@ -29,7 +29,7 @@ public class UserDAO {
     } // 실제 sql에 접속코드
     
     public int login(String ID, String password) {
-        String query = "SELECT password, userId From user4 WHERE id = ?";
+        String query = "SELECT password From user4 WHERE id = ?";
         try {
             pstmt = conn.prepareStatement(query);
             pstmt.setString(1,ID);
@@ -37,10 +37,9 @@ public class UserDAO {
             
             if (rs.next()) {
                 String dbPassword = rs.getString("password").trim();
-                int id = rs.getInt("userId");
-                
+
                 if (dbPassword.equals(password.trim())) {
-                    return id; // 로그인 성공
+                    return 1; // 로그인 성공
                 } else {
                     return 0; // 비밀번호 불일치
                 }
