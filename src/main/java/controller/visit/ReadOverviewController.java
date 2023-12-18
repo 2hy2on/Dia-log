@@ -6,6 +6,7 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -22,11 +23,14 @@ public class ReadOverviewController implements Controller{
 	public String execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		// TODO Auto-generated method stub
 		
+	      HttpSession session = request.getSession();
+	      int userId = (int) session.getAttribute("ID");
+		
 		ReviewManager manager = ReviewManager.getInstance();
 		VisitManager visitMan = VisitManager.getInstance();
 		
 		//미디어별 통계
-		List<ReviewTypeNum> reviewTypeNumList = manager.getReviewByType(3);
+		List<ReviewTypeNum> reviewTypeNumList = manager.getReviewByType(userId);
 		
 	     ObjectMapper objectMapper = new ObjectMapper();
 	     String jsonResult = objectMapper.writeValueAsString(reviewTypeNumList);
@@ -52,14 +56,14 @@ public class ReadOverviewController implements Controller{
 	     // 한 달 뺀 날짜를 문자열로 변환
 	     String oneMonthAgoString = oneMonthAgo.format(formatter);
 	     
-	     List<VisitNum> visitNum = visitMan.getVisitNum(3, oneMonthAgoString, currentDatePlusOneString);
+	     List<VisitNum> visitNum = visitMan.getVisitNum(userId, oneMonthAgoString, currentDatePlusOneString);
 ////	   // List를 JSON 형태로 변환
 	     ObjectMapper objectMapper2 = new ObjectMapper();
 	     String jsonVisitNumList = objectMapper2.writeValueAsString(visitNum);
 
 
 	 	//장르별 통계
-		List<ReviewTypeNum> reviewGenreNumList = manager.getReviewByGenreNum(3);
+		List<ReviewTypeNum> reviewGenreNumList = manager.getReviewByGenreNum(userId);
 	     ObjectMapper objectMapper3 = new ObjectMapper();
 	     String reviewGenreNumListJson = objectMapper3.writeValueAsString(reviewGenreNumList);
 ////

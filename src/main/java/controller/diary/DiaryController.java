@@ -6,6 +6,7 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -26,11 +27,13 @@ public class DiaryController implements Controller {
 	public String execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
 //		  int userId = Integer.parseInt(request.getParameter("userId"));
 		//	
-		int userId = 3;
+	      HttpSession session = request.getSession();
+	      int userId = (int) session.getAttribute("ID");
+
 //		//
 		logger.info("전!!!!!!!");
 		ReviewManager manager = ReviewManager.getInstance();
-	    VisitManager visitMan = VisitManager.getInstance();
+	    //VisitManager visitMan = VisitManager.getInstance();
 	        
 //////
 	        
@@ -54,7 +57,7 @@ public class DiaryController implements Controller {
 	        String jsonResult = objectMapper.writeValueAsString(reviewDiaryList);
 ////
 	        request.setAttribute("jsonResult", jsonResult);
-	        
+//	        
 	        
 	        return "/diary/CalendarPage.jsp";
 	

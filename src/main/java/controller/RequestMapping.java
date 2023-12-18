@@ -2,6 +2,7 @@ package controller;
 
 import java.util.HashMap;
 
+
 import java.util.Map;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -51,8 +52,10 @@ public class RequestMapping {
         
         // 다이어리 관련 request URI 추가
         mappings.put("/diary", new DiaryController());
+        
         mappings.put("/diary/reviewList", new ReadReviewForDateController());
         mappings.put("/diary/filter", new FilterReviewController());
+        mappings.put("/diary/filter/genre", new FilterReviewController());
 
              //다이어리 리뷰 삭제 
         mappings.put("/review/delete", new DeleteReviewController());
@@ -80,6 +83,7 @@ public class RequestMapping {
          mappings.put("/board", new BoardController());
          mappings.put("/board/list", new BoardViewController());
          mappings.put("/board/write", new BoardWriteController());
+         mappings.put("/board/write/redirect", new BoardWriteController());
          mappings.put("/board/writeAction", new WriteActionController());
          mappings.put("/board/view", new ViewBoardController());
          //통계 관련 reques uri 추가
@@ -87,7 +91,7 @@ public class RequestMapping {
          mappings.put("/readVisitor", new ReadVisitorController());
          // 리뷰 업데이트 추가
          mappings.put("/review/update", new UpdateReviewController()); // 여기에 추가
-         
+
         logger.info("Initialized Request Mapping!");
         
     }

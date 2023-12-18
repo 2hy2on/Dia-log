@@ -1,5 +1,8 @@
 package model.service.review;
 
+import java.sql.ResultSet;
+import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 import model.dao.review.ReviewDAO;
@@ -49,5 +52,9 @@ public class ReviewManager {
 	
 	public List<ReviewTypeNum> getReviewByGenreNum(int userId){
 		return reviewDAO.getReviewByGenreForOverview(userId);
+	}
+	
+	public List<Review> getfilteredReviews(int userId, String contentType) {
+		return reviewDAO.getfilteredReviews(userId, contentType);
 	}
 }

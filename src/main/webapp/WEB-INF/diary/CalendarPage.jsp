@@ -15,6 +15,9 @@
             align-items: center; /* Center items vertically */
             margin: 0 auto; /* Center the container horizontally */
             margin-top: 60px;
+            font-family: "Helvetica Nueue",Arial,Verdana,sans-serif;
+             font-weight: 700;
+    		font-style: normal;
         }
 
         #dateName {
