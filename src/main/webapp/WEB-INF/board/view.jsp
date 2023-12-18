@@ -29,11 +29,7 @@
             margin-top: 50px;
         }
 
-        .navi {
-            width: 200px;
-            padding: 10px;
-            background-color: #eeeeee;
-        }
+    
 </style>
 <body>		
 <jsp:include page="../Navibar.jsp" />
@@ -85,7 +81,7 @@
 					</tr>
 				</tbody>
 			</table>
-			<a href= "board.jsp" class = "btn btn-primary">목록</a>
+			<a href= "/dialog/board/list" class = "btn btn-primary">목록</a>
 			<%
 			 System.out.println("ID: " + ID);
 		    System.out.println("board.getID(): " + board.getID());
