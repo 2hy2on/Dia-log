@@ -92,7 +92,7 @@
 			<%
 			}
 			%>
-			<input type="submit" value="글쓰기" style="margin-top: 20px;">
+			<a href="/dialog/board/write/redirect" class="btn btn-primary" style="margin-top: 20px;">글쓰기</a>
 			
 		</div>
 	</div>
