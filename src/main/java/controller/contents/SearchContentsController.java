@@ -1,5 +1,6 @@
 package controller.contents;
 
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -12,23 +13,30 @@ import org.slf4j.LoggerFactory;
 import controller.Controller;
 import model.dao.contents.ContentsDAO;
 import model.dto.contents.Contents;
+import model.service.contents.ContentsManager;
 
 public class SearchContentsController implements Controller {
     private static final Logger logger = LoggerFactory.getLogger(SearchContentsController.class);
     
 	@Override
 	public String execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
-		ContentsDAO dao = new ContentsDAO(); // ContentsDAO 인스턴스 생성
+		ContentsManager manager = ContentsManager.getInstance();
 
-		String title = request.getParameter("title");
-		List<Contents> searchList = dao.searchContentsByTitle(title);
-		
-		logger.debug(title);
-		
-		request.setAttribute("searchList", searchList);
+        String title = request.getParameter("title");
+        String contentType = request.getParameter("contentType");
 
-//		return "redirect:/contents/list";
-		return "/contents/Contents.jsp";
+        logger.debug("contentType: "+contentType);
+        
+        List<Contents> searchList = new ArrayList<>();
+
+        if (!contentType.equals("0")) {
+        	searchList = manager.searchContentsByGenre(title, contentType);
+        } else {
+            searchList = manager.searchContentsByTitle(title);
+        }
+        
+        request.setAttribute("searchList", searchList);
+        return "/contents/Contents.jsp";
 	}
 
 }
