@@ -26,25 +26,16 @@ public class DiaryController implements Controller {
 	@Override
 	public String execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
 //		  int userId = Integer.parseInt(request.getParameter("userId"));
-<<<<<<< HEAD
-		//
-		HttpSession session = request.getSession();
-		int userId = (int) session.getAttribute("ID");
-=======
-		//	
+
 	      HttpSession session = request.getSession();
 	      int userId = (int) session.getAttribute("ID");
 	      
 	      //friend에서 넘어온 친구 아이디
 	      String ownerId = request.getParameter("ownerId");
->>>>>>> 74432643602879b6996b8d22d133d5d81bcd9780
 
 		ReviewManager manager = ReviewManager.getInstance();
 		VisitManager visitMan = VisitManager.getInstance();
 		
-		// friend에서 넘어온 친구 아이디
-		
-		String ownerId = request.getParameter("ownerId");
 		if(ownerId != null) {
 			int ownerIdInt = Integer.parseInt(ownerId);
 			// 방문자 수 넣기
@@ -57,9 +48,6 @@ public class DiaryController implements Controller {
 		}
 		List<ReviewDiary> reviewDiaryList = manager.getUserDiary(userId);
 		
-
-		
-	    
 //	        // Set the start field as a formatted string
 		for (ReviewDiary review : reviewDiaryList) {
 			review.setStart(review.getFormattedStart());
