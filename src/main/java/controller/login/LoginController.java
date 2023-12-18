@@ -34,7 +34,8 @@ public class LoginController implements Controller {
         switch (loginResult) {
             case 1:
                 // Login successful
-                session.setAttribute("ID", userID);
+                User user = userDAO.getUserInfo(userID); 
+                session.setAttribute("user", user); 
                 return "redirect:/contents/list"; // Redirect to the home page
             case 0:
                 // Password incorrect
