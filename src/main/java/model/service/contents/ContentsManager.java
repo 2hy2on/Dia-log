@@ -2,12 +2,14 @@ package model.service.contents;
 
 import java.sql.SQLException;
 import java.util.List;
+import java.util.Map;
 
 import model.dao.contents.BookDAO;
 import model.dao.contents.ContentsDAO;
 import model.dao.contents.MovieDAO;
 import model.dao.contents.MusicDAO;
 import model.dto.contents.Contents;
+import model.dto.review.Review;
 
 public class ContentsManager {
 	private static ContentsManager contentsMan = new ContentsManager();
@@ -43,4 +45,7 @@ public class ContentsManager {
 		return contentsDAO.pickContent(userId, contentsId);
 	}
 	
+	public List<Map<String, Object>> getReviewList(int contentId) throws SQLException {
+		return contentsDAO.getReviewList(contentId);
+	}
 }

@@ -52,41 +52,50 @@
 		</div>
 	</div>
 
-	<% 
-        List<Contents> searchList = (List<Contents>)request.getAttribute("searchList");
-        
-        if (searchList != null && !searchList.isEmpty()) {
-            Iterator<Contents> iterator = searchList.iterator();
-            int index = 1;
-        %>
+	<%
+	List<Contents> searchList = (List<Contents>) request.getAttribute("searchList");
+
+	if (searchList != null && !searchList.isEmpty()) {
+		Iterator<Contents> iterator = searchList.iterator();
+		int index = 1;
+	%>
 
 	<div class="gallery">
 		<div class="container text-center">
 
 			<%
-            while (iterator.hasNext()) {
-                Contents content = iterator.next();
-                if (index % 5 == 1) { %>
+			while (iterator.hasNext()) {
+				Contents content = iterator.next();
+				if (index % 5 == 1) {
+			%>
 			<div class="row">
-				<% } %>
+				<%
+				}
+				%>
 				<div class="col">
 					<article class="card" data-bs-toggle="modal"
 						data-bs-target="#exampleModal">
 						<figure>
-							<img src="<%= content.getContentImg() %>"
-								alt="<%= content.getGenre() %>">
+							<img src="<%=content.getContentImg()%>"
+								alt="<%=content.getGenre()%>">
 							<figcaption>
-								<p class="h6"><%= content.getTitle() %></p>
+								<p class="h6"><%=content.getTitle()%></p>
 							</figcaption>
 						</figure>
 					</article>
 				</div>
-				<% index++; 
-			} %>
-				<% if (index % 5 == 1) { %>
+				<%
+				index++;
+				}
+				%>
+				<%
+				if (index % 5 == 1) {
+				%>
 			</div>
-			<% } 
-			}%>
+			<%
+			}
+			}
+			%>
 		</div>
 	</div>
 </body>

@@ -1,213 +1,196 @@
-              @font-face {
-              	font-family: 'LINESeedKR-Bd';
-              	src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_11-01@1.0/LINESeedKR-Bd.woff2') format('woff2');
-              	font-weight: 700;
-              	font-style: normal;
-              }
+@font-face {
+	font-family: 'LINESeedKR-Bd';
+	src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_11-01@1.0/LINESeedKR-Bd.woff2') format('woff2');
+	font-weight: 700;
+	font-style: normal;
+}
 
-              body {
-              	font-family: 'LINESeedKR-Bd', sans-serif;
-              	display: flex;
-              	justify-content: center;
-              	align-items: center;
-              	min-height: 100vh;
-              	margin: 0;
-              	background: linear-gradient(to bottom, #456268 30%, white 0%, white 100%);
-              }
+body {
+	font-family: 'LINESeedKR-Bd', sans-serif;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	min-height: 100vh;
+	margin: 0;
+}
 
-              header {
-              	position: absolute;
-              	top: 0;
-              	left: 0;
-              	right: 0;
-              	background-color: #456268;
-              	color: #FCF8EC;
-              	padding: 10px 20px;
-              	text-align: left;
-              }
+header {
+	position: absolute;
+	top: 0;
+	left: 0;
+	right: 0;
+	text-align: left;
+}
 
-              header h1 {
-              	margin: 0;
-              	padding: 0;
-              	padding-left: 6%;
-              	display: inline-block;
-              }
+header button {
+	display: inline-block;
+	vertical-align: middle;
+	margin-left: 70%;
+	margin-top: 6%;
+	background-color: #79A3B1;
+	transform: translateX(-50%);
+}
 
-              header button {
-              	display: inline-block;
-              	vertical-align: middle;
-              	margin-left: 70%;
-              	margin-top: 6%;
-              	background-color: #79A3B1;
-              	transform: translateX(-50%);
-              }
+#followRequest {
+	margin-left: 960px;
+	/* 변경된 부분 */
+}
 
-              #followRequest {
-              	margin-left: 960px;
-              	/* 변경된 부분 */
-              }
+#searchFriend {
+	margin-left: 10px;
+	/* 변경된 부분 */
+}
 
-              #searchFriend {
-              	margin-left: 10px;
-              	/* 변경된 부분 */
-              }
+.underline {
+	border-bottom: 2px solid white;
+	width: 30%;
+	margin-top: 10px;
+	margin-bottom: 20px;
+}
 
-              .underline {
-              	border-bottom: 2px solid white;
-              	width: 30%;
-              	margin-top: 10px;
-              	margin-bottom: 20px;
-              }
+/* 기존 .btn-primary 클래스에 스타일을 적용합니다. */
+.btn-primary {
+	background-color: #a4c1cf;
+	color: #fff;
+	border-color: #a4c1cf;
+}
 
-              /* 기존 .btn-primary 클래스에 스타일을 적용합니다. */
-              .btn-primary {
-              	background-color: #a4c1cf;
-              	color: #fff;
-              	border-color: #a4c1cf;
-              }
+/* Optional: .btn-primary 클래스에 호버 효과를 추가합니다. */
+.btn-primary:hover {
+	background-color: #D0E8F2;
+	color: #fff;
+	border-color: #a4c1cf;
+}
 
-              /* Optional: .btn-primary 클래스에 호버 효과를 추가합니다. */
-              .btn-primary:hover {
-              	background-color: #D0E8F2;
-              	color: #fff;
-              	border-color: #a4c1cf;
-              }
+/* .badge.bg-primary.rounded-pill 클래스에 스타일을 적용합니다. */
+.badge.bg-primary.rounded-pill {
+	background-color: #a4c1cf !important;
+	color: #FCF8EC !important;
+	border-color: #a4c1cf !important;
+}
 
-              /* .badge.bg-primary.rounded-pill 클래스에 스타일을 적용합니다. */
-              .badge.bg-primary.rounded-pill {
-              	background-color: #a4c1cf !important;
-              	color: #FCF8EC !important;
-              	border-color: #a4c1cf !important;
-              }
+/* Optional: .badge.bg-primary.rounded-pill 클래스에 호버 효과를 추가합니다. */
+.badge.bg-primary.rounded-pill:hover {
+	background-color: #D0E8F2 !important;
+	color: #FCF8EC !important;
+	border-color: #a4c1cf !important;
+}
 
-              /* Optional: .badge.bg-primary.rounded-pill 클래스에 호버 효과를 추가합니다. */
-              .badge.bg-primary.rounded-pill:hover {
-              	background-color: #D0E8F2 !important;
-              	color: #FCF8EC !important;
-              	border-color: #a4c1cf !important;
-              }
+.social-icon {
+	display: inline-flex;
+	margin: 0;
+	padding: 0;
+	padding-left: 6%;
+	height: 3.5rem;
+	width: 3.5rem;
+	background-color: #79A3B1;
+	color: #FCF8EC;
+	border-radius: 100%;
+	font-size: 1.5rem;
+	margin-right: 1.5rem;
+	align-items: center;
+}
 
+img {
+	max-width: 100%;
+	/* 이미지가 카드 안에 꽉 차도록 크기를 조정 */
+	max-height: 100%;
+	object-fit: cover;
+}
 
-              .social-icon {
-              	display: inline-flex;
-              	margin: 0;
-              	padding: 0;
-              	padding-left: 6%;
-              	height: 3.5rem;
-              	width: 3.5rem;
-              	background-color: #79A3B1;
-              	color: #FCF8EC;
-              	border-radius: 100%;
-              	font-size: 1.5rem;
-              	margin-right: 1.5rem;
-              	align-items: center;
-              }
+.list-group {
+	width: 800px;
+	height: 1000px;
+	text-align: center;
+	padding-top: 400px;
+}
 
-              img {
-              	max-width: 100%;
-              	/* 이미지가 카드 안에 꽉 차도록 크기를 조정 */
-              	max-height: 100%;
-              	object-fit: cover;
+.request-group {
+	width: 700px;
+	height: 400px;
+	text-align: center;
+	margin: 10px;
+}
 
-              }
+.btn-custom-danger {
+	color: #fff;
+	background-color: #ff7070;
+	/* 더 연한 빨강 색상 */
+	border-color: #ff7070;
+	/* 더 연한 빨강 색상 */
+}
 
-              .list-group {
-              	width: 800px;
-              	height: 1000px;
-              	text-align: center;
-              	padding-top: 400px;
-              }
+.btn-custom-danger:hover {
+	color: #fff;
+	background-color: #ff5050;
+	/* 마우스 호버 시 빨강 색상 조절 */
+	border-color: #ff5050;
+	/* 마우스 호버 시 빨강 색상 조절 */
+}
 
+.request-group li img {
+	margin-bottom: 100px;
+}
 
-              .request-group {
-              	width: 700px;
-              	height: 400px;
-              	text-align: center;
-              	margin: 10px;
+.request-group li {
+	border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+	margin-bottom: 20px;
+	padding-bottom: 10px;
+}
 
-              }
+.request-group li:last-child {
+	border-bottom: none;
+}
 
-              .btn-custom-danger {
-              	color: #fff;
-              	background-color: #ff7070;
-              	/* 더 연한 빨강 색상 */
-              	border-color: #ff7070;
-              	/* 더 연한 빨강 색상 */
-              }
+/* bar */
+.container {
+	width: 50vw;
+	height: 80px;
+	line-height: 80px;
+	background-color: white;
+	position: absolute;
+	z-index: 1;
+	top: 250px;
+}
 
-              .btn-custom-danger:hover {
-              	color: #fff;
-              	background-color: #ff5050;
-              	/* 마우스 호버 시 빨강 색상 조절 */
-              	border-color: #ff5050;
-              	/* 마우스 호버 시 빨강 색상 조절 */
-              }
+.container ul {
+	display: flex;
+	padding: 0;
+	margin: 0;
+	box-shadow: 0 10px 20px 0 rgba(0, 0, 0, 0.25);
+}
 
-              .request-group li img {
-              	margin-bottom: 100px;
-              }
+.container li {
+	flex: 1;
+	list-style: none;
+	text-align: center;
+	position: relative;
+	font-size: 20px;
+	font-weight: bold;
+	transition: 0.5s ease;
+	cursor: pointer;
+	user-select: none;
+}
 
-              .request-group li {
-              	border-bottom: 1px solid rgba(0, 0, 0, 0.1);
-              	margin-bottom: 20px;
-              	padding-bottom: 10px;
-              }
+/* 변경된 부분 */
+.container li:hover,
+.container li.active {
+	background-color: rgba(255, 255, 255, 0.25);
+	color: #79A3B1;
+}
 
-              .request-group li:last-child {
-              	border-bottom: none;
-              }
+/* 추가된 부분 */
+.container li.active::after {
+	content: '';
+	width: 50%;
+	background-color: #79A3B1;
+	height: 5px;
+	position: absolute;
+	bottom: 0;
+	left: 25%;
+	transition: 0.5s ease;
+}
 
-
-
-              /* bar */
-              .container {
-              	width: 50vw;
-              	height: 80px;
-              	line-height: 80px;
-              	background-color: white;
-              	position: absolute;
-              	z-index: 1;
-              	top: 250px;
-              }
-
-              .container ul {
-              	display: flex;
-              	padding: 0;
-              	margin: 0;
-              	box-shadow: 0 10px 20px 0 rgba(0, 0, 0, 0.25);
-              }
-
-              .container li {
-              	flex: 1;
-              	list-style: none;
-              	text-align: center;
-              	position: relative;
-              	font-size: 20px;
-              	font-weight: bold;
-              	transition: 0.5s ease;
-              	cursor: pointer;
-              	user-select: none;
-              }
-
-              /* 변경된 부분 */
-              .container li:hover,
-              .container li.active {
-              	background-color: rgba(255, 255, 255, 0.25);
-              	color: #79A3B1;
-              }
-
-              /* 추가된 부분 */
-              .container li.active::after {
-              	content: '';
-              	width: 50%;
-              	background-color: #79A3B1;
-              	height: 5px;
-              	position: absolute;
-              	bottom: 0;
-              	left: 25%;
-              	transition: 0.5s ease;
-              }
-
-              .container .d-flex {
-              	padding: 25px;
-              }
+.container .d-flex {
+	padding: 25px;
+}
