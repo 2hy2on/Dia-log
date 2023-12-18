@@ -18,20 +18,20 @@
             font-family: "Helvetica Nueue",Arial,Verdana,sans-serif;
              font-weight: 700;
     		font-style: normal;
+    		margin-bottom: 200px;
         }
 
         #dateName {
-            font-size: 100px;
             color: #f2a223;
             font-weight: bold;
         }
 
         .calendarLayer {
             /* Set a fixed width for each section */
-            width: 600px;
+            width: 550px;
             
         }
-
+        
         .listLayer {
              /* Set a fixed width for each section */
              /* Adjust the marg width: 0px;in as needed */
