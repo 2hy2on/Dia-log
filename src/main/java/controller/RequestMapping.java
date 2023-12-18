@@ -8,6 +8,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import controller.board.BoardController;
+import controller.board.BoardViewController;
 import controller.board.BoardWriteController;
 import controller.board.ViewBoardController;
 import controller.board.WriteActionController;
@@ -21,6 +22,7 @@ import controller.login.RegisterController;
 import controller.login.RegisterPageController;
 import controller.diary.DiaryController;
 import controller.review.ReadReviewForDateController;
+import controller.review.UpdateReviewController;
 import controller.visit.ReadOverviewController;
 import controller.visit.ReadVisitorController;
 import controller.review.DeleteReviewController;
@@ -47,6 +49,7 @@ public class RequestMapping {
         
         // 다이어리 관련 request URI 추가
         mappings.put("/diary", new DiaryController());
+        
         mappings.put("/diary/reviewList", new ReadReviewForDateController());
         mappings.put("/diary/filter", new FilterReviewController());
         mappings.put("/diary/filter/genre", new FilterReviewController());
@@ -75,14 +78,19 @@ public class RequestMapping {
         
         //게시판 관련 request URI 추가
          mappings.put("/board", new BoardController());
+         mappings.put("/board/list", new BoardViewController());
          mappings.put("/board/write", new BoardWriteController());
+         mappings.put("/board/write/redirect", new BoardWriteController());
          mappings.put("/board/writeAction", new WriteActionController());
          mappings.put("/board/view", new ViewBoardController());
-         
          //통계 관련 reques uri 추가
          mappings.put("/readOverview", new ReadOverviewController());
          mappings.put("/readVisitor", new ReadVisitorController());
+         // 리뷰 업데이트 추가
+         mappings.put("/review/update", new UpdateReviewController()); // 여기에 추가
+
         logger.info("Initialized Request Mapping!");
+        
     }
 
     public Controller findController(String uri) {

@@ -6,6 +6,7 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -22,11 +23,14 @@ public class ReadVisitorController implements Controller {
 		// TODO Auto-generated method stub
 		
 		
+	      HttpSession session = request.getSession();
+	      int userId = (int) session.getAttribute("ID");
+		
 		VisitManager visitMan = VisitManager.getInstance();
 		ReviewManager manager = ReviewManager.getInstance();
 		
 		//미디어별 통계
-		List<ReviewTypeNum> reviewTypeNumList = manager.getReviewByType(3);
+		List<ReviewTypeNum> reviewTypeNumList = manager.getReviewByType(userId);
 				
 		ObjectMapper objectMapper = new ObjectMapper();
 		String jsonResult = objectMapper.writeValueAsString(reviewTypeNumList);
@@ -48,7 +52,7 @@ public class ReadVisitorController implements Controller {
 		String nextDayStr = nextDay.format(formatter);
 		
 	     
-	     List<VisitNum> visitNum = visitMan.getVisitNum(3, startDate, nextDayStr);
+	     List<VisitNum> visitNum = visitMan.getVisitNum(userId, startDate, nextDayStr);
 ////	   // List를 JSON 형태로 변환
 	     ObjectMapper objectMapper2 = new ObjectMapper();
 	     
