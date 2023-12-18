@@ -20,19 +20,37 @@
 <link rel="stylesheet"
 	href="<c:url value='/css/contents/contentsList.css' />" type="text/css">
 <script>
+	function updateFormAction() {
+		var contentTypeSelect = document.getElementById("contentTypeSelect");
+		var selectedValue = contentTypeSelect.options[contentTypeSelect.selectedIndex].value;
+
+		var form = document.getElementById("searchForm");
+		if (selectedValue === "movie") {
+			form.action = "<c:url value='/contents/search/movie' />";
+		} else if (selectedValue === "music") {
+			form.action = "<c:url value='/contents/search/music' />";
+		} else if (selectedValue === "book") {
+			form.action = "<c:url value='/contents/search/book' />";
+		} else {
+			form.action = "<c:url value='/contents/search' />";
+		}
+	}
+
 	function submitForm() {
+		updateFormAction();
 		document.forms["search"].submit();
 	}
 </script>
+
 </head>
 <body>
 	<div class="container" style="display: flex;">
 		<div class="row" style="margin: auto;">
-			<form name="search" method="POST"
-				action="<c:url value='/contents/search' />">
+			<form name="search" method="POST" action="" id="searchForm">
 				<table class="pull-right">
 					<tr>
-						<td><select>
+						<td><select id="contentTypeSelect"
+							onchange="updateFormAction()">
 								<option value="0">선택</option>
 								<option value="movie">영화</option>
 								<option value="music">음악</option>

@@ -112,32 +112,7 @@ public class ContentsDAO {
 
 		return contentList;
 	}
-
-	public boolean pickContent(int userId, int contentId) {
-		LocalDateTime currentDateTime = LocalDateTime.now();
-		LocalDate currentDate = LocalDate.now();
-		StringBuilder query = new StringBuilder();
-		query.append("INSERT INTO Review (createdAt, updatedAt, watchedAt, contentId, writerId) VALUES (?, ?, ?,?, ?)");
-
-		Object[] param = new Object[] { currentDateTime, currentDateTime, currentDate, contentId, userId };
-
-		jdbcUtil.setSqlAndParameters(query.toString(), param); // JDBCUtil 에 insert문과 매개 변수 설정
-
-		try {
-			int affectedRows = jdbcUtil.executeUpdate(); // executeUpdate 사용
-			if (affectedRows > 0) {
-				return true;
-			}
-		} catch (Exception ex) {
-			jdbcUtil.rollback(); // 트랜잭션 rollback 실행
-			ex.printStackTrace();
-		} finally {
-			jdbcUtil.commit(); // 트랜잭션 commit 실행
-			jdbcUtil.close();
-		}
-		return false;
-	}
-
+	
 	public Contents getContentsById(int contentId) {
 		Contents contents = null;
 

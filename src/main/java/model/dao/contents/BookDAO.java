@@ -87,7 +87,6 @@ public class BookDAO {
         List<Book> bookList = new ArrayList<>();
 
         try {
-            // SQL 쿼리: Book 테이블에서 title에 해당하는 책 정보를 조회
             String sql = "SELECT * FROM Book WHERE title = ?";
             Object[] param = new Object[] { title };
 

@@ -7,7 +7,10 @@ import model.dao.contents.BookDAO;
 import model.dao.contents.ContentsDAO;
 import model.dao.contents.MovieDAO;
 import model.dao.contents.MusicDAO;
+import model.dto.contents.Book;
 import model.dto.contents.Contents;
+import model.dto.contents.Movie;
+import model.dto.contents.Music;
 import model.dto.review.Review;
 
 public class ContentsManager {
@@ -40,11 +43,23 @@ public class ContentsManager {
 		return contentsDAO.searchContentsByTitle(title);
 	}
 	
-	public boolean pickContent(int userId, int contentsId) throws SQLException {
-		return contentsDAO.pickContent(userId, contentsId);
-	}
+//	public boolean pickContent(int userId, int contentsId) throws SQLException {
+//		return contentsDAO.pickContent(userId, contentsId);
+//	}
 	
 	public List<Review> getReviewList(int contentId) throws SQLException {
 		return contentsDAO.getReviewList(contentId);
+	}
+	
+	public List<Movie> searchMovieByTitle(String title) throws SQLException {
+		return movieDAO.searchMovieByTitle(title);
+	}
+	
+	public List<Music> searchMusicByTitle(String title) throws SQLException {
+		return musicDAO.searchMusicByTitle(title);
+	}
+	
+	public List<Book> searchBookByTitle(String title) throws SQLException {
+		return bookDAO.searchBookByTitle(title);
 	}
 }

@@ -60,25 +60,9 @@
                 document.getElementById('content-image').src = content.contentImg;
             }
             
-            /* $.ajax({
-                type: 'GET',
-                url: '/contents/reviewList',
-                data: { contentId: contentId },
-                success: function (reviews) {
-                	console.log(reviews);
-                },
-                	$(reviews).each(function(){
-						console.log(this.detail);       	
-        			});
-                },
-            
-                error: function () {
-                    console.error('Failed to fetch reviews.');
-                }
-            }); */
             console.log(cId);
             
-            fetchReviews(cId)
+            fetchReviews(cId);
         }
         
         function fetchReviews(contentId) {
