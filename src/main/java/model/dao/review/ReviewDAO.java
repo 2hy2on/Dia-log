@@ -287,41 +287,5 @@ public class ReviewDAO {
     }
    
     
-	 public static void main(String[] args) {
-//	 Scanner scanner = new Scanner(System.in);
-//	 Review re = new Review();
-//	 re.setDetail("짱잼!!!!");
-//	 re.setContentId(0);
-//	 re.setPrivate(false);
-//	 re.setRate(4.0f);
-//	 
-//	 re.setWriterId(3);
-//	
 
-	 // re.setWatchedAt에 LocalDate 객체 전달
-	
-//	// re.setWatchedAt에 LocalDate 객체 전달
-//	 String dateString1 = "2023-11-23";
-//	 SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-//	 try {
-//	     Date date1 = new Date(dateFormat.parse(dateString1).getTime()); // java.util.Date를 java.sql.Date로 변환
-//	     re.setWatchedAt(date1);
-//	 } catch (ParseException e) {
-//	     e.printStackTrace();
-//	 }
-//	
-//	 
-	 ReviewDAO reDao = new ReviewDAO();
-	 System.out.println(reDao.getReviewByGenreForOverview(3).get(3).getNum());
-////
-////
-////       System.out.println(reDao.getReviewForDiary(1).get(0).getWatchedAt());
-//	 System.out.println(reDao.getReviewByDate(3, "2023/11/23"));
-////	 System.out.println(reDao.deleteReview(8));
-////	 System.out.println(reDao.updateReview(12, re));
-//	 System.out.println(reDao.updateReview(re));        
-
-//        scanner.close();
-//	 }
-	 }
 }
