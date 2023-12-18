@@ -77,6 +77,7 @@ public class RequestMapping {
          mappings.put("/board", new BoardController());
          mappings.put("/board/list", new BoardViewController());
          mappings.put("/board/write", new BoardWriteController());
+         mappings.put("/board/write/redirect", new BoardWriteController());
          mappings.put("/board/writeAction", new WriteActionController());
          mappings.put("/board/view", new ViewBoardController());
          //통계 관련 reques uri 추가
