@@ -7,6 +7,7 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -25,9 +26,10 @@ public class FilterReviewController implements Controller {
 
 	@Override
 	public String execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
-		logger.debug(request.getServletPath() + "서블릿 패스");
+		HttpSession session = request.getSession();
+		int userId = (int) session.getAttribute("ID");
+		
 		if (request.getServletPath().equals("/diary/filter/genre")) {
-			int userId = 3;
 			String contentType = request.getParameter("contentType");
 			ReviewManager reviewmanager = ReviewManager.getInstance();
 

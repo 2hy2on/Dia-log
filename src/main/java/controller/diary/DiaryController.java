@@ -29,6 +29,9 @@ public class DiaryController implements Controller {
 		//	
 	      HttpSession session = request.getSession();
 	      int userId = (int) session.getAttribute("ID");
+	      
+	      //friend에서 넘어온 친구 아이디
+	      String ownerId = request.getParameter("ownerId");
 
 //		//
 		logger.info("전!!!!!!!");
