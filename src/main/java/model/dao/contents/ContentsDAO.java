@@ -183,9 +183,46 @@ public class ContentsDAO {
 		return false;
 	}
 
-	public static void main(String[] args) throws SQLException {
-		ContentsDAO dao = new ContentsDAO();
-		System.out.println(dao.searchContentsByGenre("8", "Movie"));
-		System.out.println(dao.searchContentsByTitle(null));
+	public List<Contents> readHallOfFame() {
+		StringBuilder query = new StringBuilder();
+	    query.append("WITH RankedReviews AS (")
+        .append("SELECT ")
+        .append("contentType, r.contentid, COUNT(*) AS review_count, ROW_NUMBER() OVER (PARTITION BY contentType ORDER BY COUNT(*) DESC) AS rnk ")
+        .append("FROM Review r ")
+        .append("JOIN Contents c ON r.contentid = c.contentid ")
+        .append("GROUP BY contentType, r.contentid ) ")
+        .append("SELECT rr.contentType, rr.contentid, rr.review_count, c.contentImg, ")
+        .append(" c.title, c.genre, c.publishdate ")
+        .append("FROM RankedReviews rr ")
+        .append("JOIN Contents c ON rr.contentid = c.contentid ")
+        .append("WHERE rr.rnk = 1");
+
+		jdbcUtil.setSqlAndParameters(query.toString(),null); // JDBCUtil 에 insert문과 매개 변수 설정
+		List<Contents> contentList = new ArrayList<>();
+		
+		try {
+			ResultSet rs = jdbcUtil.executeQuery();
+			while (rs.next()) {
+				Contents cont = new Contents();
+
+				cont.setContentId(rs.getInt("contentid"));
+				cont.setContentImg(rs.getString("contentImg"));
+				cont.setContentType(ContentType.valueOf(rs.getString("contentType")));
+				cont.setTitle(rs.getString("title"));
+				cont.setGenre(rs.getString("genre"));
+				cont.setPublishDate(rs.getDate("publishdate"));
+
+				contentList.add(cont);
+				
+			}
+			return contentList;
+		} catch (Exception ex) {
+			jdbcUtil.rollback(); // 트랜잭션 rollback 실행
+			ex.printStackTrace();
+		} finally {
+			jdbcUtil.commit(); // 트랜잭션 commit 실행
+			jdbcUtil.close();
+		}
+		return contentList;
 	}
 }
