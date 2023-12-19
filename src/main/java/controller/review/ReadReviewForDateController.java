@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -18,7 +19,9 @@ public class ReadReviewForDateController implements Controller{
 	@Override
 	public String execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		
-		int userId = 3;
+		HttpSession session = request.getSession();
+		int userId = (int) session.getAttribute("userId");
+		
         String dateStr = request.getParameter("dateStr"); // Retrieve data sent via AJAX
 
         // Further processing...

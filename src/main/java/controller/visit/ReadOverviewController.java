@@ -24,7 +24,7 @@ public class ReadOverviewController implements Controller{
 		// TODO Auto-generated method stub
 		
 	      HttpSession session = request.getSession();
-	      int userId = (int) session.getAttribute("ID");
+	      int userId = (int) session.getAttribute("userId");
 		
 		ReviewManager manager = ReviewManager.getInstance();
 		VisitManager visitMan = VisitManager.getInstance();

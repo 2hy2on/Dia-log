@@ -16,6 +16,13 @@
        %>
 
 <head>
+<style>
+.gallery{
+		width: 400px;
+		hegiht: 1000px;
+	}
+
+</style>
    <meta charset="utf-8">
    <meta name="viewport" content="width=device-width, initial-scale=1">
    <title>Filtering</title>
@@ -163,6 +170,7 @@ if (reviewDateList != null) {
       
 <%
 } 
+if( request.getAttribute("ownerId") == null){
 %>
    <div class="modal" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
       <div class="modal-dialog modal-lg">
@@ -210,7 +218,7 @@ if (reviewDateList != null) {
          </div>
       </div>
    </div>
-
+<%} %>
 </body>
 
 </div>

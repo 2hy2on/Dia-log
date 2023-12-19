@@ -37,10 +37,10 @@ public class UserDAO {
             
             if (rs.next()) {
                 String dbPassword = rs.getString("password").trim();
-                int id = rs.getInt("userId");
+                int userId = rs.getInt("userId");
                 
                 if (dbPassword.equals(password.trim())) {
-                    return id; // 로그인 성공
+                    return userId; // 로그인 성공
                 } else {
                     return 0; // 비밀번호 불일치
                 }
@@ -112,21 +112,33 @@ public class UserDAO {
 
         try {
             conn.setAutoCommit(false); // 자동 커밋을 비활성화
-
+    
             // 자식 레코드 삭제 (REVIEW 테이블)
             String deleteChildRecordsQuery = "DELETE FROM REVIEW WHERE WRITERID IN (SELECT USERID FROM USER4 WHERE ID = ?)";
             pstmt = conn.prepareStatement(deleteChildRecordsQuery);
             pstmt.setString(1, ID);
             pstmt.executeUpdate();
 
-            // 부모 레코드 삭제 (USER4 테이블)
-            String deleteUserQuery = "DELETE FROM USER4 WHERE ID = ?";
-            pstmt = conn.prepareStatement(deleteUserQuery);
-            pstmt.setString(1, ID);
-            int result = pstmt.executeUpdate();
-
-            conn.commit(); // 수동으로 커밋
             
+         // 자식 레코드 삭제 (FOLLOW 테이블) - FOLLOWERID 기준
+         // 자식 레코드 삭제 (FOLLOW 테이블) - FOLLOWERID 기준
+            String deleteFollowerRecordsQuery = "DELETE FROM FOLLOW WHERE FOLLOWERID IN (SELECT USERID FROM USER4 WHERE ID = ?)";
+            pstmt = conn.prepareStatement(deleteFollowerRecordsQuery);
+            pstmt.setString(1, ID);
+            pstmt.executeUpdate();
+
+         // 자식 레코드 삭제 (FOLLOW 테이블) - FOLLOWEEID 기준
+            String deleteFolloweeRecordsQuery = "DELETE FROM FOLLOW WHERE FOLLOWEEID IN (SELECT USERID FROM USER4 WHERE ID = ?)";
+            pstmt = conn.prepareStatement(deleteFolloweeRecordsQuery);
+            pstmt.setString(1, ID);
+            pstmt.executeUpdate();
+            
+            // 부모 레코드 삭제 (USER4 테이블)
+             String deleteUserQuery = "DELETE FROM USER4 WHERE ID = ?";
+            pstmt = conn.prepareStatement(deleteUserQuery);
+             pstmt.setString(1, ID);
+             int result = pstmt.executeUpdate();
+             
             return result > 0;
         } catch (SQLException e) {
             e.printStackTrace();

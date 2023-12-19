@@ -17,6 +17,7 @@ import controller.contents.ListReviewsController;
 import controller.contents.PickContentsController;
 import controller.friend.FriendListController;
 import controller.login.LoginController;
+import controller.login.MyPageUpdateController;
 import controller.login.MypageController;
 import controller.login.RegisterController;
 import controller.login.RegisterPageController;
@@ -74,8 +75,9 @@ public class RequestMapping {
         mappings.put("/login", new LoginController()); // 여기에 추가
         mappings.put("/login/registerPage", new RegisterPageController()); // 여기에 추가
         mappings.put("/login/register", new RegisterController()); // 여기에 추가
-        mappings.put("/mypage", new MypageController()); // 여기에 추가
         
+        mappings.put("/mypage", new MypageController()); // 여기에 추가
+        mappings.put("/mypage/update", new MyPageUpdateController()); // 여기에 추가
         //게시판 관련 request URI 추가
          mappings.put("/board", new BoardController());
          mappings.put("/board/list", new BoardViewController());
@@ -89,6 +91,9 @@ public class RequestMapping {
          // 리뷰 업데이트 추가
          mappings.put("/review/update", new UpdateReviewController()); // 여기에 추가
 
+         
+         
+         
         logger.info("Initialized Request Mapping!");
         
     }
