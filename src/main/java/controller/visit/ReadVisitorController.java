@@ -24,7 +24,7 @@ public class ReadVisitorController implements Controller {
 		
 		
 	      HttpSession session = request.getSession();
-	      int userId = (int) session.getAttribute("ID");
+	      int userId = (int) session.getAttribute("userId");
 		
 		VisitManager visitMan = VisitManager.getInstance();
 		ReviewManager manager = ReviewManager.getInstance();
