@@ -47,7 +47,7 @@ public class LoginController implements Controller {
       return "/login/login.jsp"; // Show login page with error message
   default:
 //      request.setAttribute("errorMessage", "알 수 없는 오류가 발생했습니다.");           
-      session.setAttribute("ID", loginResult);
+      session.setAttribute("userId", loginResult);
        return "redirect:/contents/list"; // Redirect to the home page
 }
 
