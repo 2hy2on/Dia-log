@@ -11,8 +11,6 @@
 <%
 List<Contents> contentList = (List<Contents>) request.getAttribute("contentList");
 List<Map<String, Object>> reviewList = (List<Map<String, Object>>) request.getAttribute("reviewList");
-
-/* System.out.println("reviewList: " + reviewList); */
 %>
 <meta charset="utf-8">
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
@@ -30,7 +28,6 @@ List<Map<String, Object>> reviewList = (List<Map<String, Object>>) request.getAt
 <link rel="stylesheet"
 	href="<c:url value='/css/contents/contentsList.css' />" type="text/css">
 <%
-/* if (contentList != null) { */
 ObjectMapper mapper = new ObjectMapper();
 String jsonContentList = mapper.writeValueAsString(contentList);
 String jsonReviewList = mapper.writeValueAsString(reviewList);
@@ -38,10 +35,9 @@ String jsonReviewList = mapper.writeValueAsString(reviewList);
 <script>
 		var contentList = JSON.parse('<%=jsonContentList%>');
 		var reviewList = JSON.parse('<%=jsonReviewList%>')
-//		console.log({"JSON_contentList": contentList});
-		console.log('Review List:', reviewList);
 
 		var cId = 0;
+		var uId = 0;
 		
         function updateModalContent(contentId) {
             cId = contentId;
@@ -56,30 +52,11 @@ String jsonReviewList = mapper.writeValueAsString(reviewList);
             localStorage.setItem("contentId", contentId);
 
             if (content) {
-                // 모달의 제목, 이미지 등을 업데이트 
+                // 모달 업데이트 
                 document.getElementById('exampleModalLabel').innerText = content.title;
                 document.getElementById('content-genre').innerText = content.genre;
                 document.getElementById('content-image').src = content.contentImg;
-            }
-            
-            /* $.ajax({
-                type: 'GET',
-                url: '/contents/reviewList',
-                data: { contentId: contentId },
-                dataType: 'json',
-                success: function (reviews) {
-                	console.log(reviews);
-                
-                	$(reviews).each(function(){
-						console.log(this.detail);       	
-        			});
-                },
-                error: function () {
-                    console.error('Failed to fetch reviews.');
-                }
-            });  */
-            console.log(cId);
-        
+            }      
             fetchReviews(cId);
         }
         
@@ -91,11 +68,11 @@ String jsonReviewList = mapper.writeValueAsString(reviewList);
                 },
             })
             .then(response => {
-                console.log('Raw Response:', response);
+                console.log('Review Response:', response);
                 return response.json();
             })
             .then(data => {
-                console.log('Parsed JSON:', data);
+                console.log('(Review) Parsed JSON:', data);
                 
                 const review = data.map(review => '- '+review.detail+'\n\n').join('');
                 
@@ -106,7 +83,41 @@ String jsonReviewList = mapper.writeValueAsString(reviewList);
                 console.error(error.stack);
             });
         }
-  
+        
+        function pickContent(userId, contentId) {
+            fetch("<c:url value='/contents/pick'/>?userId=" + encodeURIComponent(userId)+"&contentId="+encodeURIComponent(contentId), {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json;charset=UTF-8'
+                },
+                /* 
+                body: JSON.stringify({
+                    userId: userId,
+                    contentId: contentId
+                }) 
+                */
+            })
+            .then(response => {
+            	if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+            	console.log('Pick Content Response:', response);
+                // return response.json();
+            })
+            .then(data => {
+                console.log('(Content) Parsed JSON:', data);
+				/* 
+                if (data.result) {
+                    alert('Content picked successfully!');
+                } else {
+                    alert('Failed to pick the content.');
+                } */
+            })
+            .catch(error => {
+                console.error('Error picking content:', error.message);
+                console.error(error.stack);
+            });
+        }
 
 </script>
 </head>
@@ -175,7 +186,8 @@ String jsonReviewList = mapper.writeValueAsString(reviewList);
 							</div>
 							<div class="modal-footer">
 								<button type="button" class="btn btn-danger"
-									onclick="alert('담기 완료')">diary 담기</button>
+									onclick="pickContent(3, <%=content.getContentId()%>)">
+									diary 담기</button>
 							</div>
 						</div>
 					</div>

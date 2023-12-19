@@ -44,10 +44,7 @@ public class RequestMapping {
         // 메인 컨텐츠 관련 request URI 추가
         mappings.put("/contents/list", new ListContentsController());
         mappings.put("/contents/search", new SearchContentsController());
-        mappings.put("/contents/search/movie", new SearchContentsController());
-        mappings.put("/contents/search/music", new SearchContentsController());
-        mappings.put("/contents/search/book", new SearchContentsController());
-        mappings.put("/contents/pickContents", new PickContentsController());
+        mappings.put("/contents/pick", new PickContentsController());
         mappings.put("/contents/reviewList", new ListReviewsController());
         
         // 다이어리 관련 request URI 추가

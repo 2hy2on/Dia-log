@@ -51,6 +51,10 @@ public class ContentsManager {
 	public List<Contents> searchContentsByGenre(String title, String contentType) throws SQLException {
 		return contentsDAO.searchContentsByGenre(title, contentType);
 	}
+	
+	public boolean pickContent(int userId, int contentId) throws SQLException {
+		return contentsDAO.pickContent(userId, contentId);
+	}
 
 	public static void main(String[] args) throws SQLException {
 		ContentsManager manager = new ContentsManager();

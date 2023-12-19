@@ -2,35 +2,31 @@ package controller.contents;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.slf4j.*;
 
 import controller.Controller;
-import model.dao.contents.ContentsDAO;
-import model.dto.contents.Contents;
+import model.service.contents.ContentsManager;
 
-public class PickContentsController implements Controller{
+public class PickContentsController implements Controller {
 	private static final Logger logger = LoggerFactory.getLogger(PickContentsController.class);
-    
+
 	@Override
-    public String execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
-        ContentsDAO dao = new ContentsDAO();
+	public String execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
+		ContentsManager manager = ContentsManager.getInstance();
+		logger.debug("컨트롤러 들어옴!! ");
 
-        String userIdStr = request.getParameter("userId");
-        int userId = Integer.parseInt(userIdStr);
-        
-        String contentIdStr = request.getParameter("contentId");
-        int contentId = Integer.parseInt(contentIdStr);
-        
-//        boolean pickContent = dao.pickContent(userId, contentId);
-//        request.setAttribute("pickContent", pickContent);
+		HttpSession session = request.getSession();
+//        int userId = (int) session.getAttribute("userId");
 
-		logger.debug("userId: "+userIdStr, "contentId: "+contentIdStr);
-        
-		Contents contentList = dao.getContentsById(contentId);
-        request.setAttribute("contentList", contentList);
+		String contentIdStr = request.getParameter("contentId");
+		logger.debug("들어옴!! " + contentIdStr);
 
-        return "/contents/Contents.jsp";
-    }
-    
+		int contentId = Integer.parseInt(contentIdStr);
+
+		manager.pickContent(3, contentId);
+
+		return "/contents/Contents.jsp";
+	}
 }
