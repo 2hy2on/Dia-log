@@ -27,7 +27,7 @@ public class ListReviewsController implements Controller {
 		int contentId = Integer.parseInt(contentIdStr);
 
 		List<Map<String, Object>> reviewList = manager.getReviewList(contentId);
-//		
+		
 //		request.setAttribute("reviewList", reviewList);
 //
 //		return "/contents/Contents.jsp";

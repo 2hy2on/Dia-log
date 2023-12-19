@@ -34,9 +34,9 @@
 					<tr>
 						<td><select name="contentType">
 								<option value="0">선택</option>
-								<option value="movie">영화</option>
-								<option value="music">음악</option>
-								<option value="book">책</option>
+								<option value="Movie">영화</option>
+								<option value="Music">음악</option>
+								<option value="Book">책</option>
 						</select></td>
 						<td>
 							<div class="search">

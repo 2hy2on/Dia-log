@@ -138,7 +138,7 @@ public class ContentsDAO {
 
 			while (rs.next()) {
 				Contents cont = new Contents();
-				
+
 				cont.setContentId(rs.getInt("contentId"));
 				cont.setContentImg(rs.getString("contentImg"));
 				cont.setContentType(ContentType.valueOf(rs.getString("contentType")));
@@ -158,24 +158,20 @@ public class ContentsDAO {
 		return contentList;
 	}
 
-	public Contents getContentsById(int contentId) {
-		Contents contents = null;
+	public boolean pickContent(int userId, int contentId) {
+		LocalDateTime currentDateTime = LocalDateTime.now();
+		LocalDate currentDate = LocalDate.now();
+		StringBuilder query = new StringBuilder();
+		query.append("INSERT INTO Review (createdAt, updatedAt, watchedAt, contentId, writerId) VALUES (?, ?, ?,?, ?)");
+
+		Object[] param = new Object[] { currentDateTime, currentDateTime, currentDate, contentId, userId };
+
+		jdbcUtil.setSqlAndParameters(query.toString(), param); // JDBCUtil 에 insert문과 매개 변수 설정
 
 		try {
-			String sql = "SELECT * FROM Contents WHERE contentId = ?";
-
-			jdbcUtil.setSqlAndParameters(sql, new Object[] { contentId });
 			ResultSet rs = jdbcUtil.executeQuery();
-
 			if (rs.next()) {
-				contents = new Contents();
-
-				contents.setContentId(rs.getInt("contentId"));
-				contents.setContentImg(rs.getString("contentImg"));
-				contents.setContentType(ContentType.valueOf(rs.getString("contentType")));
-				contents.setTitle(rs.getString("title"));
-				contents.setGenre(rs.getString("genre"));
-				contents.setPublishDate(rs.getDate("publishDate"));
+				return true;
 			}
 		} catch (Exception ex) {
 			jdbcUtil.rollback(); // 트랜잭션 rollback 실행
@@ -184,8 +180,7 @@ public class ContentsDAO {
 			jdbcUtil.commit(); // 트랜잭션 commit 실행
 			jdbcUtil.close();
 		}
-
-		return contents;
+		return false;
 	}
 
 	public static void main(String[] args) throws SQLException {
