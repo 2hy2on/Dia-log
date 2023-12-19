@@ -22,7 +22,7 @@ List<Map<String, Object>> reviewList = (List<Map<String, Object>>) request.getAt
 	integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN"
 	crossorigin="anonymous">
 <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
-
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 <link rel="stylesheet"
 	href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
 <link rel="stylesheet"
@@ -106,12 +106,8 @@ String jsonReviewList = mapper.writeValueAsString(reviewList);
             })
             .then(data => {
                 console.log('(Content) Parsed JSON:', data);
-				/* 
-                if (data.result) {
-                    alert('Content picked successfully!');
-                } else {
-                    alert('Failed to pick the content.');
-                } */
+//                alert('Content picked successfully!');
+                swal('내 다이어리로 담아가기','완료되었습니다.','success');
             })
             .catch(error => {
                 console.error('Error picking content:', error.message);
@@ -144,7 +140,8 @@ String jsonReviewList = mapper.writeValueAsString(reviewList);
 				<%
 				}
 				%>
-				<div onclick="updateModalContent(<%=content.getContentId()%>)"
+				<div
+					onclick="cId=<%=content.getContentId()%>, updateModalContent(cId)"
 					class="col">
 					<article class="card" data-bs-toggle="modal"
 						data-bs-target="#exampleModal">
@@ -186,8 +183,7 @@ String jsonReviewList = mapper.writeValueAsString(reviewList);
 							</div>
 							<div class="modal-footer">
 								<button type="button" class="btn btn-danger"
-									onclick="pickContent(3, <%=content.getContentId()%>)">
-									diary 담기</button>
+									onclick="pickContent(3, cId)">담기</button>
 							</div>
 						</div>
 					</div>
