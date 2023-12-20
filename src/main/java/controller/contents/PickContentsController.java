@@ -18,14 +18,14 @@ public class PickContentsController implements Controller {
 		logger.debug("컨트롤러 들어옴!! ");
 
 		HttpSession session = request.getSession();
-//        int userId = (int) session.getAttribute("userId");
+        int userId = (int) session.getAttribute("userId");
 
 		String contentIdStr = request.getParameter("contentId");
 		logger.debug("들어옴!! " + contentIdStr);
 
 		int contentId = Integer.parseInt(contentIdStr);
 
-		manager.pickContent(3, contentId);
+		manager.pickContent(userId, contentId);
 
 		return "/contents/Contents.jsp";
 	}
