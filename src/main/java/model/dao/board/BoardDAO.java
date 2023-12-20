@@ -141,4 +141,15 @@ public class BoardDAO {
         }
         return -1;
     }
+    public int delete(int boardID) {
+        String query = "UPDATE Board set boardAvailable = 0 where boardID = ?";
+        try {
+            PreparedStatement pstmt = conn.prepareStatement(query);
+            pstmt.setInt(1,boardID);
+            return pstmt.executeUpdate();
+        }catch (Exception e) {
+            e.printStackTrace();
+        }
+        return -1;
+    }
     }   
