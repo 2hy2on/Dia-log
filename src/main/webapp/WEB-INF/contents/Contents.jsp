@@ -28,6 +28,7 @@
 	<div>
 		<%@ include file="../Navibar.jsp"%>
 		<%@ include file="Search.jsp"%>
+		<%@ include file="ContentsHallOfFame.jsp" %>
 		<%@ include file="ContentsList.jsp"%>
 	</div>
 </body>

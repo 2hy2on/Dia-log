@@ -12,6 +12,7 @@ import controller.board.BoardViewController;
 import controller.board.BoardWriteController;
 import controller.board.ViewBoardController;
 import controller.board.WriteActionController;
+import controller.contents.ContentsHallOfFameController;
 import controller.contents.ListContentsController;
 import controller.contents.ListReviewsController;
 import controller.contents.PickContentsController;
@@ -47,6 +48,7 @@ public class RequestMapping {
         mappings.put("/contents/search", new SearchContentsController());
         mappings.put("/contents/pick", new PickContentsController());
         mappings.put("/contents/reviewList", new ListReviewsController());
+        mappings.put("contents/hallOfFame", new ContentsHallOfFameController());
         
         // 다이어리 관련 request URI 추가
         mappings.put("/diary", new DiaryController());
