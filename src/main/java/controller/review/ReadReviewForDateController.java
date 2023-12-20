@@ -14,28 +14,36 @@ import controller.diary.DiaryController;
 import model.dto.review.Review;
 import model.service.review.ReviewManager;
 
-public class ReadReviewForDateController implements Controller{
-	   private static final Logger logger = LoggerFactory.getLogger(DiaryController.class);
+public class ReadReviewForDateController implements Controller {
+	private static final Logger logger = LoggerFactory.getLogger(DiaryController.class);
+
 	@Override
 	public String execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
-		
+
 		HttpSession session = request.getSession();
 		int userId = (int) session.getAttribute("userId");
+		String ownerId = request.getParameter("ownerId");
+		String dateStr = request.getParameter("dateStr"); // Retrieve data sent via AJAX
+
+		String modifiedDateStr = dateStr.replace("-", "/");
+
+		ReviewManager manager = ReviewManager.getInstance();
+		List<Review> reviewDateList;
+
+//		logger.info("sBefore if: ownerId=" + ownerId + ", isNull=" + (ownerId != null));
+		if (!"null".equals(ownerId)) {
+			logger.info(ownerId + "sssssssssssssssss");
+			int ownerIdInt = Integer.parseInt(ownerId);
+			reviewDateList = manager.getReviewByDate(ownerIdInt, modifiedDateStr);
+		} else {
+
+			reviewDateList = manager.getReviewByDate(userId, modifiedDateStr);
+		}
 		
-        String dateStr = request.getParameter("dateStr"); // Retrieve data sent via AJAX
+		request.setAttribute("userId", userId);
+		request.setAttribute("reviewDateList", reviewDateList);
 
-        // Further processing...
-        String modifiedDateStr = dateStr.replace("-", "/");
-//        logger.info("Received dateStr: {}", modifiedDateStr);
-
-	        ReviewManager manager = ReviewManager.getInstance();
-//////\
-	        logger.info("Received dateStr: {}",modifiedDateStr);
-	        List<Review> reviewDateList = manager.getReviewByDate(userId, modifiedDateStr);
-//	        logger.info("Received dateStr: {}",reviewDateList.get(0).getContentId());
-	        request.setAttribute("reviewDateList", reviewDateList);
-	        //logger.info("Contents of reviewDateList: {}",  request.getAttribute("reviewDateList"));
-		 return "/diary/review.jsp";
+		return "/diary/review.jsp";
 	}
 
 }

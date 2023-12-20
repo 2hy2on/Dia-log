@@ -5853,10 +5853,11 @@ function SelectionManager() {
 
 					console.log(outputDateString); // Output: '2023/12/08'
 					localStorage.setItem("dateForReview",outputDateString)
+					console.log(localStorage.getItem("ownerId"))
 					$.ajax({
     						type: 'GET',
     					url: "/dialog/diary/reviewList", // Replace with your server endpoint
-    					data: { dateStr: outputDateString },
+    					data: { dateStr: outputDateString, ownerId: localStorage.getItem("ownerId")},
     					//async: false,
     					success: function(response) {
        					 // Handle the success response from the server if needed

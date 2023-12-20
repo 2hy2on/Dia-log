@@ -22,9 +22,14 @@ public class ReadVisitorController implements Controller {
 	public String execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		// TODO Auto-generated method stub
 		
-		
-	      HttpSession session = request.getSession();
-	      int userId = (int) session.getAttribute("userId");
+		HttpSession session = request.getSession();
+		Integer userId = (Integer) session.getAttribute("userId");
+
+		if (userId == null) {
+			response.sendRedirect(request.getContextPath() + "/login");
+			return null; 
+		}
+
 		
 		VisitManager visitMan = VisitManager.getInstance();
 		ReviewManager manager = ReviewManager.getInstance();

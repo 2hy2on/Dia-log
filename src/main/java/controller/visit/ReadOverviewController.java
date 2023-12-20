@@ -23,11 +23,20 @@ public class ReadOverviewController implements Controller{
 	public String execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		// TODO Auto-generated method stub
 		
-	      HttpSession session = request.getSession();
-	      int userId = (int) session.getAttribute("userId");
+		HttpSession session = request.getSession();
+		Integer userId = (Integer) session.getAttribute("userId");
+
 		
 		ReviewManager manager = ReviewManager.getInstance();
 		VisitManager visitMan = VisitManager.getInstance();
+		
+		if (userId == null) {
+			// userId is null, handle the case accordingly
+			// For example, redirect to the login page
+			response.sendRedirect(request.getContextPath() + "/login");
+			return null; // Stop further processing
+		}
+
 		
 		//미디어별 통계
 		List<ReviewTypeNum> reviewTypeNumList = manager.getReviewByType(userId);
