@@ -26,7 +26,7 @@ public class FriendListController implements Controller {
 	public String execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		FriendManager friendManager = FriendManager.getInstance();
 		HttpSession session = request.getSession();
-		int userId = (int) session.getAttribute("ID");
+		int userId = (int) session.getAttribute("userId");
 
 		// FriendListcontroller 세부기능 분류 후, JSON 생성
 		if (request.getServletPath().equals("/friend/list/follower")) {
