@@ -28,8 +28,6 @@
 			<li><a href="<c:url value='/board'/>">OTT 게시판</a></li>
 
      <li><a href="<c:url value='/mypage'/>">마이페이지 </a>
-
-
 				<ul>
 					<li><a href="logoutAction.jsp">로그아웃</a></li>
 				</ul></li>
