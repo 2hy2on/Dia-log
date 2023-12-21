@@ -38,6 +38,7 @@ String jsonReviewList = mapper.writeValueAsString(reviewList);
 
 		var cId = 0;
 		var uId = 0;
+		var flag = 1;
 		
         function updateModalContent(contentId) {
             cId = contentId;
@@ -56,13 +57,18 @@ String jsonReviewList = mapper.writeValueAsString(reviewList);
                 document.getElementById('exampleModalLabel').innerText = content.title;
                 document.getElementById('content-genre').innerText = content.genre;
                 document.getElementById('content-image').src = content.contentImg;
+
+                flag = 1;
+                fetchReviews(cId);
             }      
-            fetchReviews(cId);
         }
         
         function fetchReviews(contentId) {
-        	cId = contentId;
-        	
+            cId = contentId;
+
+            // 기존의 리뷰를 제거
+            $("#content-review").empty();
+
             fetch("<c:url value='/contents/reviewList'/>?contentId=" + encodeURIComponent(contentId), {
                 method: 'GET',
                 headers: {
@@ -75,18 +81,31 @@ String jsonReviewList = mapper.writeValueAsString(reviewList);
             })
             .then(data => {
                 console.log('(Review) Parsed JSON:', data);
-                
-                const review = data.map(review => '- '+review.detail+'\n\n').join('');
-                
-                // document.getElementById('content-review').innerText = review
-                $("#content-review")
-				.append(
-						'<li class="list-group-item d-flex justify-content-between align-items-center">'
-								+ '<a class="social-icon social-icon-journal" href="/dialog/diary?ownerId='
-								+ review.reviewId
-								+ '"><i class="bi bi-journal"></i></a>'
-								+ review.detail
-								+ '</li>');
+
+                // 콘솔에 리뷰 데이터 출력
+                console.log('Reviews:', data);
+
+                // 리뷰가 null이 아니면 출력
+                if (data.length > 0) {
+                    data.forEach(review => {
+                    	if (review.detail !== null) {
+                    		flag = 0;
+                    		
+	                        $("#content-review")
+	                            .append(
+	                                '<li class="list-group-item d-flex justify-content-between align-items-center">'
+	                                + '<a class="social-icon social-icon-journal" href="/dialog/diary?ownerId='
+	                                + review.reviewId
+	                                + '"><i class="bi bi-journal"></i></a>'
+	                                + review.detail
+	                                + '</li>');
+                    	} 
+                   	});
+                } 
+				if (flag == 1) {
+                    $("#content-review")
+                        .append('<li class="list-group-item">아직 등록된 리뷰가 없어요. :)</li>');
+                }
             })
             .catch(error => {
                 console.error('Error fetching reviews:', error.message);

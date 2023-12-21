@@ -40,24 +40,6 @@
 	List<Contents> hallOfFameList = (List<Contents>) request.getAttribute("hallOfFameList");
 	System.out.println("hallOfFameList: " + hallOfFameList);
 	%>
-	<!-- <div class="outer">
-		<div class="inner-list">
-			<div class="inner">
-				<h2>First...</h2>
-			</div>
-			<div class="inner">
-				<h2>second...</h2>
-			</div>
-			<div class="inner">
-				<h2>third...</h2>
-			</div>
-		</div>
-	</div>
-
-	<div class="button-list">
-		<button class="button-left">← Left</button>
-		<button class="button-right">Right →</button>
-	</div> -->
 	<div class="outer">
 		<div class="inner-list">
 			<!-- 동적으로 아이템추가 -->
