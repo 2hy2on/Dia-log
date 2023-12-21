@@ -5,6 +5,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import controller.Controller;
+import model.dao.friend.FollowDAO;
 import model.dao.user.UserDAO;
 import model.dto.user.User;
 
@@ -27,11 +28,10 @@ public class MyPageUpdateController implements Controller {
         String action = request.getParameter("action");
         if (action != null) {
             switch (action) {
-                case "updateName":
-                    // 이름 수정
-                    String newName = request.getParameter("Username");
-                    user.setUserName(newName);
-                    break;
+            case "updateName":
+                // 이름 수정
+                String newName = request.getParameter("Username");
+                user.setUserName(newName);           
                 case "updateEmail":
                     // 이메일 수정
                     String newEmail = request.getParameter("Email");

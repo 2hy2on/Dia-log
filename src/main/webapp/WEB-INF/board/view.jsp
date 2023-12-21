@@ -87,8 +87,8 @@
 		    System.out.println("board.getID(): " + board.getID());
 			if(ID != null && ID.equals(board.getID())){
 			%>
-			<a href = "update.jsp?boardID=<%=boardID %>" class = "btn btn-primary" style="margin-top: 20px;">수정</a>
-			<a href = "deleteAction.jsp?boardID=<%=boardID %>" class = "btn btn-primary" style="margin-top: 20px;">삭제</a>
+			<a href = "/dialog/board/writeupdate?boardID=<%=boardID %>" class = "btn btn-primary" style="margin-top: 20px;">수정</a>
+			<a href = "/dialog/board/delete?boardID=<%=boardID %>" class = "btn btn-primary" style="margin-top: 20px;">삭제</a>
 			<%
 			}
 			%>

@@ -129,7 +129,7 @@ public class BoardDAO {
         return null;
         }
     public int update(int boardID, String boardTitle, String boardContent) {
-        String query = "UPDATE board set boardTitle = ? , boardContent = ? WHERE boardID = ?";    
+        String query = "UPDATE board SET boardTitle = ?, boardContent = ?, boardDate = CURRENT_TIMESTAMP WHERE boardID = ?";
         try {
             PreparedStatement pstmt = conn.prepareStatement(query);
             pstmt.setString(1, boardTitle);

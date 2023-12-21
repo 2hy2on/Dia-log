@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+	<%@page import="java.io.PrintWriter"%>
 <!DOCTYPE html>
 <%@ page import="model.dao.board.BoardDAO"%>
 <%@ page import="model.dto.board.Board"%>
@@ -67,33 +68,42 @@ body {
 </style>
 </head>
 <body>
+<%
+    int boardID = 0;
+    if (request.getParameter("boardID") != null) {
+        boardID = Integer.parseInt(request.getParameter("boardID"));
+    }
 
+    Board board = new BoardDAO().getBoard(boardID);
+%>
 	<header>
 		<jsp:include page="../Navibar.jsp" />
 	</header>
 	<div class="container">
-<form>
-		<table cla	ss="table">
+	<div class = "row">
+<form method = "post" action = "/dialog/board/writeupdateAction?boardID=<%=boardID %>">
+		<table class="table">
 				<thead>
 					<tr>
 						<th colspan="2"
 							style="background-color: #eeeeee; text-align: center;">게시판
-							글쓰기</th>
+							글쓰기 수정</th>
 					</tr>
 				</thead>
 				<tbody>
 					<tr>
 						<td><input type="text" class="form-control"
-							placeholder="글 제목" name="boardTitle" maxlength="50"></td>
+							placeholder="글 제목" name="boardTitle" maxlength="50" value = "<%= board.getBoardTitle() %>"></td>
 					</tr>
 					<tr>
 						<td><textarea class="form-control" placeholder="글 내용"
-								name="boardContent" maxlength="2048" style="height: 350px;"></textarea></td>
+								name="boardContent" maxlength="2048" style="height: 350px;"><%= board.getBoardContent() %></textarea></td>
 					</tr>
 				</tbody>
 			</table>
-			<input type="submit" value="글쓰기">
+			<input type="submit" value="글수정">
 		</form>
+	</div>
 	</div>
 </body>
 </html>

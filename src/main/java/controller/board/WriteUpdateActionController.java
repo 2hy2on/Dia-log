@@ -1,0 +1,48 @@
+package controller.board;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import controller.Controller;
+import model.dao.board.BoardDAO;
+
+public class WriteUpdateActionController implements Controller {
+
+    @Override
+    public String execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
+        String userID = (String) request.getSession().getAttribute("ID");
+
+        if (userID == null) {
+            request.setAttribute("errorMessage", "로그인을 하세요");
+            return "/error.jsp";
+        } else {
+            int boardID = 0;
+            if (request.getParameter("boardID") != null) {
+                boardID = Integer.parseInt(request.getParameter("boardID"));
+            }
+
+            // 글 수정을 위해 기존 글 정보 불러오기
+            BoardDAO boardDAO = new BoardDAO();
+            model.dto.board.Board existingBoard = boardDAO.getBoard(boardID);
+
+            if (existingBoard == null || !userID.equals(existingBoard.getID())) {
+                request.setAttribute("errorMessage", "권한이 없습니다.");
+                return "/error.jsp";
+            }
+
+            // 수정할 내용 받아오기
+            String boardTitle = request.getParameter("boardTitle");
+            String boardContent = request.getParameter("boardContent");
+
+            // 받아온 내용으로 데이터베이스 업데이트
+            int result = boardDAO.update(boardID, boardTitle, boardContent);
+
+            if (result == -1) {
+                request.setAttribute("errorMessage", "글 수정에 실패했습니다");
+                return "/error.jsp";
+            } else {
+                return "redirect:/board";
+            }
+        }
+    }
+}
