@@ -27,7 +27,12 @@ public class FilterReviewController implements Controller {
 	@Override
 	public String execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		HttpSession session = request.getSession();
-		int userId = (int) session.getAttribute("userId");
+		Integer userId = (Integer) session.getAttribute("userId");
+		
+		if (userId == null) {
+			response.sendRedirect(request.getContextPath() + "/login");
+			return null; 
+		}
 		
 		if (request.getServletPath().equals("/diary/filter/genre")) {
 			String contentType = request.getParameter("contentType");
