@@ -11,7 +11,9 @@ public class RegisterController implements Controller {
 
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
-        request.setCharacterEncoding("UTF-8");
+        response.setCharacterEncoding("UTF-8");
+
+        response.setContentType("text/html; charset=UTF-8");
 
         // 사용자가 입력한 회원가입 정보 받아오기
         String userName = request.getParameter("userName");
@@ -34,22 +36,34 @@ public class RegisterController implements Controller {
         user.setBook_interest(bookInterest);
         user.setMusic_interest(musicInterest);
 
-        // 회원가입 처리
+        // 아이디 중복 여부 확인
         UserDAO userDAO = new UserDAO();
-        int result = userDAO.join(user);
+        boolean isDuplicateId = userDAO.checkDuplicateId(ID);
 
-        // 회원가입 결과에 따라 처리
-        if (result == -1) {
+        // 회원가입 처리
+        if (isDuplicateId) {
             // 이미 존재하는 아이디인 경우
             PrintWriter script = response.getWriter();
             script.println("<script>");
-            script.println("alert('이미 존재하는 아이디입니다.')");
+            script.println("alert('이미 존재하는 아이디입니다.');");
             script.println("history.back()");
             script.println("</script>");
             return null;
         } else {
-            // 회원가입 성공 시 로그인 페이지로 이동
-            return "redirect:/login";
+            // 중복이 아니라면 회원가입 처리
+            int result = userDAO.join(user);
+            if (result == -1) {
+                // 회원가입 실패
+                PrintWriter script = response.getWriter();
+                script.println("<script>");
+                script.println("alert('회원가입에 실패했습니다. 다시 시도해주세요.');");
+                script.println("history.back()");
+                script.println("</script>");
+                return null;
+            } else {
+                // 회원가입 성공 시 로그인 페이지로 이동
+                return "redirect:/login";
+            }
         }
     }
 }

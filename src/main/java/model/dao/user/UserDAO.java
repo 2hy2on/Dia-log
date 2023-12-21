@@ -119,8 +119,6 @@ public class UserDAO {
             pstmt.setString(1, ID);
             pstmt.executeUpdate();
 
-            
-         // 자식 레코드 삭제 (FOLLOW 테이블) - FOLLOWERID 기준
          // 자식 레코드 삭제 (FOLLOW 테이블) - FOLLOWERID 기준
             String deleteFollowerRecordsQuery = "DELETE FROM FOLLOW WHERE FOLLOWERID IN (SELECT USERID FROM USER4 WHERE ID = ?)";
             pstmt = conn.prepareStatement(deleteFollowerRecordsQuery);
@@ -156,5 +154,16 @@ public class UserDAO {
         }
         return false;
     }
-    
+    public boolean checkDuplicateId(String ID) {
+        String query = "SELECT ID FROM user4 WHERE ID = ?";
+        try {
+            pstmt = conn.prepareStatement(query);
+            pstmt.setString(1, ID);
+            rs = pstmt.executeQuery();
+            return rs.next();  // 해당 아이디가 이미 존재하면 true, 없으면 false 반환
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return true;  // 예외 발생 시 중복으로 처리
+    } 
 }
