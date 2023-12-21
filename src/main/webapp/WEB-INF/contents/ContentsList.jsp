@@ -8,10 +8,6 @@
 <!DOCTYPE html>
 <html>
 <head>
-<%
-List<Contents> contentList = (List<Contents>) request.getAttribute("contentList");
-List<Map<String, Object>> reviewList = (List<Map<String, Object>>) request.getAttribute("reviewList");
-%>
 <meta charset="utf-8">
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -28,10 +24,14 @@ List<Map<String, Object>> reviewList = (List<Map<String, Object>>) request.getAt
 <link rel="stylesheet"
 	href="<c:url value='/css/contents/contentsList.css' />" type="text/css">
 <%
+List<Contents> contentList = (List<Contents>) request.getAttribute("contentList");
+List<Map<String, Object>> reviewList = (List<Map<String, Object>>) request.getAttribute("reviewList");
+
 ObjectMapper mapper = new ObjectMapper();
 String jsonContentList = mapper.writeValueAsString(contentList);
 String jsonReviewList = mapper.writeValueAsString(reviewList);
 %>
+
 <script>
 		var contentList = JSON.parse('<%=jsonContentList%>');
 		var reviewList = JSON.parse('<%=jsonReviewList%>')
@@ -61,6 +61,8 @@ String jsonReviewList = mapper.writeValueAsString(reviewList);
         }
         
         function fetchReviews(contentId) {
+        	cId = contentId;
+        	
             fetch("<c:url value='/contents/reviewList'/>?contentId=" + encodeURIComponent(contentId), {
                 method: 'GET',
                 headers: {
@@ -76,7 +78,15 @@ String jsonReviewList = mapper.writeValueAsString(reviewList);
                 
                 const review = data.map(review => '- '+review.detail+'\n\n').join('');
                 
-                document.getElementById('content-review').innerText = review
+                // document.getElementById('content-review').innerText = review
+                $("#content-review")
+				.append(
+						'<li class="list-group-item d-flex justify-content-between align-items-center">'
+								+ '<a class="social-icon social-icon-journal" href="/dialog/diary?ownerId='
+								+ review.reviewId
+								+ '"><i class="bi bi-journal"></i></a>'
+								+ review.detail
+								+ '</li>');
             })
             .catch(error => {
                 console.error('Error fetching reviews:', error.message);
@@ -85,6 +95,8 @@ String jsonReviewList = mapper.writeValueAsString(reviewList);
         }
         
         function pickContent(userId, contentId) {
+        	uId = userId;
+        	
             fetch("<c:url value='/contents/pick'/>?userId=" + encodeURIComponent(userId)+"&contentId="+encodeURIComponent(contentId), {
                 method: 'GET',
                 headers: {
@@ -99,7 +111,7 @@ String jsonReviewList = mapper.writeValueAsString(reviewList);
             })
             .then(response => {
             	if (!response.ok) {
-                    throw new Error('Network response was not ok');
+                    throw new swal('로그인 후 이용하세요!');
                 }
             	console.log('Pick Content Response:', response);
                 // return response.json();
@@ -114,7 +126,6 @@ String jsonReviewList = mapper.writeValueAsString(reviewList);
                 console.error(error.stack);
             });
         }
-
 </script>
 </head>
 <body>
@@ -177,13 +188,13 @@ String jsonReviewList = mapper.writeValueAsString(reviewList);
 									</div>
 									<div class="mb-3">
 										<label for="message-text" class="col-form-label">[review]</label>
-										<p id="content-review" />
+										<ul class="list-group" id="content-review"></ul>
 									</div>
 								</form>
 							</div>
 							<div class="modal-footer">
 								<button type="button" class="btn btn-danger"
-									onclick="pickContent(3, cId)">담기</button>
+									onclick="pickContent(uId, cId)">담기</button>
 							</div>
 						</div>
 					</div>
