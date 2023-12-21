@@ -55,9 +55,13 @@ public class ContentsManager {
 	public boolean pickContent(int userId, int contentId) throws SQLException {
 		return contentsDAO.pickContent(userId, contentId);
 	}
+	
+	public List<Contents> getListHallOfFame() throws SQLException {
+		return contentsDAO.getListHallOfFame();
+	}
 
 	public static void main(String[] args) throws SQLException {
-		ContentsManager manager = new ContentsManager();
-		System.out.println(manager.searchContentsByGenre("범죄", "Movie"));
+//		ContentsManager manager = new ContentsManager();
+//		System.out.println(manager.getListHallOfFame());
 	}
 }

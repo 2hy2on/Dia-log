@@ -9,6 +9,10 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import controller.contents.ContentsHallOfFameController;
 import model.dao.JDBCUtil;
 import model.dto.contents.Book;
 import model.dto.contents.Contents;
@@ -16,6 +20,8 @@ import model.dto.contents.Contents.ContentType;
 import model.dto.review.Review;
 
 public class ContentsDAO {
+	private static final Logger logger = LoggerFactory.getLogger(ContentsDAO.class);
+
 	private JDBCUtil jdbcUtil = null;
 
 	public ContentsDAO() {
@@ -183,46 +189,48 @@ public class ContentsDAO {
 		return false;
 	}
 
-	public List<Contents> readHallOfFame() {
-		StringBuilder query = new StringBuilder();
-	    query.append("WITH RankedReviews AS (")
-        .append("SELECT ")
-        .append("contentType, r.contentid, COUNT(*) AS review_count, ROW_NUMBER() OVER (PARTITION BY contentType ORDER BY COUNT(*) DESC) AS rnk ")
-        .append("FROM Review r ")
-        .append("JOIN Contents c ON r.contentid = c.contentid ")
-        .append("GROUP BY contentType, r.contentid ) ")
-        .append("SELECT rr.contentType, rr.contentid, rr.review_count, c.contentImg, ")
-        .append(" c.title, c.genre, c.publishdate ")
-        .append("FROM RankedReviews rr ")
-        .append("JOIN Contents c ON rr.contentid = c.contentid ")
-        .append("WHERE rr.rnk = 1");
+	public List<Contents> getListHallOfFame() {
+	    String query = "WITH RankedReviews AS (" +
+	            "SELECT contentType, r.contentid, COUNT(*) AS review_count, " +
+	            "ROW_NUMBER() OVER (PARTITION BY contentType ORDER BY COUNT(*) DESC) AS rnk " +
+	            "FROM Review r " +
+	            "JOIN Contents c ON r.contentid = c.contentid " +
+	            "GROUP BY contentType, r.contentid ) " +
+	            "SELECT rr.contentType, rr.contentid, rr.review_count, c.contentImg, " +
+	            "c.title, c.genre, c.publishdate " +
+	            "FROM RankedReviews rr " +
+	            "JOIN Contents c ON rr.contentid = c.contentid " +
+	            "WHERE rr.rnk = 1";
 
-		jdbcUtil.setSqlAndParameters(query.toString(),null); // JDBCUtil 에 insert문과 매개 변수 설정
-		List<Contents> contentList = new ArrayList<>();
-		
-		try {
-			ResultSet rs = jdbcUtil.executeQuery();
-			while (rs.next()) {
-				Contents cont = new Contents();
+	    jdbcUtil.setSqlAndParameters(query, null);
 
-				cont.setContentId(rs.getInt("contentid"));
-				cont.setContentImg(rs.getString("contentImg"));
-				cont.setContentType(ContentType.valueOf(rs.getString("contentType")));
-				cont.setTitle(rs.getString("title"));
-				cont.setGenre(rs.getString("genre"));
-				cont.setPublishDate(rs.getDate("publishdate"));
+	    try {
+	        ResultSet rs = jdbcUtil.executeQuery();
+	        List<Contents> hallOfFameList = new ArrayList<>();
 
-				contentList.add(cont);
-				
-			}
-			return contentList;
-		} catch (Exception ex) {
-			jdbcUtil.rollback(); // 트랜잭션 rollback 실행
-			ex.printStackTrace();
-		} finally {
-			jdbcUtil.commit(); // 트랜잭션 commit 실행
-			jdbcUtil.close();
-		}
-		return contentList;
+	        while (rs.next()) {
+	            Contents cont = new Contents();
+
+	            cont.setContentId(rs.getInt("contentid"));
+	            cont.setContentImg(rs.getString("contentImg"));
+	            cont.setContentType(ContentType.valueOf(rs.getString("contentType")));
+	            cont.setTitle(rs.getString("title"));
+	            cont.setGenre(rs.getString("genre"));
+	            cont.setPublishDate(rs.getDate("publishdate"));
+
+	            hallOfFameList.add(cont);
+	        }
+
+	        logger.debug("hallOfFameList size in getListHallOfFame: " + hallOfFameList.size());
+	        return hallOfFameList;
+
+	    } catch (Exception ex) {
+	        logger.error("Error in getListHallOfFame: " + ex.getMessage(), ex);
+	        ex.printStackTrace();
+	    } finally {
+	        jdbcUtil.close();
+	    }
+	    return null;
 	}
+
 }

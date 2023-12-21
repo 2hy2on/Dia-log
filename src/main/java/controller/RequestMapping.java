@@ -48,7 +48,7 @@ public class RequestMapping {
         mappings.put("/contents/search", new SearchContentsController());
         mappings.put("/contents/pick", new PickContentsController());
         mappings.put("/contents/reviewList", new ListReviewsController());
-        mappings.put("contents/hallOfFame", new ContentsHallOfFameController());
+        mappings.put("/contents/hallOfFame", new ContentsHallOfFameController());
         
         // 다이어리 관련 request URI 추가
         mappings.put("/diary", new DiaryController());

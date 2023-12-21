@@ -1,6 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ page import="model.dto.contents.Contents"%>
+<%@ page import="model.dto.review.Review"%>
+<%@ page import="java.util.*"%>
+<%@ page import="com.fasterxml.jackson.databind.ObjectMapper"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -30,19 +34,34 @@
 .button-list {
 	text-align: center;
 }
+
+.social-icon:hover .bi-journal {
+	display: block; /* 호버 시에만 보이도록 설정합니다. */
+}
+
+.social-icon {
+	display: inline-flex;
+	margin: 0;
+	padding: 0;
+	padding-left: 6%;
+	height: 3.5rem;
+	width: 3.5rem;
+	background-color: #79A3B1;
+	color: #FCF8EC;
+	border-radius: 100%;
+	font-size: 1.5rem;
+	margin-right: 1.5rem;
+	align-items: center;
+}
 </style>
 <body>
+	<%
+	List<Contents> hallOfFameList = (List<Contents>) request.getAttribute("hallOfFameList");
+	System.out.println("hallOfFameList: " + hallOfFameList);
+	%>
 	<div class="outer">
 		<div class="inner-list">
-			<div class="inner">
-				<h2>first...</h2>
-			</div>
-			<div class="inner">
-				<h2>second...</h2>
-			</div>
-			<div class="inner">
-				<h2>third...</h2>
-			</div>
+			<!-- 동적으로 아이템추가 -->
 		</div>
 	</div>
 
@@ -80,5 +99,44 @@
 	  currentIndex = currentIndex >= inners.length ? inners.length - 1 : currentIndex; // index값이 inner의 총 개수보다 많아질 경우 마지막 인덱스값으로 변경
 	  innerList.style.marginLeft = `-${outer.clientWidth * currentIndex}px`; // index만큼 margin을 주어 옆으로 밀기
 	});
+	
+	 function getListHallOfFame() {
+	      fetch("<c:url value='/contents/hallOfFame'/>", {
+	        method: 'GET',
+	        headers: {
+	          'Content-Type': 'application/json;charset=UTF-8'
+	        },
+	      })
+	      .then(response => {
+	        if (!response.ok) {
+	          throw new Error("에러 났다");
+	        }
+	        return response.json();
+	      })
+	      .then(data => {
+	        console.log('(HallOfFame) Parsed JSON:', data);
+	        updateHallOfFame(data);
+	      })
+	      .catch(error => {
+	        console.error('Error content HallOfFame:', error.message);
+	        console.error(error.stack);
+	      });
+
+	      function updateHallOfFame(hallOfFameData) {
+	    	  const innerList = document.querySelector('.inner-list');
+	    	  innerList.innerHTML = '';
+
+	    	  hallOfFameData.forEach(item => {
+	    	    const inner = document.createElement('div');
+	    	    inner.className = 'inner';
+	    	    inner.innerHTML = `<h2>${item.title}</h2>`;
+	    	    innerList.appendChild(inner);
+	    	  });
+	    	}
+	    }
+
+	    window.onload = function() {
+	      getListHallOfFame();
+	    };
 </script>
 </html>
