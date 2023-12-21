@@ -8,7 +8,7 @@
 <!DOCTYPE html>
 <html>
 <div id="reviewContainer">
-
+	<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 	<%
 	//Retrieve the jsonResult attribute
 	List<Review> reviewDateList = (List<Review>) request.getAttribute("reviewDateList");
@@ -31,8 +31,8 @@
 	crossorigin="anonymous">
 <link rel="stylesheet"
 	href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
-<link rel="stylesheet" href="<c:url value='/css/diary/reviewList.css' />"
-	type="text/css">
+<link rel="stylesheet"
+	href="<c:url value='/css/diary/reviewList.css' />" type="text/css">
 <script src="<c:url value='/js/diary/fullcalendar.js'/>"
 	type="text/javascript"></script>
 	</head>
@@ -54,8 +54,6 @@
 		%>
 		<script>
 
-console.log("=================")
-console.log(<%=request.getAttribute("ownerId")%>)
     var reviewList = JSON.parse('<%=jsonResult%>');
     console.log(reviewList)
    var rId 
@@ -76,7 +74,6 @@ console.log(<%=request.getAttribute("ownerId")%>)
             // Set the checked attribute for the correct radio button
             var star = document.getElementById(review.rate + '-stars');
                 star.checked = true
-                console.log("=============")
                 console.log(localStorage.getItem("dateForReview"))
                 document.getElementById('watchedAt').value = localStorage.getItem("dateForReview");
         }
@@ -95,56 +92,70 @@ console.log(<%=request.getAttribute("ownerId")%>)
         };
         
         console.log(data.reviewId)
-        // Make an AJAX request using fetch
-        fetch("<c:url value='/review/update'/>", {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json;charset=UTF-8'
-            },
-            body: JSON.stringify(data)
-        })
-        .then(response => {
-            if (!response.ok) {
-                throw new Error('Network response was not ok');
+        swal({
+            title: '리뷰 수정하기',
+            text: '완료되었습니다.',
+            icon: 'success',
+        }).then((result) => {
+            if (result) {
+            	fetch("<c:url value='/review/update'/>", {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json;charset=UTF-8'
+                    },
+                    body: JSON.stringify(data)
+                })
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Network response was not ok');
+                    }
+
+                    //alert('Content picked successfully!');
+                    console.log('Review updated successfully.');
+
+                    // Reload the page
+                    
+                    location.reload();
+                
+                    
+                })
+                .catch(error => {
+                    console.error('Error updating review:', error);
+                });
             }
-            // You can handle the response here if needed
-            console.log('Review updated successfully.');
-            
-            // Reload the page
-            
-            location.reload();
-        
-            
-        })
-        .catch(error => {
-            console.error('Error updating review:', error);
         });
+        // Make an AJAX request using fetch
+        
     }
 
     function deleteReview() {
-        console.log(rId);
-        fetch("<c:url value='/review/delete'/>?reviewId=" + encodeURIComponent(rId), {
-            method: 'GET',
-            headers: {
-                'Content-Type': 'application/json;charset=UTF-8'
-            },
-        })
-        .then(response => {
-            if (!response.ok) {
-                throw new Error('Network response was not ok');
+        swal({
+            title: '리뷰 삭제하기',
+            text: '완료되었습니다.',
+            icon: 'success',
+        }).then((result) => {
+            if (result) {
+            	fetch("<c:url value='/review/delete'/>?reviewId=" + encodeURIComponent(rId), {
+                    method: 'GET',
+                    headers: {
+                        'Content-Type': 'application/json;charset=UTF-8'
+                    },
+                })
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Network response was not ok');
+                    }
+           
+                    setTimeout(function () {
+                        location.reload();
+                    },0); // 1000 milliseconds = 1 second
+                })
+                .catch(error => {
+                    console.error('Error deleting review:', error);
+                });
             }
-            // You can handle the response here if needed
-            console.log('Review delete successfully.');
-
-            // Reload the page after a short delay (adjust the delay as needed)
-            setTimeout(function () {
-                location.reload();
-            }, 1000); // 1000 milliseconds = 1 second
-        })
-        .catch(error => {
-            console.error('Error deleting review:', error);
         });
-   
+        
     }
        
 </script>
@@ -241,7 +252,7 @@ console.log(<%=request.getAttribute("ownerId")%>)
 						<button type="button" class="btn btn-danger"
 							onclick="deleteReview()">삭제하기</button>
 						<button type="button" class="btn btn-primary"
-							onclick="saveReview()">저장하기</button>
+							onclick="saveReview()">수정하기</button>
 					</div>
 				</div>
 			</div>

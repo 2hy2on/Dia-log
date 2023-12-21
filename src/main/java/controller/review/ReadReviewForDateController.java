@@ -30,9 +30,7 @@ public class ReadReviewForDateController implements Controller {
 		ReviewManager manager = ReviewManager.getInstance();
 		List<Review> reviewDateList;
 
-//		logger.info("sBefore if: ownerId=" + ownerId + ", isNull=" + (ownerId != null));
 		if (!"null".equals(ownerId)) {
-			logger.info(ownerId + "sssssssssssssssss");
 			int ownerIdInt = Integer.parseInt(ownerId);
 			reviewDateList = manager.getReviewByDate(ownerIdInt, modifiedDateStr);
 			request.setAttribute("ownerId", ownerIdInt);

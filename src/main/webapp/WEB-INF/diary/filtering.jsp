@@ -8,6 +8,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+	<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 <title>Filtering</title>
 <link
 	href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
@@ -159,55 +160,73 @@
         };
         
         console.log(data.reviewId)
-        // Make an AJAX request using fetch
-        fetch("<c:url value='/review/update'/>", {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json;charset=UTF-8'
-            },
-            body: JSON.stringify(data)
-        })
-        .then(response => {
-            if (!response.ok) {
-                throw new Error('Network response was not ok');
-            }
-            // You can handle the response here if needed
-            console.log('Review updated successfully.');
-          	alert("리뷰가 수정됐습니다");
-            // Reload the page
-            
-            location.reload();
-        
-            
-        })
-        .catch(error => {
-            console.error('Error updating review:', error);
-        });
+            swal({
+        title: '리뷰 저장하기',
+        text: '완료되었습니다.',
+        icon: 'success',
+    }).then((result) => {
+        if (result) {
+        	 fetch("<c:url value='/review/update'/>", {
+                 method: 'POST',
+                 headers: {
+                     'Content-Type': 'application/json;charset=UTF-8'
+                 },
+                 body: JSON.stringify(data)
+             })
+             .then(response => {
+                 if (!response.ok) {
+                     throw new Error('Network response was not ok');
+                 }
+                 // You can handle the response here if needed
+                 console.log('Review updated successfully.');
+               	//alert("리뷰가 수정됐습니다");
+                 // Reload the page
+                 
+                 location.reload();
+             
+                 
+             })
+             .catch(error => {
+                 console.error('Error updating review:', error);
+             });
+        }
+    });
+
+       
     }
 
     function deleteReview() {
         console.log(rId);
-        fetch("<c:url value='/review/delete'/>?reviewId=" + encodeURIComponent(rId), {
-            method: 'GET',
-            headers: {
-                'Content-Type': 'application/json;charset=UTF-8'
-            },
-        })
-        .then(response => {
-            if (!response.ok) {
-                throw new Error('Network response was not ok');
+        
+        swal({
+            title: '리뷰 삭제하기',
+            text: '완료되었습니다.',
+            icon: 'success',
+        }).then((result) => {
+            if (result) {
+            	 fetch("<c:url value='/review/delete'/>?reviewId=" + encodeURIComponent(rId), {
+                     method: 'GET',
+                     headers: {
+                         'Content-Type': 'application/json;charset=UTF-8'
+                     },
+                 })
+                 .then(response => {
+                     if (!response.ok) {
+                         throw new Error('Network response was not ok');
+                     }
+                     // You can handle the response here if needed
+                     console.log('Review delete successfully.');
+                     // Reload the page after a short delay (adjust the delay as needed)
+                     setTimeout(function () {
+                         location.reload();
+                     }, 1000); // 1000 milliseconds = 1 second
+                 })
+                 .catch(error => {
+                     console.error('Error deleting review:', error);
+                 });
             }
-            // You can handle the response here if needed
-            console.log('Review delete successfully.');
-        	alert("리뷰가 삭제됐습니다");
-            // Reload the page after a short delay (adjust the delay as needed)
-            setTimeout(function () {
-                location.reload();
-            }, 1000); // 1000 milliseconds = 1 second
-        })
-        .catch(error => {
-            console.error('Error deleting review:', error);
         });
+       
    
     }
 
