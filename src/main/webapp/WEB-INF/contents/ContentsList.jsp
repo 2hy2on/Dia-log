@@ -57,6 +57,7 @@ String jsonReviewList = mapper.writeValueAsString(reviewList);
                 document.getElementById('exampleModalLabel').innerText = content.title;
                 document.getElementById('content-genre').innerText = content.genre;
                 document.getElementById('content-image').src = content.contentImg;
+                document.getElementById('content-date').innerText = content.publishDate;
 
                 flag = 1;
                 fetchReviews(cId);
@@ -204,6 +205,10 @@ String jsonReviewList = mapper.writeValueAsString(reviewList);
 									<div class="mb-3">
 										<label for="recipient-name" class="col-form-label">[genre]</label>
 										<p id="content-genre" />
+									</div>
+									<div class="mb-3">
+										<label for="recipient-name" class="col-form-label">[publish-date]</label>
+										<p id="content-date" />
 									</div>
 									<div class="mb-3">
 										<label for="message-text" class="col-form-label">[review]</label>
