@@ -8,9 +8,13 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import controller.Controller;
+import controller.diary.DiaryController;
 import model.dto.review.ReviewDiary;
 import model.dto.review.ReviewTypeNum;
 import model.dto.visit.VisitNum;
@@ -18,7 +22,7 @@ import model.service.review.ReviewManager;
 import model.service.visit.VisitManager;
 
 public class ReadOverviewController implements Controller{
-
+	private static final Logger logger = LoggerFactory.getLogger(ReadOverviewController.class);
 	@Override
 	public String execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		// TODO Auto-generated method stub
@@ -69,7 +73,7 @@ public class ReadOverviewController implements Controller{
 ////	   // List를 JSON 형태로 변환
 	     ObjectMapper objectMapper2 = new ObjectMapper();
 	     String jsonVisitNumList = objectMapper2.writeValueAsString(visitNum);
-
+	     logger.info("visitNum"+jsonVisitNumList);
 
 	 	//장르별 통계
 		List<ReviewTypeNum> reviewGenreNumList = manager.getReviewByGenreNum(userId);
