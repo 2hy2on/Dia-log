@@ -121,6 +121,7 @@ ul {
 
 .navi {
 	width: 100%;
+	 z-index: 1; /* Set a higher z-index value */
 }
 
 .navi>li {
@@ -177,6 +178,7 @@ li a:hover {
 
 .navi>li {
 	float: left;
+	margin-left: 142px;
 	width: 20%; /* 각 메뉴 항목의 너비를 조절, 전체 메뉴를 5개로 가정하고 1/5(20%)로 설정 */
 	position: relative;
 }

@@ -1,16 +1,16 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+    <link href="https://use.fontawesome.com/releases/v5.0.6/css/all.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
 <html class="no-js h-100" lang="en">
-<div id="overiviewContrainer">
-  <head>
   <style>
+ 
     .main-content-container {
         margin-left: auto;
         margin-right: auto;
-    }
-    #space{
-    	height: 50px;
+          margin-top: 140px;
     }
     .container-fluid{
 font-family: inherit;
@@ -18,11 +18,18 @@ font-family: inherit;
   font-weight: inherit;
     }
     #overiviewContrainer{
-    font-family: inherit;
-  font-size: inherit;
-  font-weight: inherit;
+     
+	font-family: 'LINESeedKR-Bd';
+	src:
+		url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_11-01@1.0/LINESeedKR-Bd.woff2')
+		format('woff2');
+	font-weight: 700;
+	font-style: normal;
+
     }
 </style>
+<div id="overiviewContrainer">
+  <head>
 <script>
   // Set the JSON data as a JavaScript variable
    <%
@@ -90,14 +97,9 @@ console.log("각 리스트의 합:", sumList);
     <div>
 		<jsp:include page="../Navibar.jsp"/> 
 	</div>
-	<div id="space">
-	</div>
     <title>diary overview</title>
     <meta name="description" content="A high-quality &amp; free Bootstrap admin dashboard template pack that comes with lots of templates and components.">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <link href="https://use.fontawesome.com/releases/v5.0.6/css/all.css" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
     <link rel="stylesheet" id="main-stylesheet" data-version="1.1.0" href="<c:url value='/css/diary/shards-dashboards.1.1.0.min.css'/>">
     <link rel="stylesheet" href="<c:url value='/css/diary/extras.1.1.0.min.css'/>">
     <script async defer src="https://buttons.github.io/buttons.js"></script>
@@ -113,12 +115,6 @@ console.log("각 리스트의 합:", sumList);
           <!-- / .main-navbar -->
     <div class="main-content-container container-fluid px-4" style="margin-left: auto; margin-right: auto;">
             <!-- Page Header -->
-            <div class="page-header row no-gutters py-4">
-              <div class="col-12 col-sm-4 text-center text-sm-left mb-0">
-                <span class="text-uppercase page-subtitle">Dashboard</span>
-                <h3 class="page-title">Diary Overview</h3>
-              </div>
-            </div>
             <!-- End Page Header -->
             <!-- Small Stats Blocks -->
             <div class="row">

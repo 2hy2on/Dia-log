@@ -33,8 +33,7 @@ String jsonResult = (String) request.getAttribute("jsonResult");
 			
 		  var dateForReview = localStorage.getItem("dateForReview");
 
-		    // Set the value to dateHeader
-		    $('#dateHeader').text(dateForReview);
+	
 
 
 		/*  className colors
@@ -147,7 +146,7 @@ String jsonResult = (String) request.getAttribute("jsonResult");
 <style>
 
 	body {
-		margin-top: 40px;
+		
 		text-align: center;
 		font-size: 10px;
 		font-family: "Helvetica Nueue",Arial,Verdana,sans-serif;
