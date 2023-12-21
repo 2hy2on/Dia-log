@@ -21,11 +21,14 @@ String jsonResult = (String) request.getAttribute("jsonResult");
 %>
 
 	$(document).ready(function() {
+		var ownerId = (<%= (String) request.getAttribute("ownerId") %>)
 	    var date = new Date();
 		var d = date.getDate();
 		var m = date.getMonth();
 		var y = date.getFullYear();
 		
+		localStorage.setItem("ownerId", ownerId)
+		console.log(localStorage.getItem("ownerId", ownerId))
 		 var events = JSON.parse('<%= jsonResult %>');
 			
 		  var dateForReview = localStorage.getItem("dateForReview");

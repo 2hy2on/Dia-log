@@ -25,41 +25,47 @@ public class DiaryController implements Controller {
 
 	@Override
 	public String execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
-//		  int userId = Integer.parseInt(request.getParameter("userId"));
 
-	      HttpSession session = request.getSession();
-	      int userId = (int) session.getAttribute("userId");
-	      
-	      logger.info("SS"+  userId);
-	      //friend에서 넘어온 친구 아이디
-	      String ownerId = request.getParameter("ownerId");
+		HttpSession session = request.getSession();
+		Integer userId = (Integer) session.getAttribute("userId");
+
+		// friend에서 넘어온 친구 아이디
+		String ownerId = request.getParameter("ownerId");
 
 		ReviewManager manager = ReviewManager.getInstance();
 		VisitManager visitMan = VisitManager.getInstance();
-		
-		if(ownerId != null) {
+		List<ReviewDiary> reviewDiaryList;
+
+		if (userId == null) {
+			response.sendRedirect(request.getContextPath() + "/login");
+			return null; // Stop further processing
+		}
+
+		if (ownerId != null) {
 			int ownerIdInt = Integer.parseInt(ownerId);
 			// 방문자 수 넣기
 			Visit visit = new Visit();
-		    visit.setVisitorId(userId);	        
-		        //바꿔야함
-		    visit.setOwnerId(ownerIdInt);
-		    visitMan.createVisitor(visit);
-			
+			visit.setVisitorId(userId);
+			// 바꿔야함
+			visit.setOwnerId(ownerIdInt);
+			visitMan.createVisitor(visit);
+			reviewDiaryList = manager.getUserDiary(ownerIdInt);
+			request.setAttribute("ownerId", ownerId);
+
+		} else {
+			reviewDiaryList = manager.getUserDiary(userId);
 		}
-		List<ReviewDiary> reviewDiaryList = manager.getUserDiary(userId);
-		
-//	        // Set the start field as a formatted string
 		for (ReviewDiary review : reviewDiaryList) {
 			review.setStart(review.getFormattedStart());
 		}
-		
+
 ////	   // List를 JSON 형태로 변환
 		ObjectMapper objectMapper = new ObjectMapper();
 		String jsonResult = objectMapper.writeValueAsString(reviewDiaryList);
 ////
-		request.setAttribute("jsonResult", jsonResult);	        
-		request.setAttribute("ownerId", ownerId);
+		request.setAttribute("jsonResult", jsonResult);
+	
+		request.setAttribute("userId", userId);
 		
 		return "/diary/CalendarPage.jsp";
 

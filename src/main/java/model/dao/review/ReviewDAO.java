@@ -144,9 +144,9 @@ public class ReviewDAO {
 				review.setDetail(rs.getString("detail"));
 				review.setContentId(rs.getInt("contentId"));
 //				review.setCreatedAt(rs.getObject("createdAt", LocalDateTime.class));
-    			review.setMediaImg(rs.getString("contentimg"));
-    			review.setTitle(rs.getString("title"));
-    			review.setReviewId(rs.getInt("reviewId"));
+				review.setMediaImg(rs.getString("contentimg"));
+				review.setTitle(rs.getString("title"));
+				review.setReviewId(rs.getInt("reviewId"));
 				review.setPrivate(rs.getBoolean("isPrivate"));
 				review.setRate(rs.getFloat("rate"));
 //				review.setTitle(rs.getString("title"));
@@ -180,16 +180,18 @@ public class ReviewDAO {
 			ResultSet rs = jdbcUtil.executeQuery();
 
 			while (rs.next()) {
-				ReviewDiary review = new ReviewDiary();
+				if (rs.getString("detail") != null) {
+					ReviewDiary review = new ReviewDiary();
 
-				review.setContentId(rs.getInt("contentId"));
-				review.setContentType("contentType");
+					review.setContentId(rs.getInt("contentId"));
+					review.setContentType("contentType");
 //    			review.setPrivate(rs.getBoolean("isPrivate"));
-				review.setTitle(rs.getString("title"));
-				review.setReviewId(rs.getInt("reviewId"));
-				review.setWatchedAt(rs.getDate("watchedAt"));
+					review.setTitle(rs.getString("title"));
+					review.setReviewId(rs.getInt("reviewId"));
+					review.setWatchedAt(rs.getDate("watchedAt"));
 
-				reviewMonthly.add(review);
+					reviewMonthly.add(review);
+				}
 			}
 			return reviewMonthly;
 		} catch (Exception ex) {
@@ -204,82 +206,80 @@ public class ReviewDAO {
 
 	// 미디어 테이블 생성 후 되는 지 확인 하고 제출하기!!!
 
-    public List<ReviewTypeNum> getReviewByType(int writerId) {
-    	 StringBuilder query = new StringBuilder();
+	public List<ReviewTypeNum> getReviewByType(int writerId) {
+		StringBuilder query = new StringBuilder();
 
-         query.append("SELECT COUNT(contentType) AS contentCount, contentType FROM review, contents ");
-         query.append("WHERE review.contentId = contents.contentId and review.writerId=? GROUP BY contentType ");
+		query.append("SELECT COUNT(contentType) AS contentCount, contentType FROM review, contents ");
+		query.append("WHERE review.contentId = contents.contentId and review.writerId=? GROUP BY contentType ");
 
-       
-  		Object[] param = new Object[] {writerId};
-  										
-  		jdbcUtil.setSqlAndParameters(query.toString(), param);	// JDBCUtil 에 insert문과 매개 변수 설정
-		
-  		try {
-  			ResultSet rs = jdbcUtil.executeQuery();
-  			List<ReviewTypeNum> list = new ArrayList();
-  			while(rs.next()) {
-  				ReviewTypeNum review = new ReviewTypeNum();
-  				
-  				review.setNum(rs.getInt("contentCount"));
-  				review.setType(rs.getString("contentType"));
-  				
-  				list.add(review);
-  				
-  			}
-  			return list;
-  		}
-  		catch (Exception ex) {
-            jdbcUtil.rollback();    // 트랜잭션 rollback 실행
-            ex.printStackTrace();
-        } finally {
-            jdbcUtil.commit();      // 트랜잭션 commit 실행
-            jdbcUtil.close();
-        }
-        return null; 
-    }
-    
-    public List<ReviewTypeNum> getReviewByGenreForOverview(int writerId) {
-        StringBuilder query = new StringBuilder();
+		Object[] param = new Object[] { writerId };
 
-        query.append("WITH ContentGenres AS ( ");
-        query.append(" SELECT ");
-        query.append(" TRIM(REGEXP_SUBSTR(c.genre, '[^/]+', 1, LEVEL)) AS genre, ");
-        query.append(" EXTRACT(MONTH FROM r.watchedAt) AS watchedMonth ");
-        query.append(" FROM contents c ");
-        query.append(" JOIN review r ON c.contentId = r.contentId ");
-        query.append(" WHERE r.writerId = ? ");
-        query.append(" CONNECT BY PRIOR dbms_random.value IS NOT NULL ");
-        query.append(" AND PRIOR r.contentId = c.contentId ");
-        query.append(" AND LEVEL <= REGEXP_COUNT(c.genre, '/') + 1 ) ");
-        query.append("SELECT genre,watchedMonth, COUNT(*) AS contentCount ");
-        query.append("FROM ContentGenres ");
-        query.append("GROUP BY genre, watchedMonth ");
-        query.append("ORDER BY genre, watchedMonth ");
+		jdbcUtil.setSqlAndParameters(query.toString(), param); // JDBCUtil 에 insert문과 매개 변수 설정
 
-        Object[] param = new Object[]{writerId};
-        jdbcUtil.setSqlAndParameters(query.toString(), param);
+		try {
+			ResultSet rs = jdbcUtil.executeQuery();
+			List<ReviewTypeNum> list = new ArrayList();
+			while (rs.next()) {
+				ReviewTypeNum review = new ReviewTypeNum();
 
-        try {
-            ResultSet rs = jdbcUtil.executeQuery();
-            List<ReviewTypeNum> list = new ArrayList<>();
-            
-            while (rs.next()) {
-                ReviewTypeNum review = new ReviewTypeNum();
+				review.setNum(rs.getInt("contentCount"));
+				review.setType(rs.getString("contentType"));
 
-                review.setNum(rs.getInt("contentCount"));
-                review.setType(rs.getString("genre"));
-                // 여기에서 월 정보를 어떻게 처리할지에 대한 코드를 추가해야 합니다.
-                list.add(review);
-            }
-            return list;
-        } catch (Exception ex) {
-            jdbcUtil.rollback();
-            ex.printStackTrace();
-        } finally {
-            jdbcUtil.commit();
-            jdbcUtil.close();
-        }
-        return null;
-    }
+				list.add(review);
+
+			}
+			return list;
+		} catch (Exception ex) {
+			jdbcUtil.rollback(); // 트랜잭션 rollback 실행
+			ex.printStackTrace();
+		} finally {
+			jdbcUtil.commit(); // 트랜잭션 commit 실행
+			jdbcUtil.close();
+		}
+		return null;
+	}
+
+	public List<ReviewTypeNum> getReviewByGenreForOverview(int writerId) {
+		StringBuilder query = new StringBuilder();
+
+		query.append("WITH ContentGenres AS ( ");
+		query.append(" SELECT ");
+		query.append(" TRIM(REGEXP_SUBSTR(c.genre, '[^/]+', 1, LEVEL)) AS genre, ");
+		query.append(" EXTRACT(MONTH FROM r.watchedAt) AS watchedMonth ");
+		query.append(" FROM contents c ");
+		query.append(" JOIN review r ON c.contentId = r.contentId ");
+		query.append(" WHERE r.writerId = ? ");
+		query.append(" CONNECT BY PRIOR dbms_random.value IS NOT NULL ");
+		query.append(" AND PRIOR r.contentId = c.contentId ");
+		query.append(" AND LEVEL <= REGEXP_COUNT(c.genre, '/') + 1 ) ");
+		query.append("SELECT genre,watchedMonth, COUNT(*) AS contentCount ");
+		query.append("FROM ContentGenres ");
+		query.append("GROUP BY genre, watchedMonth ");
+		query.append("ORDER BY genre, watchedMonth ");
+
+		Object[] param = new Object[] { writerId };
+		jdbcUtil.setSqlAndParameters(query.toString(), param);
+
+		try {
+			ResultSet rs = jdbcUtil.executeQuery();
+			List<ReviewTypeNum> list = new ArrayList<>();
+
+			while (rs.next()) {
+				ReviewTypeNum review = new ReviewTypeNum();
+
+				review.setNum(rs.getInt("contentCount"));
+				review.setType(rs.getString("genre"));
+				// 여기에서 월 정보를 어떻게 처리할지에 대한 코드를 추가해야 합니다.
+				list.add(review);
+			}
+			return list;
+		} catch (Exception ex) {
+			jdbcUtil.rollback();
+			ex.printStackTrace();
+		} finally {
+			jdbcUtil.commit();
+			jdbcUtil.close();
+		}
+		return null;
+	}
 }
