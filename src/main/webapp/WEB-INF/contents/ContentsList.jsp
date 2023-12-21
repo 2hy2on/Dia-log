@@ -138,8 +138,18 @@ String jsonReviewList = mapper.writeValueAsString(reviewList);
             })
             .then(data => {
                 console.log('(Content) Parsed JSON:', data);
-//                alert('Content picked successfully!');
-                swal('내 다이어리로 담아가기','완료되었습니다.','success');
+
+                swal({
+                    title: '내 다이어리로 담아가기',
+                    text: '완료되었습니다.',
+                    icon: 'success',
+                }).then((result) => {
+                    if (result) {
+                       setTimeout(function () {
+                            location.reload();
+                        },0); // 1000 milliseconds = 1 second
+                    }
+                });
             })
             .catch(error => {
                 console.error('Error picking content:', error.message);
