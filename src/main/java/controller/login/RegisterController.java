@@ -24,7 +24,20 @@ public class RegisterController implements Controller {
         String movieInterest = request.getParameter("Movie_interest");
         String bookInterest = request.getParameter("Book_interest");
         String musicInterest = request.getParameter("Music_interest");
-
+        
+        if (ID == null || password == null || userName == null
+                || gender == null || email == null || movieInterest == null
+                || bookInterest == null || musicInterest == null
+                || ID.trim().isEmpty() || password.trim().isEmpty() || userName.trim().isEmpty()
+                || gender.trim().isEmpty() || email.trim().isEmpty() || movieInterest.trim().isEmpty()
+                || bookInterest.trim().isEmpty() || musicInterest.trim().isEmpty()) {
+            PrintWriter script = response.getWriter();
+            script.println("<script>");
+            script.println("alert('입력이 안 된 사항이 있습니다.');");
+            script.println("history.back();");
+            script.println("</script>");
+            return null;
+        }
         // 회원 정보 객체 생성
         User user = new User();
         user.setUserName(userName);
