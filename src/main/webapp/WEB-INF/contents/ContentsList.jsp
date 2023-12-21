@@ -95,7 +95,7 @@ String jsonReviewList = mapper.writeValueAsString(reviewList);
 	                            .append(
 	                                '<li class="list-group-item d-flex justify-content-between align-items-center">'
 	                                + '<a class="social-icon social-icon-journal" href="/dialog/diary?ownerId='
-	                                + review.reviewId
+	                                + review.writerId
 	                                + '"><i class="bi bi-journal"></i></a>'
 	                                + review.detail
 	                                + '</li>');

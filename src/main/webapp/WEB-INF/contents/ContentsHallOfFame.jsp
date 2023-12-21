@@ -34,6 +34,25 @@
 .button-list {
 	text-align: center;
 }
+
+.social-icon:hover .bi-journal {
+	display: block; /* 호버 시에만 보이도록 설정합니다. */
+}
+
+.social-icon {
+	display: inline-flex;
+	margin: 0;
+	padding: 0;
+	padding-left: 6%;
+	height: 3.5rem;
+	width: 3.5rem;
+	background-color: #79A3B1;
+	color: #FCF8EC;
+	border-radius: 100%;
+	font-size: 1.5rem;
+	margin-right: 1.5rem;
+	align-items: center;
+}
 </style>
 <body>
 	<%
