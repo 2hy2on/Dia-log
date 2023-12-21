@@ -31,7 +31,8 @@ public class MyPageUpdateController implements Controller {
             case "updateName":
                 // 이름 수정
                 String newName = request.getParameter("Username");
-                user.setUserName(newName);           
+                user.setUserName(newName);  
+                userDAO.updateUserInFollowTable(userID, newName);
                 case "updateEmail":
                     // 이메일 수정
                     String newEmail = request.getParameter("Email");

@@ -166,4 +166,27 @@ public class UserDAO {
         }
         return true;  // 예외 발생 시 중복으로 처리
     } 
+    public boolean updateUserInFollowTable(String userID, String newUsername) {
+        String updateQuery = "UPDATE FOLLOW SET followerName = ? WHERE followerID IN (SELECT USERID FROM USER4 WHERE ID = ?)";
+        String updateQuery2 = "UPDATE FOLLOW SET followeeName = ? WHERE followeeID IN (SELECT USERID FROM USER4 WHERE ID = ?)";
+        
+        try {
+            // 팔로워 정보 업데이트
+            pstmt = conn.prepareStatement(updateQuery);
+            pstmt.setString(1, newUsername);
+            pstmt.setString(2, userID);
+            pstmt.executeUpdate();
+
+            // 팔로잉 정보 업데이트
+            pstmt = conn.prepareStatement(updateQuery2);
+            pstmt.setString(1, newUsername);
+            pstmt.setString(2, userID);
+            pstmt.executeUpdate();
+
+            return true;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
 }
