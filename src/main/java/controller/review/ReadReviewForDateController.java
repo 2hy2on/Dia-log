@@ -35,6 +35,7 @@ public class ReadReviewForDateController implements Controller {
 			logger.info(ownerId + "sssssssssssssssss");
 			int ownerIdInt = Integer.parseInt(ownerId);
 			reviewDateList = manager.getReviewByDate(ownerIdInt, modifiedDateStr);
+			request.setAttribute("ownerId", ownerIdInt);
 		} else {
 
 			reviewDateList = manager.getReviewByDate(userId, modifiedDateStr);

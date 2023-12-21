@@ -18,8 +18,9 @@
 	<nav id="nav3" class="navi">
 		<a id="title" href="<c:url value='/contents/list'/>">Dia-log</a>
 		<ul class="navi">
-			<li><a href="<c:url value='/contents/list'/>">홈</a></li>
-			<li><a href="<c:url value='/diary'/>">다이어리</a>
+			<!-- <li><a href="<c:url value='/contents/list'/>">홈</a></li>-->
+			<li>
+				<a href="<c:url value='/diary'/>">다이어리</a>
 				<ul>
 					<li><a href="<c:url value='/diary/filter'/>">리뷰</a></li>
 					<li><a href="<c:url value='/friend'/>">친구</a></li>
@@ -27,7 +28,7 @@
 				</ul></li>
 			<li><a href="<c:url value='/board'/>">OTT 게시판</a></li>
 
-     <li><a href="<c:url value='/mypage'/>">마이페이지 </a>
+     		<li><a href="<c:url value='/mypage'/>">마이페이지 </a>
 		</ul>
 	</nav>
 </body>

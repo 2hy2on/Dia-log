@@ -14,11 +14,11 @@
             justify-content: space-around; /* Spread items horizontally */
             align-items: center; /* Center items vertically */
             margin: 0 auto; /* Center the container horizontally */
-            margin-top: 60px;
             font-family: "Helvetica Nueue",Arial,Verdana,sans-serif;
              font-weight: 700;
     		font-style: normal;
     		margin-bottom: 200px;
+    		margin-top: 100px;
         }
 
         #dateName {
@@ -33,9 +33,6 @@
         }
         
         .listLayer {
-             /* Set a fixed width for each section */
-             /* Adjust the marg width: 0px;in as needed */
-            margin-top: 100px;
             margin-right: 100px;
         }
     </style>

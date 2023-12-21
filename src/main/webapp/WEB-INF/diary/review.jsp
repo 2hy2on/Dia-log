@@ -10,10 +10,9 @@
 <div id="reviewContainer">
 
 	<%
-            //Retrieve the jsonResult attribute
-            List<Review> reviewDateList = (List<Review>) request.getAttribute("reviewDateList");
-            
-       %>
+	//Retrieve the jsonResult attribute
+	List<Review> reviewDateList = (List<Review>) request.getAttribute("reviewDateList");
+	%>
 
 	<head>
 <style>
@@ -32,13 +31,12 @@
 	crossorigin="anonymous">
 <link rel="stylesheet"
 	href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
-<link rel="stylesheet" href="<c:url value='/css/diary/filtering.css' />"
+<link rel="stylesheet" href="<c:url value='/css/diary/reviewList.css' />"
 	type="text/css">
 <script src="<c:url value='/js/diary/fullcalendar.js'/>"
 	type="text/javascript"></script>
 	</head>
-	<style>
-</style>
+
 
 	<script
 		src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
@@ -49,14 +47,16 @@
 
 	<body>
 		<%
-// Check if reviewDateList is not null
-if (reviewDateList != null) {
-   
-   ObjectMapper objectMapper = new ObjectMapper();
-    String jsonResult = objectMapper.writeValueAsString(reviewDateList);
-%>
+		if (reviewDateList != null) {
+
+			ObjectMapper objectMapper = new ObjectMapper();
+			String jsonResult = objectMapper.writeValueAsString(reviewDateList);
+		%>
 		<script>
-    var reviewList = JSON.parse('<%= jsonResult %>');
+
+console.log("=================")
+console.log(<%=request.getAttribute("ownerId")%>)
+    var reviewList = JSON.parse('<%=jsonResult%>');
     console.log(reviewList)
    var rId 
     function updateModalContent(reviewId) {
@@ -150,37 +150,50 @@ if (reviewDateList != null) {
 </script>
 		<div class="gallery">
 			<div class="container text-center">
-				<% for (int i = 0; i < reviewDateList.size(); i++) { %>
-				<% if (i % 4 == 0) { %>
+				<%
+				for (int i = 0; i < reviewDateList.size(); i++) {
+				%>
+				<%
+				if (i % 4 == 0) {
+				%>
 				<div class="row">
-					<% } %>
-					<div id="<%= reviewDateList.get(i).getReviewId()%>" class="col"
-						onclick="updateModalContent(<%= reviewDateList.get(i).getReviewId()%>)">
+					<%
+					}
+					%>
+					<div id="<%=reviewDateList.get(i).getReviewId()%>" class="col"
+						onclick="updateModalContent(<%=reviewDateList.get(i).getReviewId()%>)">
 						<article class="card" data-bs-toggle="modal"
 							data-bs-target="#exampleModal">
 							<figure>
-								<img src="<%= reviewDateList.get(i).getMediaImg() %>"
-									alt="movie">
+								<img src="<%=reviewDateList.get(i).getMediaImg()%>" alt="movie">
 								<figcaption>
 									<p class="h6">
 
-										<%= reviewDateList.get(i).getTitle() %>
+										<%=reviewDateList.get(i).getTitle()%>
 									</p>
 								</figcaption>
 							</figure>
 						</article>
 					</div>
-					<% if (i % 4 == 3 || i == reviewDateList.size() - 1) { %>
+					<%
+					if (i % 4 == 3 || i == reviewDateList.size() - 1) {
+					%>
 				</div>
-				<% } %>
-				<% } %>
+				<%
+				}
+				%>
+				<%
+				}
+				%>
 			</div>
 		</div>
 
 		<%
-} 
-if("null".equals(request.getAttribute("ownerId"))){
-%>
+		}
+		Object ownerIdAttribute = request.getAttribute("ownerId");
+		if (ownerIdAttribute == null || !(ownerIdAttribute instanceof Integer)) {
+		%>
+
 		<div class="modal" id="exampleModal" tabindex="-1"
 			aria-labelledby="exampleModalLabel" aria-hidden="true">
 			<div class="modal-dialog modal-lg">
@@ -233,7 +246,9 @@ if("null".equals(request.getAttribute("ownerId"))){
 				</div>
 			</div>
 		</div>
-		<%} %>
+		<%
+		}
+		%>
 	</body>
 
 </div>
