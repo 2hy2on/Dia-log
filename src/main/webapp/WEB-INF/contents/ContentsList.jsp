@@ -88,12 +88,16 @@ String jsonReviewList = mapper.writeValueAsString(reviewList);
                     	if (review.detail !== null) {
                     		flag = 0;
                     		
+                    		var star = '★'.repeat(review.rate) + '☆'.repeat(5 - review.rate);
+                    		
 	                        $("#content-review")
 	                            .append(
 	                                '<li class="list-group-item d-flex justify-content-between align-items-center">'
 	                                + '<a class="social-icon social-icon-journal" href="/dialog/diary?ownerId='
 	                                + review.writerId
 	                                + '"><i class="bi bi-journal"></i></a>'
+	                                + star
+	                                + ' :  '
 	                                + review.detail
 	                                + '</li>');
                     	} 

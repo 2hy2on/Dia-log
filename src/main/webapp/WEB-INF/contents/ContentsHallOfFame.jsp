@@ -19,7 +19,7 @@
 	display: flex;
 	justify-content: center;
 	flex-direction: column; /* 수직 정렬을 위한 추가 */
-    align-items: center; /* 수직 정렬을 위한 추가 */
+	align-items: center; /* 수직 정렬을 위한 추가 */
 }
 
 .HOF {

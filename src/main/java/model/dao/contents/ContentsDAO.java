@@ -49,6 +49,7 @@ public class ContentsDAO {
 				cont.setGenre(rs.getString("genre"));
 				cont.setPublishDate(rs.getDate("publishDate"));
 
+				
 				contentList.add(cont);
 			}
 			return contentList;

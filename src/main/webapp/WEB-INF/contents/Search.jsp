@@ -51,7 +51,7 @@
 			</form>
 		</div>
 	</div>
-
+	
 	<%
 	List<Contents> searchList = (List<Contents>) request.getAttribute("searchList");
 
