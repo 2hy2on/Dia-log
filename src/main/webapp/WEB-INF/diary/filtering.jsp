@@ -8,7 +8,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-	<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 <title>Filtering</title>
 <link
 	href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
@@ -20,6 +20,7 @@
 <link rel="stylesheet"
 	href="<c:url value='/css/diary/reviewFiltering.css' />" type="text/css">
 <style>
+
 .card {
 	height: 100px; /* Adjust the height as needed */
 	width: 100px; /* Adjust the width as needed */
@@ -245,7 +246,7 @@
 						+ '<figure>'
 						+ '<img src="' + review.mediaImg + '" alt="movie">'
 						+ '<figcaption>'
-						+ '<p class="h6">'
+						+  '<p class="h6" style="font-size: 0.7rem;">' 
 						+ review.title
 						+ '</p>'
 						+ '</figcaption>'

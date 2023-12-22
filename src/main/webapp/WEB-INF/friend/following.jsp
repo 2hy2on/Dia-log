@@ -55,13 +55,13 @@
 }
 
 /* 다른 스타일들은 그대로 유지하고, 아래 버튼에 스타일 추가 */
-#deleteFollowerBt {
+#deleteFollowerBt, #deleteFolloweeBt {
 	color: #fff;
 	background-color: #ff7070; /* 더 연한 빨강 색상 */
 	border-color: #ff7070; /* 더 연한 빨강 색상 */
 }
 
-#deleteFollowerBt:hover {
+#deleteFollowerBt:hover, #deleteFolloweeBt:hover {
 	color: #fff;
 	background-color: #ff5050; /* 마우스 호버 시 빨강 색상 조절 */
 	border-color: #ff5050; /* 마우스 호버 시 빨강 색상 조절 */
@@ -69,6 +69,7 @@
 </style>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 <title>Following</title>
 <link
 	href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
@@ -194,10 +195,19 @@
 																result) {
 															// 결과 처리
 															if (result === true) {
-																alert(followerName
-																		+ "님을 삭제했습니다.");
+																 swal({
+																        title: followerName
+																		+ '님을 삭제했습니다.',
+																        icon: 'success',
+																    }).then((confirmed) => {
+																        if (confirmed) {
+																            setTimeout(function () {
+																                location.reload();
+																            }, 1000);
+																        }
+																    });
 															} else {
-																alert("다시 시도해주세요. ");
+																swal('다시 시도해주세요.','');
 															}
 														},
 														error : function(jqXHR,
@@ -248,10 +258,18 @@
 																result) {
 															// 결과 처리
 															if (result === true) {
-																alert(followeeName
-																		+ "님을 팔로잉에서 삭제했습니다.");
+																 swal({
+																        title: followeeName + '님을 팔로잉에서 삭제했습니다.',
+																        icon: 'success',
+																    }).then((confirmed) => {
+																        if (confirmed) {
+																            setTimeout(function () {
+																                location.reload();
+																            }, 1000);
+																        }
+																    });
 															} else {
-																alert("다시 시도해주세요.");
+																swal('다시 시도해주세요.','');
 															}
 														},
 														error : function(jqXHR,
@@ -294,10 +312,18 @@
 																result) {
 															// 결과 처리
 															if (result === true) {
-																alert(friendName
-																		+ "님에게 신구 요청을 보냈습니다.");
+																 swal({
+																        title: friendName + '님에게 친구 요청을 보냈습니다.',
+																        icon: 'success',
+																    }).then((confirmed) => {
+																        if (confirmed) {
+																            setTimeout(function () {
+																                location.reload();
+																            }, 1000);
+																        }
+																    });
 															} else {
-																alert("이미 친구 신청했습니다.");
+																swal('이미 친구 신청했습니다.','');
 															}
 														},
 														error : function(jqXHR,
@@ -346,8 +372,16 @@
 																result) {
 															// 결과 처리
 															if (result === true) {
-																alert(receivedFriendName
-																		+ "님의 팔로우를 수락했습니다.");
+																swal({
+																    title: receivedFriendName + '님의 팔로우를 수락했습니다.',
+																    icon: 'success',
+																}).then((confirmed) => {
+																    if (confirmed) {
+																        setTimeout(function () {
+																            location.reload();
+																        }, 1000);
+																    }
+																});
 															} else {
 																alert("다시 시도해주세요.");
 															}
@@ -451,64 +485,56 @@
 										});
 
 					});
-
 	function printUnacceptedFriends(unacceptedFriends) {
-		// 기존 내용을 지우고 새로운 내용으로 업데이트
-		$("#unacceptedFriendList").empty();
+	    // 기존 내용을 지우고 새로운 내용으로 업데이트
+	    $("#unacceptedFriendList").empty();
 
-		// follow 데이터를 이용하여 목록 생성
-		if (unacceptedFriends.length > 0) {
-			for (var i = 0; i < unacceptedFriends.length; i++) {
-				var friend = unacceptedFriends[i];
-				$("#unacceptedFriendList")
-						.append(
-								'<li class="list-group-item d-flex justify-content-between align-items-center">'
-										+ '<a class="social-icon social-icon-journal" href="/dialog/diary?ownerId='
-										+ friend.followerId
-										+ '"><i class="bi bi-journal"></i></a>'
-										+ friend.followerName
-										+ '<div class="d-flex">'
-										+ '<button type="button" class="btn btn-custom-danger me-1 rounded-pill" id="deleteFollowerBt">요청 삭제</button>'
-										+ '<button type="button" class="btn btn-primary me-1 rounded-pill" id="receiveFollowBt">요청 수락</button>'
-										+ '</div>' + '</li>');
-			}
-		}
+	    // follow 데이터를 이용하여 목록 생성
+	    if (unacceptedFriends.length > 0) {
+	        for (var i = 0; i < unacceptedFriends.length; i++) {
+	            var friend = unacceptedFriends[i];
+	            $("#unacceptedFriendList").append(
+	                `<li class="list-group-item d-flex justify-content-between align-items-center">
+	                    <a class="social-icon social-icon-journal" href="/dialog/diary?ownerId=${friend.followerId}">
+	                        <i class="bi bi-journal"></i>
+	                    </a>
+	                    ${friend.followerName}
+	                    <div class="d-flex">
+	                        <button type="button" class="btn btn-custom-danger me-1 rounded-pill" id="deleteFollowerBt">요청 삭제</button>
+	                        <button type="button" class="btn btn-primary me-1 rounded-pill" id="receiveFollowBt">요청 수락</button>
+	                    </div>
+	                </li>`
+	            );
+	        }
+	    }
 	}
+
 
 	function printRecommendList(recommendList) {
-		// 기존 내용을 지우고 새로운 내용으로 업데이트
-		$("#recommendationList").empty();
+	    // 기존 내용을 지우고 새로운 내용으로 업데이트
+	    $("#recommendationList").empty();
 
-		// follow 데이터를 이용하여 목록 생성
-		if (recommendList.length > 0) {
-			for (var i = 0; i < recommendList.length; i++) {
-				var friend = recommendList[i];
-				$("#recommendationList")
-						.append(
-								'<li class="list-group-item d-flex align-items-center" style="margin-bottom: 5px; border-bottom: 1px solid #dee2e6;">'
-										+ '<div class="me-auto">'
-										+ '<span>'
-										+ friend.userName
-										+ '</span>'
-										+ '</div>'
-										+ '<div class="text-center flex-grow-1">'
-										+ '<span>'
-										+ friend.book_interest
-										+ ' '
-										+ '</span>'
-										+ '<span class="me-2">'
-										+ friend.movie_interest
-										+ ' '
-										+ '</span>'
-										+ '<span>'
-										+ friend.music_interest
-										+ '</span>'
-										+ '</div>'
-										+ '<button type="button" class="btn btn-primary btn-sm rounded-pill" id="sendRequestBt">친구 신청</button>'
-										+ '</li>');
-			}
-		}
+	    // follow 데이터를 이용하여 목록 생성
+	    if (recommendList.length > 0) {
+	        for (var i = 0; i < recommendList.length; i++) {
+	            var friend = recommendList[i];
+	            $("#recommendationList").append(
+	                `<li class="list-group-item d-flex align-items-center" style="margin-bottom: 5px; border-bottom: 1px solid #dee2e6;">
+	                    <div class="me-auto">
+	                        <span>${friend.userName}</span>
+	                    </div>
+	                    <div class="text-center flex-grow-1">
+	                        <span>${friend.book_interest} </span>
+	                        <span class="me-2">${friend.movie_interest} </span>
+	                        <span>${friend.music_interest}</span>
+	                    </div>
+	                    <button type="button" class="btn btn-primary btn-sm rounded-pill" id="sendRequestBt">친구 신청</button>
+	                </li>`
+	            );
+	        }
+	    }
 	}
+
 
 	function printFollowers(followers) {
 		// 기존 내용을 지우고 새로운 내용으로 업데이트
