@@ -251,7 +251,7 @@ public class ReviewDAO {
 		query.append(" ) AS sys.odcinumberlist)) ");
 		query.append(" WHERE r.writerId = ? )");
 		query.append(" SELECT genre, COUNT(*) AS genreCount");
-		query.append(" FROM ContentGenres GROUP BY genre ORDER BY genre");
+		query.append(" FROM ContentGenres GROUP BY genre ORDER BY genreCount DESC");
 	
 
 		Object[] param = new Object[] { writerId };
