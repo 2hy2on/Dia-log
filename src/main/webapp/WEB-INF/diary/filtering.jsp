@@ -20,7 +20,6 @@
 <link rel="stylesheet"
 	href="<c:url value='/css/diary/reviewFiltering.css' />" type="text/css">
 <style>
-
 .card {
 	height: 100px; /* Adjust the height as needed */
 	width: 100px; /* Adjust the width as needed */
@@ -37,12 +36,15 @@
 }
 
 .gallery {
-	display: flex;
-	background-color: var(--background);
-	gap: 16px;
-	scale: 1.6;
-	margin-top: 360px;
-	margin-bottom: 200px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    background-color: var(--background);
+    gap: 16px;
+    margin-top: 420px;
+    margin-bottom: 200px;
+    text-align: center; /* 텍스트를 수평 가운데 정렬합니다. */
 }
 
 .card img {
@@ -83,6 +85,26 @@
 .card:hover {
 	cursor: pointer;
 	transform: scale(1.15);
+}
+
+.container {
+    text-align: center; /* 텍스트를 수평 가운데 정렬합니다. */
+}
+
+.row {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+
+.col {
+    width: 100px !important;
+    flex: 0 0 auto !important;
+    max-width: 100px !important;
+    padding: 0 !important;
+    margin: 10px;
 }
 </style>
 </head>
@@ -246,7 +268,7 @@
 						+ '<figure>'
 						+ '<img src="' + review.mediaImg + '" alt="movie">'
 						+ '<figcaption>'
-						+  '<p class="h6" style="font-size: 0.7rem;">' 
+						+  '<p class="h6" style="font-size: 0.5rem;">' 
 						+ review.title
 						+ '</p>'
 						+ '</figcaption>'
