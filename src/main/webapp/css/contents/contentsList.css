@@ -6,12 +6,15 @@
 	font-weight: 700;
 	font-style: normal;
 }
-
+*, ::after, ::before {
+    box-sizing: content-box;
+}
 body {
 	font-family: 'LINESeedKR-Bd', sans-serif;
 	justify-content: center;
 	align-items: center;
 	min-height: 5vh;
+	margin: 0;
 }
 
 .social-icon:hover .bi-journal {
@@ -32,7 +35,6 @@ body {
 	border-radius: 10px;
 	transition: 1000ms all;
 	transform-origin: center;
-	/*     box-shadow: 0 5px 12px rgba(0, 0, 0, 0.5); */
 	outline: 1px solid var(- -background);
 	overflow: hidden;
 }
@@ -77,7 +79,7 @@ body {
 }
 
 .row {
-	justify-content: space-between;
+	justify-content: center;
 }
 
 header {

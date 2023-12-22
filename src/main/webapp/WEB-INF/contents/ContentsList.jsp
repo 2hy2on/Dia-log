@@ -61,7 +61,7 @@ String jsonReviewList = mapper.writeValueAsString(reviewList);
                 
                 var formattedDate = new Date(content.publishDate).toLocaleDateString('ko-KR');
                 document.getElementById('content-date').innerText = formattedDate;
-
+ 
                 flag = 1;
                 fetchReviews(cId);
             }      
