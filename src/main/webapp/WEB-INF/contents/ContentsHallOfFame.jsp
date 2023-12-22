@@ -13,22 +13,41 @@
 </head>
 <style>
 .outer {
-	width: 600px;
-	height: 300px;
-	margin: 0 auto;
-	margin-top: 20px;
+	width: auto;
+	margin: 20px auto;
 	overflow-x: hidden;
+	display: flex;
+	justify-content: center;
+	flex-direction: column; /* 수직 정렬을 위한 추가 */
+    align-items: center; /* 수직 정렬을 위한 추가 */
+}
+
+.HOF {
+	text-align: center;
+	height: fit-content;
 }
 
 .inner-list {
 	display: flex;
 	transition: .3s ease-out;
-	height: 100%;
+	flex-direction: row;
 }
 
 .inner {
-	border: 6px solid olive;
-	padding: 0 16px;
+	border: 3px solid #79A3B1;
+	padding: 10px 16px;
+	flex-grow: 1;
+	box-sizing: border-box;
+	display: flex;
+	flex-direction: row;
+	width: 300px;
+	justify-content: space-between;
+	margin-bottom: 5px;
+}
+
+.imgHOF {
+	height: 80px;
+	width: 50px;
 }
 
 .button-list {
@@ -60,48 +79,22 @@
 	System.out.println("hallOfFameList: " + hallOfFameList);
 	%>
 	<div class="outer">
+		<h6 class="HOF">
+			HALL OF FAME<br> 카테고리별 1위
+		</h6>
 		<div class="inner-list">
 			<!-- 동적으로 아이템추가 -->
 		</div>
-	</div>
 
-	<div class="button-list">
-		<button class="button-left">← Left</button>
-		<button class="button-right">Right →</button>
 	</div>
 </body>
 <script>
 	const outer = document.querySelector('.outer');
 	const innerList = document.querySelector('.inner-list');
 	const inners = document.querySelectorAll('.inner');
-	let currentIndex = 0; // 현재 슬라이드 화면 인덱스
 	
-	inners.forEach((inner) => {
-	  inner.style.width = `${outer.clientWidth}px`; // inner의 width를 모두 outer의 width로 만들기
-	})
-	
-	innerList.style.width = `${outer.clientWidth * inners.length}px`; // innerList의 width를 inner의 width * inner의 개수로 만들기
-	
-	/*
-	  버튼에 이벤트 등록하기
-	*/
-	const buttonLeft = document.querySelector('.button-left');
-	const buttonRight = document.querySelector('.button-right');
-	
-	buttonLeft.addEventListener('click', () => {
-	  currentIndex--;
-	  currentIndex = currentIndex < 0 ? 0 : currentIndex; // index값이 0보다 작아질 경우 0으로 변경
-	  innerList.style.marginLeft = `-${outer.clientWidth * currentIndex}px`; // index만큼 margin을 주어 옆으로 밀기
-	});
-	
-	buttonRight.addEventListener('click', () => {
-	  currentIndex++;
-	  currentIndex = currentIndex >= inners.length ? inners.length - 1 : currentIndex; // index값이 inner의 총 개수보다 많아질 경우 마지막 인덱스값으로 변경
-	  innerList.style.marginLeft = `-${outer.clientWidth * currentIndex}px`; // index만큼 margin을 주어 옆으로 밀기
-	});
-	
-	 function getListHallOfFame() {
-	      fetch("<c:url value='/contents/hallOfFame'/>", {
+	function getListHallOfFame() {
+		fetch("<c:url value='/contents/hallOfFame'/>", {
 	        method: 'GET',
 	        headers: {
 	          'Content-Type': 'application/json;charset=UTF-8'
@@ -127,9 +120,35 @@
 	    	  innerList.innerHTML = '';
 
 	    	  hallOfFameData.forEach(item => {
+	    		const icon = document.createElement('div');
+	    		icon.className = 'icon';
+
+	    		switch(item.contentType) {
+	    		case 'Music':
+	    			icon.innerHTML = `<i class="bi bi-music-note-beamed"></i>`;
+	    			break;
+	    		case 'Book':
+	    			icon.innerHTML = `<i class="bi bi-book"></i>`;
+	    			break;
+	    		case 'Movie':
+	    			icon.innerHTML = `<i class="bi bi-film"></i>`;
+	    			break;
+	    		}
+	    		icon.style.height = '24px';
+	    		icon.style.width = '24px';
+	    	    icon.style.marginRight = '5px';
+	    	    icon.style.marginLeft = '10px';
+	    	    
+	    		innerList.appendChild(icon);
+	    		
 	    	    const inner = document.createElement('div');
 	    	    inner.className = 'inner';
-	    	    inner.innerHTML = `<h2>${item.title}</h2>`;
+	    	    inner.innerHTML = `
+	    	    	<div class="contentHOF">
+		    	    	<h5>${item.title}</h5>
+		                <h6>${item.genre}</h6>
+		            </div>
+	                <img class="imgHOF" src="${item.contentImg}" alt="Content Image">`;
 	    	    innerList.appendChild(inner);
 	    	  });
 	    	}
