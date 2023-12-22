@@ -79,7 +79,6 @@ public class ReadOverviewController implements Controller{
 		List<ReviewTypeNum> reviewGenreNumList = manager.getReviewByGenreNum(userId);
 	     ObjectMapper objectMapper3 = new ObjectMapper();
 	     String reviewGenreNumListJson = objectMapper3.writeValueAsString(reviewGenreNumList);
-////
 
 	     
 	     request.setAttribute("jsonVisitNumList", jsonVisitNumList);
