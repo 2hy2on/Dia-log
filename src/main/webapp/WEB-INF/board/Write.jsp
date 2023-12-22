@@ -73,7 +73,7 @@
                         <th colspan="2" style="background-color: #eeeeee; text-align: center;">게시판 글쓰기</th>
                     </tr>
                 </thead>
-                <tbody>
+                <tbody>            
                     <tr>
                         <td><input type="text" class="form-control" placeholder="글 제목" name="boardTitle" maxlength="50"></td>
                     </tr>
