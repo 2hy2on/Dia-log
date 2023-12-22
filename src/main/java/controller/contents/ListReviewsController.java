@@ -28,10 +28,6 @@ public class ListReviewsController implements Controller {
 
 		List<Map<String, Object>> reviewList = manager.getReviewList(contentId);
 		
-//		request.setAttribute("reviewList", reviewList);
-//
-//		return "/contents/Contents.jsp";
-		
         ObjectMapper mapper = new ObjectMapper();
         String jsonReviewList = mapper.writeValueAsString(reviewList);
 

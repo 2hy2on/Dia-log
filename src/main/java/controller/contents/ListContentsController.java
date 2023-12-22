@@ -21,7 +21,8 @@ public class ListContentsController implements Controller {
 
 		List<Contents> contentList = manager.getContentList();
 		request.setAttribute("contentList", contentList);
-		request.setAttribute("from", "main");
+
+//		request.setAttribute("from", "main");
 		return "/contents/Contents.jsp";
 	}
 }

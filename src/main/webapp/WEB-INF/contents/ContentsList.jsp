@@ -30,6 +30,7 @@ List<Map<String, Object>> reviewList = (List<Map<String, Object>>) request.getAt
 ObjectMapper mapper = new ObjectMapper();
 String jsonContentList = mapper.writeValueAsString(contentList);
 String jsonReviewList = mapper.writeValueAsString(reviewList);
+
 %>
 
 <script>
@@ -67,7 +68,6 @@ String jsonReviewList = mapper.writeValueAsString(reviewList);
         function fetchReviews(contentId) {
             cId = contentId;
 
-            // 기존의 리뷰를 제거
             $("#content-review").empty();
 
             fetch("<c:url value='/contents/reviewList'/>?contentId=" + encodeURIComponent(contentId), {
@@ -83,10 +83,6 @@ String jsonReviewList = mapper.writeValueAsString(reviewList);
             .then(data => {
                 console.log('(Review) Parsed JSON:', data);
 
-                // 콘솔에 리뷰 데이터 출력
-                console.log('Reviews:', data);
-
-                // 리뷰가 null이 아니면 출력
                 if (data.length > 0) {
                     data.forEach(review => {
                     	if (review.detail !== null) {
@@ -122,12 +118,6 @@ String jsonReviewList = mapper.writeValueAsString(reviewList);
                 headers: {
                     'Content-Type': 'application/json;charset=UTF-8'
                 },
-                /* 
-                body: JSON.stringify({
-                    userId: userId,
-                    contentId: contentId
-                }) 
-                */
             })
             .then(response => {
             	if (!response.ok) {
@@ -147,7 +137,7 @@ String jsonReviewList = mapper.writeValueAsString(reviewList);
                     if (result) {
                        setTimeout(function () {
                             location.reload();
-                        },0); // 1000 milliseconds = 1 second
+                        },0);
                     }
                 });
             })
@@ -170,11 +160,7 @@ String jsonReviewList = mapper.writeValueAsString(reviewList);
 			<%
 			while (iterator.hasNext()) {
 				Contents content = iterator.next();
-				/* 
-				String title = content.getTitle();
-				String img = content.getContentImg();
-				String genre = content.getGenre();
-				 */
+
 				if (index % 5 == 1) {
 			%>
 			<div class="row">
