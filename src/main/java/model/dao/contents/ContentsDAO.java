@@ -2,9 +2,12 @@ package model.dao.contents;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -190,47 +193,42 @@ public class ContentsDAO {
 	}
 
 	public List<Contents> getListHallOfFame() {
-	    String query = "WITH RankedReviews AS (" +
-	            "SELECT contentType, r.contentid, COUNT(*) AS review_count, " +
-	            "ROW_NUMBER() OVER (PARTITION BY contentType ORDER BY COUNT(*) DESC) AS rnk " +
-	            "FROM Review r " +
-	            "JOIN Contents c ON r.contentid = c.contentid " +
-	            "GROUP BY contentType, r.contentid ) " +
-	            "SELECT rr.contentType, rr.contentid, rr.review_count, c.contentImg, " +
-	            "c.title, c.genre, c.publishdate " +
-	            "FROM RankedReviews rr " +
-	            "JOIN Contents c ON rr.contentid = c.contentid " +
-	            "WHERE rr.rnk = 1";
+		String query = "WITH RankedReviews AS (" + "SELECT contentType, r.contentid, COUNT(*) AS review_count, "
+				+ "ROW_NUMBER() OVER (PARTITION BY contentType ORDER BY COUNT(*) DESC) AS rnk " + "FROM Review r "
+				+ "JOIN Contents c ON r.contentid = c.contentid " + "GROUP BY contentType, r.contentid ) "
+				+ "SELECT rr.contentType, rr.contentid, rr.review_count, c.contentImg, "
+				+ "c.title, c.genre, c.publishdate " + "FROM RankedReviews rr "
+				+ "JOIN Contents c ON rr.contentid = c.contentid " + "WHERE rr.rnk = 1";
 
-	    jdbcUtil.setSqlAndParameters(query, null);
+		jdbcUtil.setSqlAndParameters(query, null);
 
-	    try {
-	        ResultSet rs = jdbcUtil.executeQuery();
-	        List<Contents> hallOfFameList = new ArrayList<>();
+		try {
+			ResultSet rs = jdbcUtil.executeQuery();
+			List<Contents> hallOfFameList = new ArrayList<>();
 
-	        while (rs.next()) {
-	            Contents cont = new Contents();
+			while (rs.next()) {
+				Contents cont = new Contents();
 
-	            cont.setContentId(rs.getInt("contentid"));
-	            cont.setContentImg(rs.getString("contentImg"));
-	            cont.setContentType(ContentType.valueOf(rs.getString("contentType")));
-	            cont.setTitle(rs.getString("title"));
-	            cont.setGenre(rs.getString("genre"));
-	            cont.setPublishDate(rs.getDate("publishdate"));
+				cont.setContentId(rs.getInt("contentid"));
+				cont.setContentImg(rs.getString("contentImg"));
+				cont.setContentType(ContentType.valueOf(rs.getString("contentType")));
+				cont.setTitle(rs.getString("title"));
+				cont.setGenre(rs.getString("genre"));
+				cont.setPublishDate(rs.getDate("publishdate"));
 
-	            hallOfFameList.add(cont);
-	        }
+				hallOfFameList.add(cont);
+			}
 
-	        logger.debug("hallOfFameList size in getListHallOfFame: " + hallOfFameList.size());
-	        return hallOfFameList;
+			logger.debug("hallOfFameList size in getListHallOfFame: " + hallOfFameList.size());
+			return hallOfFameList;
 
-	    } catch (Exception ex) {
-	        logger.error("Error in getListHallOfFame: " + ex.getMessage(), ex);
-	        ex.printStackTrace();
-	    } finally {
-	        jdbcUtil.close();
-	    }
-	    return null;
+		} catch (Exception ex) {
+			logger.error("Error in getListHallOfFame: " + ex.getMessage(), ex);
+			ex.printStackTrace();
+		} finally {
+			jdbcUtil.close();
+		}
+		return null;
 	}
 
 }

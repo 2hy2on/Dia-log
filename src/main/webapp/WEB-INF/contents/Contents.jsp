@@ -28,7 +28,13 @@
 	<div>
 		<%@ include file="../Navibar.jsp"%>
 		<%@ include file="Search.jsp"%>
-		<%@ include file="ContentsHallOfFame.jsp" %>
+		<%-- <%
+		if (!((String) request.getAttribute("from")).equals("search")) {
+		%> --%>
+		<%@ include file="ContentsHallOfFame.jsp"%>
+		<%-- <%
+		}
+		%> --%>
 		<%@ include file="ContentsList.jsp"%>
 	</div>
 </body>

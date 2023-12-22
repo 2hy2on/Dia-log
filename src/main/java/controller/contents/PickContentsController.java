@@ -19,9 +19,10 @@ public class PickContentsController implements Controller {
 
 		HttpSession session = request.getSession();
         int userId = (int) session.getAttribute("userId");
+		logger.debug("userId: " + userId);
 
 		String contentIdStr = request.getParameter("contentId");
-		logger.debug("들어옴!! " + contentIdStr);
+		logger.debug("contentIdStr: " + contentIdStr);
 
 		int contentId = Integer.parseInt(contentIdStr);
 

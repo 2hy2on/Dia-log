@@ -51,7 +51,7 @@
 			</form>
 		</div>
 	</div>
-	
+
 	<%
 	List<Contents> searchList = (List<Contents>) request.getAttribute("searchList");
 
@@ -65,13 +65,16 @@
 			<%
 			while (iterator.hasNext()) {
 				Contents content = iterator.next();
+				
 				if (index % 5 == 1) {
 			%>
 			<div class="row">
 				<%
 				}
 				%>
-				<div class="col">
+				<div
+					onclick="cId=<%=content.getContentId()%>, updateModalContent(cId)"
+					class="col">
 					<article class="card" data-bs-toggle="modal"
 						data-bs-target="#exampleModal">
 						<figure>
@@ -83,6 +86,44 @@
 						</figure>
 					</article>
 				</div>
+
+				<div class="modal fade" id="exampleModal" tabindex="-1"
+					aria-labelledby="exampleModalLabel" aria-hidden="true">
+					<input type="hidden" id="contentId"
+						value="<%=content.getContentId()%>">
+					<div class="modal-dialog modal-lg">
+						<div class="modal-content">
+							<div class="modal-header">
+								<h1 class="modal-title fs-5" id="exampleModalLabel"></h1>
+							</div>
+							<div class="modal-body">
+								<form>
+									<div class="mb-3">
+										<label for="recipient-name" class="col-form-label"></label> <img
+											style="width: 220px; height: 260px" id="content-image"
+											src="<%=content.getContentImg()%>">
+									</div>
+									<div class="mb-3">
+										<label for="recipient-name" class="col-form-label">[genre]</label>
+										<p id="content-genre" />
+									</div>
+									<div class="mb-3">
+										<label for="recipient-name" class="col-form-label">[publish-date]</label>
+										<p id="content-date" />
+									</div>
+									<div class="mb-3">
+										<label for="message-text" class="col-form-label">[review]</label>
+										<ul class="list-group" id="content-review"></ul>
+									</div>
+								</form>
+							</div>
+							<div class="modal-footer">
+								<button type="button" class="btn btn-danger"
+									onclick="pickContent(uId, cId)">담기</button>
+							</div>
+						</div>
+					</div>
+				</div>
 				<%
 				index++;
 				}
@@ -93,9 +134,12 @@
 			</div>
 			<%
 			}
-			}
 			%>
 		</div>
 	</div>
+	<%
+	}
+	%>
+
 </body>
 </html>
