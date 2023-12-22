@@ -31,7 +31,7 @@ body {
 	background-color: var(- -background);
 	border-radius: 10px;
 	transition: 1000ms all;
-	transform-origin: center left;
+	transform-origin: center;
 	/*     box-shadow: 0 5px 12px rgba(0, 0, 0, 0.5); */
 	outline: 1px solid var(- -background);
 	overflow: hidden;
@@ -76,6 +76,10 @@ body {
 	margin-bottom: 30px;
 }
 
+.row {
+	justify-content: space-between;
+}
+
 header {
 	position: absolute;
 	top: 0;
@@ -90,16 +94,11 @@ header {
 header h1 {
 	margin: 0;
 	padding: 0;
-	padding-left: 6%;
 }
 
 .underline {
 	border-bottom: 2px solid white;
-	/* 밑줄 굵기 조절 */
 	width: 30%;
-	/* 밑줄의 너비 조절 */
 	margin-top: 10px;
-	/* 밑줄의 위 여백 조절 */
 	margin-bottom: 20px;
-	/* 밑줄의 아래 여백 조절 */
 }
