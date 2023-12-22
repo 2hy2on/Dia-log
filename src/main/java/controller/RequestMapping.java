@@ -47,6 +47,7 @@ public class RequestMapping {
         mappings.put("/", new ForwardController("index.jsp"));
 
         // 메인 컨텐츠 관련 request URI 추가
+        mappings.put("/contents", new ForwardController("/contents/Contents.jsp"));
         mappings.put("/contents/list", new ListContentsController());
         mappings.put("/contents/search", new SearchContentsController());
         mappings.put("/contents/pick", new PickContentsController());

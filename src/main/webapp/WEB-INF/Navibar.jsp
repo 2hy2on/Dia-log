@@ -18,7 +18,6 @@
 	<nav id="nav3" class="navi">
 		<a id="title" href="<c:url value='/contents/list'/>">Dia-log</a>
 		<ul class="navi">
-			<!-- <li><a href="<c:url value='/contents/list'/>">홈</a></li>-->
 			<li>
 				<a href="<c:url value='/diary'/>">다이어리</a>
 				<ul>
