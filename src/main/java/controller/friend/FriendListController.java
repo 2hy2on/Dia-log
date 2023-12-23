@@ -30,7 +30,7 @@ public class FriendListController implements Controller {
 
 		if (userId == null) {
 			response.sendRedirect(request.getContextPath() + "/login");
-			return null; // Stop further processing
+			return null;
 		}
 
 		// FriendListcontroller 세부기능 분류 후, JSON 생성

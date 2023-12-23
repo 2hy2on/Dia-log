@@ -2,7 +2,6 @@ package model.dao.friend;
 
 import java.sql.Connection;
 
-
 import java.sql.Date;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -103,7 +102,7 @@ public class FollowDAO {
 		}
 		return null;
 	}
-	
+
 	public List<Follow> getUnacceptedFriends(int userId) {
 		// 신청 받지 않은 친구 리스트
 		StringBuilder query = new StringBuilder();
@@ -209,16 +208,16 @@ public class FollowDAO {
 			List<User> searchFriendsList = new ArrayList<>();
 			ResultSet rs = jdbcUtil.executeQuery();
 			while (rs.next()) {
-				 User user = new User();
-	                user.setID(rs.getString("ID"));
-	                user.setPassword(rs.getString("PASSWORD"));
-	                user.setUserName(rs.getString("userName"));
-	                user.setGender(rs.getString("GENDER"));
-	                user.setEmail(rs.getString("Email"));
-	                user.setMovie_interest(rs.getString("MOVIE_INTEREST"));
-	                user.setBook_interest(rs.getString("BOOK_INTEREST"));
-	                user.setMusic_interest(rs.getString("MUSIC_INTEREST"));
-	                user.setUserID(rs.getInt("USERID"));
+				User user = new User();
+				user.setID(rs.getString("ID"));
+				user.setPassword(rs.getString("PASSWORD"));
+				user.setUserName(rs.getString("userName"));
+				user.setGender(rs.getString("GENDER"));
+				user.setEmail(rs.getString("Email"));
+				user.setMovie_interest(rs.getString("MOVIE_INTEREST"));
+				user.setBook_interest(rs.getString("BOOK_INTEREST"));
+				user.setMusic_interest(rs.getString("MUSIC_INTEREST"));
+				user.setUserID(rs.getInt("USERID"));
 				searchFriendsList.add(user);
 			}
 			return searchFriendsList;
@@ -286,7 +285,7 @@ public class FollowDAO {
 			ResultSet rs = jdbcUtil.executeQuery();
 
 			while (rs.next()) { // 실행 결과 레코드 fetch
-				System.out.print(rs.getString("followid")+ " ");
+				System.out.print(rs.getString("followid") + " ");
 				count++;
 			}
 			System.out.print(count);
@@ -345,7 +344,7 @@ public class FollowDAO {
 		return false;
 
 	}
-	
+
 	public User getUserInfoByName(String userName) {
 		// 전체 user에서 원하는 친구 찾기 (이름으로 찾기)
 		StringBuilder query = new StringBuilder();
@@ -357,18 +356,18 @@ public class FollowDAO {
 		jdbcUtil.setSqlAndParameters(query.toString(), param);
 
 		try {
-			 User user = new User();
+			User user = new User();
 			ResultSet rs = jdbcUtil.executeQuery();
 			while (rs.next()) {
-	                user.setID(rs.getString("ID"));
-	                user.setPassword(rs.getString("PASSWORD"));
-	                user.setUserName(rs.getString("userName"));
-	                user.setGender(rs.getString("GENDER"));
-	                user.setEmail(rs.getString("Email"));
-	                user.setMovie_interest(rs.getString("MOVIE_INTEREST"));
-	                user.setBook_interest(rs.getString("BOOK_INTEREST"));
-	                user.setMusic_interest(rs.getString("MUSIC_INTEREST"));
-	                user.setUserID(rs.getInt("USERID"));
+				user.setID(rs.getString("ID"));
+				user.setPassword(rs.getString("PASSWORD"));
+				user.setUserName(rs.getString("userName"));
+				user.setGender(rs.getString("GENDER"));
+				user.setEmail(rs.getString("Email"));
+				user.setMovie_interest(rs.getString("MOVIE_INTEREST"));
+				user.setBook_interest(rs.getString("BOOK_INTEREST"));
+				user.setMusic_interest(rs.getString("MUSIC_INTEREST"));
+				user.setUserID(rs.getInt("USERID"));
 			}
 			return user;
 		} catch (Exception ex) {
@@ -380,7 +379,7 @@ public class FollowDAO {
 		}
 		return null;
 	}
-	
+
 	public User getUserInfoByUserID(int userid) {
 		// 전체 user에서 원하는 친구 찾기 (이름으로 찾기)
 		StringBuilder query = new StringBuilder();
@@ -392,18 +391,18 @@ public class FollowDAO {
 		jdbcUtil.setSqlAndParameters(query.toString(), param);
 
 		try {
-			 User user = new User();
+			User user = new User();
 			ResultSet rs = jdbcUtil.executeQuery();
 			while (rs.next()) {
-	                user.setID(rs.getString("ID"));
-	                user.setPassword(rs.getString("PASSWORD"));
-	                user.setUserName(rs.getString("userName"));
-	                user.setGender(rs.getString("GENDER"));
-	                user.setEmail(rs.getString("Email"));
-	                user.setMovie_interest(rs.getString("MOVIE_INTEREST"));
-	                user.setBook_interest(rs.getString("BOOK_INTEREST"));
-	                user.setMusic_interest(rs.getString("MUSIC_INTEREST"));
-	                user.setUserID(rs.getInt("USERID"));
+				user.setID(rs.getString("ID"));
+				user.setPassword(rs.getString("PASSWORD"));
+				user.setUserName(rs.getString("userName"));
+				user.setGender(rs.getString("GENDER"));
+				user.setEmail(rs.getString("Email"));
+				user.setMovie_interest(rs.getString("MOVIE_INTEREST"));
+				user.setBook_interest(rs.getString("BOOK_INTEREST"));
+				user.setMusic_interest(rs.getString("MUSIC_INTEREST"));
+				user.setUserID(rs.getInt("USERID"));
 			}
 			return user;
 		} catch (Exception ex) {

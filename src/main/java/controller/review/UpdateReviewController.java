@@ -29,8 +29,7 @@ public class UpdateReviewController implements Controller {
     public String execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
         
     	ObjectMapper objectMapper = new ObjectMapper();
-//
-//      // Read the JSON data from the request body
+
       Map<String, String> jsonData = objectMapper.readValue(request.getReader(), Map.class);
       String watchedAtStr = jsonData.get("watchedAt");
       String reviewText = jsonData.get("reviewText");
@@ -43,9 +42,7 @@ public class UpdateReviewController implements Controller {
       float rating = Float.parseFloat(rateStr);
       
       logger.info("Received datddddeStr: {}",watchedAtStr);
-// 
 //      SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-//    
 //      Date parsedDate = dateFormat.parse(watchedAtStr);
       
 		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");

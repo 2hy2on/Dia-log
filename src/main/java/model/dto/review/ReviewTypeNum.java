@@ -2,7 +2,6 @@ package model.dto.review;
 
 public class ReviewTypeNum {
 	private String type;
-	
 	private int num;
 
 	public String getType() {

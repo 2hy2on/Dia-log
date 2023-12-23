@@ -15,7 +15,6 @@ public class RegisterController implements Controller {
 
         response.setContentType("text/html; charset=UTF-8");
 
-        // 사용자가 입력한 회원가입 정보 받아오기
         String userName = request.getParameter("userName");
         String gender = request.getParameter("gender");
         String ID = request.getParameter("ID");
@@ -38,7 +37,7 @@ public class RegisterController implements Controller {
             script.println("</script>");
             return null;
         }
-        // 회원 정보 객체 생성
+
         User user = new User();
         user.setUserName(userName);
         user.setGender(gender);
@@ -49,11 +48,9 @@ public class RegisterController implements Controller {
         user.setBook_interest(bookInterest);
         user.setMusic_interest(musicInterest);
 
-        // 아이디 중복 여부 확인
         UserDAO userDAO = new UserDAO();
         boolean isDuplicateId = userDAO.checkDuplicateId(ID);
 
-        // 회원가입 처리
         if (isDuplicateId) {
             // 이미 존재하는 아이디인 경우
             PrintWriter script = response.getWriter();

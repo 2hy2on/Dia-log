@@ -25,7 +25,7 @@ public class ContentsHallOfFameController implements Controller {
 		List<Contents> hallOfFameList = manager.getListHallOfFame();
 		request.setAttribute("hallOfFameList", hallOfFameList);
 
-		logger.debug("hallOfFameList size in Controller: " + hallOfFameList.size());
+//		logger.debug("hallOfFameList size in Controller: " + hallOfFameList.size());
 
 		ObjectMapper mapper = new ObjectMapper();
 		String jsonHOFList = mapper.writeValueAsString(hallOfFameList);

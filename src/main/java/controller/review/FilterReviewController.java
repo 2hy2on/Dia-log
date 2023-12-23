@@ -28,12 +28,12 @@ public class FilterReviewController implements Controller {
 	public String execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		HttpSession session = request.getSession();
 		Integer userId = (Integer) session.getAttribute("userId");
-		
+
 		if (userId == null) {
 			response.sendRedirect(request.getContextPath() + "/login");
-			return null; 
+			return null;
 		}
-		
+
 		if (request.getServletPath().equals("/diary/filter/genre")) {
 			String contentType = request.getParameter("contentType");
 			ReviewManager reviewmanager = ReviewManager.getInstance();
@@ -51,7 +51,6 @@ public class FilterReviewController implements Controller {
 			return null;
 		}
 
-		// Contents.jsp로 포워딩
 		return "/diary/filtering.jsp";
 	}
 }

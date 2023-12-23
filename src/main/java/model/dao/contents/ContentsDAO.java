@@ -2,12 +2,9 @@ package model.dao.contents;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -15,15 +12,12 @@ import java.util.Map;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import controller.contents.ContentsHallOfFameController;
 import model.dao.JDBCUtil;
 import model.dto.contents.Contents;
 import model.dto.contents.Contents.ContentType;
 import model.dto.review.Review;
 
 public class ContentsDAO {
-	private static final Logger logger = LoggerFactory.getLogger(ContentsDAO.class);
-
 	private JDBCUtil jdbcUtil = null;
 
 	public ContentsDAO() {
@@ -218,12 +212,9 @@ public class ContentsDAO {
 
 				hallOfFameList.add(cont);
 			}
-
-			logger.debug("hallOfFameList size in getListHallOfFame: " + hallOfFameList.size());
 			return hallOfFameList;
 
 		} catch (Exception ex) {
-			logger.error("Error in getListHallOfFame: " + ex.getMessage(), ex);
 			ex.printStackTrace();
 		} finally {
 			jdbcUtil.close();

@@ -5,26 +5,19 @@ import java.time.LocalDateTime;
 import java.util.Date;
 
 public class Review {
-	
-	private String detail;
-	
-	private Float rate;
+
 	private int reviewId;
-	private LocalDateTime updatedAt;
-	
-	private LocalDateTime createdAt;
-
-	private Date watchedAt;
-
+	private int contentId;
+	private int writerId;
 	private boolean isPrivate;
-	
+	private Float rate;
+	private LocalDateTime updatedAt;
+	private LocalDateTime createdAt;
+	private Date watchedAt;
 	private String mediaImg;
 	private String title;
+	private String detail;
 
-	private int contentId;
-	 
-	private int writerId;
-	
 	public int getReviewId() {
 		return reviewId;
 	}
@@ -32,8 +25,6 @@ public class Review {
 	public void setReviewId(int reviewId) {
 		this.reviewId = reviewId;
 	}
-
-
 
 	public Date getWatchedAt() {
 		return watchedAt;
@@ -50,8 +41,6 @@ public class Review {
 	public void setTitle(String title) {
 		this.title = title;
 	}
-
-
 
 	public String getDetail() {
 		return detail;

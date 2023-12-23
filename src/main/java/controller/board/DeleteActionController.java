@@ -21,7 +21,6 @@ public class DeleteActionController implements Controller {
                 boardID = Integer.parseInt(request.getParameter("boardID"));
             }
 
-            // 글 삭제를 위해 기존 글 정보 불러오기
             BoardDAO boardDAO = new BoardDAO();
             model.dto.board.Board existingBoard = boardDAO.getBoard(boardID);
 
@@ -30,14 +29,12 @@ public class DeleteActionController implements Controller {
                 return "/error.jsp";
             }
 
-            // 글 삭제 수행
             int result = boardDAO.delete(boardID);
 
             if (result == -1) {
                 request.setAttribute("errorMessage", "글 삭제에 실패했습니다");
                 return "/error.jsp";
             } else {
-                // 삭제 성공 시 목록으로 이동
                 return "redirect:/board";
             }
         }

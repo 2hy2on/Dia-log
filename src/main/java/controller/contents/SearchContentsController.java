@@ -25,7 +25,7 @@ public class SearchContentsController implements Controller {
         String title = request.getParameter("title");
         String contentType = request.getParameter("contentType");
 
-        logger.debug("contentType: "+contentType);
+//        logger.debug("contentType: "+contentType);
         
         List<Contents> searchList = new ArrayList<>();
 

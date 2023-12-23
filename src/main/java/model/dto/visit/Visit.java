@@ -3,12 +3,10 @@ package model.dto.visit;
 import java.time.LocalDate;
 
 public class Visit {
-	
 
-	
+	private int ownerId;
+	private int visitorId;
 	private LocalDate visitDate;
-	
-
 
 	public LocalDate getVisitDate() {
 		return visitDate;
@@ -34,7 +32,4 @@ public class Visit {
 		this.visitorId = visitorId;
 	}
 
-	private int ownerId;
-	
-	private int visitorId;
 }

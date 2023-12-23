@@ -85,7 +85,6 @@
 		<div class="inner-list">
 			<!-- 동적으로 아이템추가 -->
 		</div>
-
 	</div>
 </body>
 <script>

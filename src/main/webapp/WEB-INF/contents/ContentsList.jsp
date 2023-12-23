@@ -54,7 +54,6 @@ String jsonReviewList = mapper.writeValueAsString(reviewList);
             localStorage.setItem("contentId", contentId);
             
             if (content) {
-                // 모달 업데이트 
                 document.getElementById('exampleModalLabel').innerText = content.title;
                 document.getElementById('content-genre').innerText = content.genre;
                 document.getElementById('content-image').src = content.contentImg;

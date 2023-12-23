@@ -38,7 +38,6 @@ public class ReviewDAO {
 
 		jdbcUtil.setSqlAndParameters(query.toString(), param);
 
-		// Convert string date to java.sql.Date
 		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy/MM/dd");
 		LocalDate localDate = LocalDate.parse(dateStr, formatter);
 		Date date = Date.valueOf(localDate);
@@ -226,7 +225,6 @@ public class ReviewDAO {
 				review.setType(rs.getString("contentType"));
 
 				list.add(review);
-
 			}
 			return list;
 		} catch (Exception ex) {
@@ -242,17 +240,16 @@ public class ReviewDAO {
 	public List<ReviewTypeNum> getReviewByGenreForOverview(int writerId) {
 		StringBuilder query = new StringBuilder();
 
-		
 		query.append("WITH ContentGenres AS (");
 		query.append(" SELECT DISTINCT TRIM(REGEXP_SUBSTR(c.genre, '[^/]+', 1, COLUMN_VALUE)) AS genre, r.contentId ");
 		query.append(" FROM contents c JOIN review r ON c.contentId = r.contentId ");
-		query.append(" CROSS JOIN TABLE(CAST(MULTISET( SELECT LEVEL FROM dual  CONNECT BY PRIOR dbms_random.value IS NOT NULL ");
+		query.append(
+				" CROSS JOIN TABLE(CAST(MULTISET( SELECT LEVEL FROM dual  CONNECT BY PRIOR dbms_random.value IS NOT NULL ");
 		query.append("  AND PRIOR r.contentId = c.contentId  AND LEVEL <= REGEXP_COUNT(c.genre, '/') + 1 ");
 		query.append(" ) AS sys.odcinumberlist)) ");
 		query.append(" WHERE r.writerId = ? )");
 		query.append(" SELECT genre, COUNT(*) AS genreCount");
 		query.append(" FROM ContentGenres GROUP BY genre ORDER BY genreCount DESC");
-	
 
 		Object[] param = new Object[] { writerId };
 		jdbcUtil.setSqlAndParameters(query.toString(), param);
@@ -266,7 +263,7 @@ public class ReviewDAO {
 
 				review.setNum(rs.getInt("genreCount"));
 				review.setType(rs.getString("genre"));
-				// 여기에서 월 정보를 어떻게 처리할지에 대한 코드를 추가해야 합니다.
+
 				list.add(review);
 			}
 			return list;

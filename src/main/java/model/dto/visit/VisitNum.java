@@ -7,7 +7,8 @@ import java.time.LocalDate;
 public class VisitNum {
 
 	private int num;
-	
+	private Date visitDate;
+
 	public int getNum() {
 		return num;
 	}
@@ -24,19 +25,15 @@ public class VisitNum {
 		this.visitDate = visitDate;
 	}
 
-	private Date visitDate;
-	
 	@Override
 	public String toString() {
-	    return "Review{" +
-	            "title='" + num + '\'' +
-	            ", content='" + visitDate + '\'' +
+		return "Review{" + "title='" + num + '\'' + ", content='" + visitDate + '\'' +
 
-	            '}';
+				'}';
 	}
-	
-	 public String getFormattedStart() {
-	        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-	        return dateFormat.format(visitDate);
-	    }
+
+	public String getFormattedStart() {
+		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+		return dateFormat.format(visitDate);
+	}
 }

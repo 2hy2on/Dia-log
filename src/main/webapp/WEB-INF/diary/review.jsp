@@ -10,7 +10,6 @@
 <div id="reviewContainer">
 	<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 	<%
-	//Retrieve the jsonResult attribute
 	List<Review> reviewDateList = (List<Review>) request.getAttribute("reviewDateList");
 	%>
 
@@ -67,11 +66,9 @@
         });
 
         if (review) {
-            // Update modal title
             document.getElementById('exampleModalLabel').innerText = review.title;
             document.getElementById('message-text').innerText = review.detail;
 
-            // Set the checked attribute for the correct radio button
             var star = document.getElementById(review.rate + '-stars');
                 star.checked = true
                 console.log(localStorage.getItem("dateForReview"))
@@ -110,11 +107,8 @@
                         throw new Error('Network response was not ok');
                     }
 
-                    //alert('Content picked successfully!');
                     console.log('Review updated successfully.');
 
-                    // Reload the page
-                    
                     location.reload();
                 
                     
@@ -124,8 +118,6 @@
                 });
             }
         });
-        // Make an AJAX request using fetch
-        
     }
 
     function deleteReview() {

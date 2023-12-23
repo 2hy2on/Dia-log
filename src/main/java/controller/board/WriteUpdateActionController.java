@@ -21,7 +21,6 @@ public class WriteUpdateActionController implements Controller {
                 boardID = Integer.parseInt(request.getParameter("boardID"));
             }
 
-            // 글 수정을 위해 기존 글 정보 불러오기
             BoardDAO boardDAO = new BoardDAO();
             model.dto.board.Board existingBoard = boardDAO.getBoard(boardID);
 
@@ -30,11 +29,9 @@ public class WriteUpdateActionController implements Controller {
                 return "/error.jsp";
             }
 
-            // 수정할 내용 받아오기
             String boardTitle = request.getParameter("boardTitle");
             String boardContent = request.getParameter("boardContent");
 
-            // 받아온 내용으로 데이터베이스 업데이트
             int result = boardDAO.update(boardID, boardTitle, boardContent);
 
             if (result == -1) {

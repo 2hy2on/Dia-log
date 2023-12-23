@@ -38,7 +38,7 @@ public class DiaryController implements Controller {
 
 		if (userId == null) {
 			response.sendRedirect(request.getContextPath() + "/login");
-			return null; // Stop further processing
+			return null;
 		}
 
 		if (ownerId != null) {
@@ -59,14 +59,13 @@ public class DiaryController implements Controller {
 			review.setStart(review.getFormattedStart());
 		}
 
-////	   // List를 JSON 형태로 변환
+	   // List를 JSON 형태로 변환
 		ObjectMapper objectMapper = new ObjectMapper();
 		String jsonResult = objectMapper.writeValueAsString(reviewDiaryList);
-////
+
 		request.setAttribute("jsonResult", jsonResult);
-	
 		request.setAttribute("userId", userId);
-		
+
 		return "/diary/CalendarPage.jsp";
 
 	}

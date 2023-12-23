@@ -8,8 +8,9 @@ public class Follow {
 	private String status;
 	private int followerId;
 
-	public Follow() {}
-	
+	public Follow() {
+	}
+
 	public Follow(int followId, int followeeId, String followeeName, String followerName, String status,
 			int followerId) {
 		super();

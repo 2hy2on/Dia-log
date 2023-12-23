@@ -15,14 +15,14 @@ public class PickContentsController implements Controller {
 	@Override
 	public String execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		ContentsManager manager = ContentsManager.getInstance();
-		logger.debug("컨트롤러 들어옴!! ");
+//		logger.debug("컨트롤러 들어옴!! ");
 
 		HttpSession session = request.getSession();
         int userId = (int) session.getAttribute("userId");
-		logger.debug("userId: " + userId);
+//		logger.debug("userId: " + userId);
 
 		String contentIdStr = request.getParameter("contentId");
-		logger.debug("contentIdStr: " + contentIdStr);
+//		logger.debug("contentIdStr: " + contentIdStr);
 
 		int contentId = Integer.parseInt(contentIdStr);
 

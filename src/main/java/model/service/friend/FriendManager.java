@@ -1,13 +1,9 @@
 package model.service.friend;
 
-import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.List;
 
 import model.dao.friend.FollowDAO;
-import model.dao.review.ReviewDAO;
-import model.dao.user.UserDAO;
 import model.dto.friend.Follow;
 import model.dto.user.User;
 
@@ -63,9 +59,11 @@ public class FriendManager {
 	public boolean receiveFollow(int userId, int friendId) throws SQLException {
 		return followDAO.receiveFollow(userId, friendId);
 	}
+
 	public User getUserInfoByName(String userName) throws SQLException {
 		return followDAO.getUserInfoByName(userName);
 	}
+
 	public User getUserInfoByUserID(int userid) throws SQLException {
 		return followDAO.getUserInfoByUserID(userid);
 	}
