@@ -76,7 +76,7 @@
 <body>
 	<%
 	List<Contents> hallOfFameList = (List<Contents>) request.getAttribute("hallOfFameList");
-	System.out.println("hallOfFameList: " + hallOfFameList);
+	// System.out.println("hallOfFameList: " + hallOfFameList);
 	%>
 	<div class="outer">
 		<h6 class="HOF">
