@@ -17,7 +17,6 @@ import org.slf4j.LoggerFactory;
 
 import controller.contents.ContentsHallOfFameController;
 import model.dao.JDBCUtil;
-import model.dto.contents.Book;
 import model.dto.contents.Contents;
 import model.dto.contents.Contents.ContentType;
 import model.dto.review.Review;
